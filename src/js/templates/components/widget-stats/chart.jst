@@ -1,0 +1,16 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <% if (settings) { %>
+            <div class="panel-setting" data-region="settings"></div>
+        <% } %>
+
+        <% if (title) { %>
+            <div class="panel-title">
+                <%= title %> <span data-ui="display"></span>
+            </div>
+        <% } %>
+    </div>
+    <div class="panel-body">
+        <div data-region="chart"></div>
+    </div>
+</div>

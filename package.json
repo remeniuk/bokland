@@ -1,0 +1,44 @@
+{
+  "name": "bokland",
+  "version": "0.0.1",
+  "description": "nvd3-based dashboard builder",
+  "main": "src/bokland.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bokland/bokland"
+  },
+  "keywords": [
+    "dashboard",
+    "builder"
+  ],
+  "author": "bokland team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bokland/bokland/issues"
+  },
+  "homepage": "https://github.com/bokland/bokland",
+  "devDependencies": {
+    "gulp": "^3.6.0",
+    "gulp-util": "^2.2.14",
+    "gulp-changed": "^0.3.0",
+    "gulp-clean": "^0.2.4",
+    "gulp-concat": "^2.2.0",
+    "gulp-rename": "^1.2.0",
+    "gulp-header": "^1.0.2",
+    "gulp-less": "^1.2.3",
+    "gulp-autoprefixer": "0.0.6",
+    "gulp-csso": "^0.2.6",
+    "gulp-template-compile": "^0.2.0",
+    "gulp-wrap-amd": "^0.3.0",
+    "gulp-jshint": "^1.5.3",
+    "gulp-uglify": "^0.2.1",
+    "jshint-stylish": "^0.1.5",
+    "connect": "^2.14.3"
+  }
+}

@@ -1,0 +1,20 @@
+{
+    "status": 200,
+    "data": [{
+        "id": "platforms",
+        "data": [
+            ["vk", 1, "VK"],
+            ["fb", 2, "Facebook"],
+            ["tw", 3, "Twitter"],
+            ["inst", 4, "Instagramm"]
+        ]
+    }, {
+        "id": "countries",
+        "data": [
+            ["ru", 1000, "Russian"],
+            ["us", 400, "USA"],
+            ["uk", 654, "United Kingdom"],
+            ["cn", 2560, "Chine"]
+        ]
+    }]
+}
