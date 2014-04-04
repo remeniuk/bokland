@@ -1,0 +1,15 @@
+<div class="btn-group">
+    <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="#">
+        <i class="icon-cog"></i>
+        <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+        <% if (type === 'multi') { %>
+            <li><a href="#" data-action="reset">Reset</a></li>
+            <li class="divider"></li>
+        <% } %>
+        <% for (var key in opts) { %>
+            <li data-action="<%= key %>"><a href="#"><%= opts[key] %></a></li>
+        <% } %>
+    </ul>
+</div>

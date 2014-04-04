@@ -1,0 +1,53 @@
+.rowchart {
+
+  &__bar {
+    cursor: pointer;
+
+    &__name {
+      fill: #333;
+      text-shadow: -1px -3px 10px #f2f2f2;
+    }
+
+    &__value {
+      fill: #333;
+    }
+
+    rect {
+      fill: #7ac85b;
+      fill-opacity: 0.85;
+    }
+
+
+    &--highlight {
+      rect {
+        stroke-width: 1px;
+        stroke: #777;
+      }
+    }
+
+    &--active {
+      rect {
+        stroke-width: 2px;
+        stroke: #00a854;
+        fill-opacity: 1;
+      }
+    }
+  }
+
+  &__axis {
+    shape-rendering: crispEdges;
+
+    path {
+      fill: none;
+    }
+
+    &-x line {
+      stroke: #000;
+      stroke-opacity: .8;
+    }
+
+    &-y path {
+      stroke: #000;
+    }
+  }
+}
