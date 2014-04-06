@@ -67,7 +67,7 @@ define(function(require) {
                 attrs = key;
                 options = val;
             } else {
-                attrs = val;
+                (attrs = {})[key] = val;
             }
 
             options = _.extend({silent: true}, options || {});

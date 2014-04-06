@@ -3,7 +3,8 @@ define(function(require) {
     'use strict';
 
     // imports
-    var d3        = require('d3'),
+    var _         = require('underscore'),
+        d3        = require('d3'),
         time      = require('helpers/time'),
         BaseView  = require('libs/view'),
         templates = require('templates/templates');
@@ -12,8 +13,6 @@ define(function(require) {
     // code
     var View = BaseView.extend({
         template: templates['components/dropdowns/datedisplay'],
-
-        className: 'components-dropdown',
 
         events: {
             'click @ui.item': '_range'
@@ -25,67 +24,83 @@ define(function(require) {
         },
 
         periods: [
-            'current-day', 'current-week', 'current-month', 'current-year',
-            'last-day-7', 'last-day-30'
+            'current-day',
+            'current-week',
+            'current-month',
+            'current-year',
+            'last-day-7',
+            'last-day-30'
         ],
 
 
         initialize: function(options) {
             var _this = this;
-            _this.daterange = options.daterange;
-            _this.listenTo(_this.daterange, 'display', _this.redraw);
+
+            _this.state.init('_', []);
+
+            _this.listenTo(_this.state, 'change', _this.redraw);
         },
 
         render: function() {
             var _this = this;
+
             _this.$el.html(_this.template({}));
             _this.bindUI();
+            _this.redraw();
+
             return _this;
         },
 
-        redraw: function(range) {
+        redraw: function() {
             var _this = this,
+                range = _this.state.get('_'),
                 ui = _this.ui,
                 $display = ui.$display,
                 $items = ui.$item,
                 format = d3.time.format('%x'),
                 periods = _this.periods,
+                info = '-',
                 potential;
 
-            if (range) {
-                $display.text(format(range[0]) + ' - ' + format(range[1]));
-            } else {
-                $display.text('-');
-            }
+            if (!_.isEmpty(range)) {
+                range = range[0];           // parse format like d[_][0][]=2014-03-29~d[_][0][]=2014-04-05
+                info = format(range[0]) + ' - ' + format(range[1]);
 
-            // selection detect
-            $items.removeClass('active');
-            for (var i in periods) {
-                potential = _this._period(periods[i]);
-                if (potential) {
-                    if (Number(potential[0]) === Number(range[0]) && Number(potential[1]) === Number(range[1])) {
-                        $items.filter('[data-range="' + periods[i] + '"]').addClass('active');
-                        break;
+                // selection detect
+                $items.removeClass('active');
+                for (var i in periods) {
+                    potential = _this._period(periods[i]);
+                    if (potential) {
+                        if (Number(potential[0]) === Number(range[0]) && Number(potential[1]) === Number(range[1])) {
+                            $items.filter('[data-range="' + periods[i] + '"]').addClass('active');
+                            break;
+                        }
                     }
                 }
             }
+
+            // display info
+            $display.text(info);
+
+            _this.trigger('display', _this, info, range);
 
             return _this;
         },
 
         _range: function(e) {
             var _this = this,
-                option = $(e.currentTarget).attr('data-range'),
+                option = _this.$(e.currentTarget).attr('data-range'),
                 range;
 
-            range = _this._period(option);
-            _this.daterange.range(range);
+            if (option !== 'all') {
+                range = [_this._period(option)];    // set in format like d[_][0][]=2014-03-29~d[_][0][]=2014-04-05
+            }
+            _this.state.set('_', range || []);
 
             e.preventDefault();
         },
 
         _period: function(option) {
-
             var today = time.today(),
                 period = time.period,
                 range;

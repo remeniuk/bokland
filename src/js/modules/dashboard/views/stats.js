@@ -3,9 +3,10 @@ define(function(require) {
     'use strict';
 
     // imports
-    var BaseView       = require('libs/view'),
-        RowChartWidget = require('components/widget-stats/rowchart'),
-        templates      = require('templates/templates');
+    var BaseView             = require('libs/view'),
+        DateDisplayComponent = require('components/dropdowns/datedisplay'),
+        RowChartWidget       = require('components/widget-stats/rowchart'),
+        templates            = require('templates/templates');
 
 
     // code
@@ -29,6 +30,11 @@ define(function(require) {
 
             _this.$el.html(_this.template({}));
             _this.bindUI();
+
+            var dateDisplay = new DateDisplayComponent({
+                state: _this.state.ref('d')
+            });
+            _this.region('date-display').show(dateDisplay);
 
             var platformsChart = new RowChartWidget({
                 collection: _this.collection,
@@ -68,7 +74,7 @@ define(function(require) {
                 collection: _this.collection,
                 name: 'segments',
                 state: _this.state.ref('ch'),
-                max: 19,
+                max: 20,
                 title: 'Segments',
                 settings: {
                     defaults: ['revenue'],
@@ -86,7 +92,8 @@ define(function(require) {
                 collection: _this.collection,
                 name: 'countries',
                 state: _this.state.ref('c'),
-                max: 14,
+                max: 15,
+                title: 'Countries',
                 settings: {
                     defaults: ['revenue'],
                     opts: {

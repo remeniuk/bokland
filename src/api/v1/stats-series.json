@@ -9,12 +9,24 @@
             ["inst", 4, "Instagramm"]
         ]
     }, {
+        "id": "sources",
+        "data": [
+            [1, 15, "Origin"]
+        ]
+    }, {
         "id": "countries",
         "data": [
             ["ru", 1000, "Russian"],
             ["us", 400, "USA"],
             ["uk", 654, "United Kingdom"],
             ["cn", 2560, "Chine"]
+        ]
+    }, {
+        "id": "segments",
+        "data": [
+            [1, 42, "Segment 1"],
+            [2, 32, "Segment 2"],
+            [3, 75, "Segment 3"]
         ]
     }]
 }

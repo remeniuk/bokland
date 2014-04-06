@@ -16,10 +16,7 @@ define(function(require) {
     var View = BaseView.extend({
         template: templates['components/dropdowns/dropdown'],
 
-        className: 'components-dropdown',
-
         options: {
-            display: null,
             type: 'single',
             opts: {}
         },
@@ -63,7 +60,8 @@ define(function(require) {
                     names = [],
                     ui = _this.ui,
                     $items = ui.$item,
-                    $display,
+                    $display = ui.$display,
+                    info,
                     id,
                     i;
 
@@ -82,17 +80,18 @@ define(function(require) {
                     $items.filter('[data-action="' + id + '"]').addClass(ACTIVE_CLASS);
                 }
 
-                $display = options.display ? _this.$(options.display) : ui.$display;
-                $display.text(names.length ? '(' + names.join(', ') + ')' : '');
+                info = names.length ? '(' + names.join(', ') + ')' : '';
+                $display.text(info);
+
+                _this.trigger('display', _this, info, names);
             }
 
             return _this;
         },
 
-        _select: function(e) {
+        select: function(action) {
             var _this = this,
                 options = _this.options,
-                action = _this.$(e.currentTarget).attr('data-action'),
                 selects = _this.state.get('_'),
                 index;
 
@@ -121,6 +120,15 @@ define(function(require) {
             }
 
             _this.state.set('_', selects);
+
+            return _this;
+        },
+
+        _select: function(e) {
+            var _this = this,
+                action = _this.$(e.currentTarget).attr('data-action');
+
+            _this.select(action);
 
             e.preventDefault();
         }
