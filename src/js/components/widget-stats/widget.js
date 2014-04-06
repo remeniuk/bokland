@@ -48,14 +48,16 @@ define(function(require) {
 
             if (options.settings) {
                 var settings = new DropdownComponent(_.extend({}, options.settings, {
-                    state: _this.state.ref('opt'),
-                    display: _.isElement(options.display) ? options.display : _this.ui.$display
+                    state: _this.state.ref('opt')
                 }));
+
+                _this.listenTo(settings, 'display', function(view, info) {
+                    _this.ui.$display.text(info);
+                });
 
                 _this.region('settings').show(settings);
             }
 
-            // _this.render();
 
             _this.listenTo(_this.collection, 'sync', function() {
                 var collection = _this.collection,
