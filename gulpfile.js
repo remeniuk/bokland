@@ -11,6 +11,7 @@ var gulp       = require('gulp'),
     wrap       = require('gulp-wrap-amd'),
     jshint     = require('gulp-jshint'),
     uglify     = require('gulp-uglify'),
+    karma      = require('gulp-karma'),
     stylish    = require('jshint-stylish'),
     http       = require('http'),
     connect    = require('connect');
@@ -31,11 +32,13 @@ var banner = ['/**',
 var dirs = {
     src: './src',
     dist: './dist',
+    test: './test',
     bower: './bower_components'
 };
 
 var paths = {
     scripts: [dirs.src + '/js/**/*.js'],
+    tests: [dirs.test + '/**/*-spec.js'],
     templates: [dirs.src + '/js/templates/**/*.jst'],
     less: [dirs.src + '/less/bokland.less'],
     assets: [
@@ -53,20 +56,23 @@ var paths = {
 
 // cleanup task
 gulp.task('cleanup', function() {
-    gulp.src(paths.cleanup, {read: false})
+    return gulp.src(paths.cleanup, {read: false})
         .pipe(clean({force: true}));
 });
 
 // lint task
 gulp.task('lint', function() {
-    gulp.src(paths.scripts)
+    return gulp.src([].concat(paths.scripts, paths.tests))
         .pipe(jshint())
         .pipe(jshint.reporter(stylish));
 });
 
 // concatenate and minify js
-gulp.task('scripts', function() {
-    gulp.src(paths.scripts)
+gulp.task('scripts', ['templates'], function() {
+    return gulp.src(paths.scripts)
+        .pipe(changed(dirs.dist + '/js'))
+        .pipe(jshint())
+        .pipe(jshint.reporter(stylish))
         .pipe(header(banner, {pkg : pkg}))
         // .pipe(uglify({
         //     preserveComments: 'some',
@@ -77,7 +83,7 @@ gulp.task('scripts', function() {
 
 // compile templates
 gulp.task('templates', function() {
-    gulp.src(paths.templates)
+    return gulp.src(paths.templates)
         .pipe(template({
             namespace: 'JST',
             name: function(file) {
@@ -101,8 +107,7 @@ gulp.task('templates', function() {
 
 // compile less
 gulp.task('less', function() {
-    gulp.src(paths.less)
-        .pipe(changed(dirs.dist + '/css', {extension: '.css'}))
+    return gulp.src(paths.less)
         .pipe(less({
             path: [dirs.src + '/less']
         }))
@@ -118,22 +123,28 @@ gulp.task('less', function() {
 
 // copy all static assets
 gulp.task('assets', function() {
-    gulp.src(paths.assets)
+    return gulp.src(paths.assets)
         .pipe(changed(dirs.dist))
         .pipe(gulp.dest(dirs.dist));
 });
 
-// source code tests
-gulp.task('test', function() {
-    // TODO
-});
 
 // watch files for changes
 gulp.task('watch', function() {
-    gulp.watch(paths.scripts, ['lint', 'scripts']);
+    gulp.watch(paths.scripts, ['scripts']);
     gulp.watch(paths.templates, ['templates']);
     gulp.watch(paths.less, ['less']);
     gulp.watch(paths.assets, ['assets']);
+});
+
+
+// source code tests
+gulp.task('test', function() {
+    return gulp.src('./Try not. Do or do not. There is no try.')
+        .pipe(karma({
+            configFile: 'karma.conf.js',
+            action: 'watch'
+        }));
 });
 
 
@@ -155,9 +166,9 @@ gulp.task('server', function() {
 
 // composite tasks
 gulp.task('default', ['cleanup'], function() {
-    gulp.start('lint', 'scripts', 'templates', 'less', 'assets', 'watch');
+    return gulp.start('scripts', 'less', 'assets', 'watch');
 });
 
 gulp.task('build', ['cleanup'], function() {
-    gulp.start('lint', 'scripts', 'templates', 'less', 'assets');
+    return gulp.start('scripts', 'less', 'assets');
 });

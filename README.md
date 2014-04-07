@@ -29,7 +29,7 @@ Gulp tasks
 
 `gulp server` - run simple http server with root on the 'dist' folder: http://localhost:8888
 
-`gulp test` - run source code tests (TODO)
+`gulp test` - run source code tests
 
 `gulp build` - build code
 
