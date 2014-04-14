@@ -1,0 +1,11 @@
+{
+    "status": 200,
+    "data": {
+        "id": "em",
+        "type": "number",
+        "values": {
+            "from": 1,
+            "to": 132
+        }
+    }
+}

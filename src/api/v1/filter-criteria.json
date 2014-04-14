@@ -1,0 +1,40 @@
+{
+    "status": 200,
+    "data": [
+        {
+            "category": "General",
+            "items": [
+                {
+                    "id": "d",
+                    "type": "date",
+                    "name": "Event Date"
+                }
+            ]
+        },
+        {
+            "category": "Social-demographic",
+            "items": [
+                {
+                    "id": "p",
+                    "type": "category",
+                    "name": "Platform"
+                },
+                {
+                    "id": "rd",
+                    "type": "date",
+                    "name": "Registration Date"
+                }
+            ]
+        },
+        {
+            "category": "Domain-specific",
+            "items": [
+                {
+                    "id": "em",
+                    "type": "number",
+                    "name": "Exercises Made"
+                }
+            ]
+        }
+    ]
+}

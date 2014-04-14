@@ -1,0 +1,21 @@
+{
+    "status": 200,
+    "data": {
+        "id": "p",
+        "type": "category",
+        "values": [
+            {
+                "id": "ipad",
+                "name": "iPad"
+            },
+            {
+                "id": "iphone",
+                "name": "iPhone"
+            },
+            {
+                "id": "andr",
+                "name": "Android"
+            }
+        ]
+    }
+}

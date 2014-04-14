@@ -18,9 +18,20 @@
                 ],
                 exports: 'Backbone'
             },
+            drilldown: {
+                deps: [
+                    'jquery'
+                ]
+            },
             nestedmodel: ['backbone'],
             d3: {
                 exports: 'd3'
+            },
+            bootstrap: {
+                deps: [
+                    'jquery'
+                ],
+                exports: 'bootstrap'
             },
             nvd3: {
                 deps: [
@@ -35,8 +46,10 @@
         },
         paths: {
             jquery: dirs.bower + 'jquery/dist/jquery',
+            bootstrap: dirs.bower + 'bootstrap/dist/js/bootstrap',
             underscore: dirs.bower + 'underscore/underscore',
             // underscore: dirs.bower + 'lodash/dist/lodash.underscore',
+            drilldown: dirs.bower + 'jquery-drilldown/jquery.drilldown',
             backbone: dirs.bower + 'backbone/backbone',
             nestedmodel: dirs.bower + 'backbone-nested-model/backbone-nested',
             d3: dirs.bower + 'd3/d3',

@@ -1,9 +1,22 @@
 <div class="container">
     <h1 class="text-center">Online Dashboard</h1>
 
+
     <div class="row">
-        <div class="col-md-12">
-            <div data-region="date-display"></div>
+        <div class="col-md-1">
+            <a type="button" class="btn btn-default" data-toggle="modal" data-target=".bs-filter-modal-lg">
+                <span class="glyphicon glyphicon-filter"></span> Filter
+            </a>
+
+            <div class="modal fade bs-filter-modal-lg" tabindex="-1" role="dialog"  aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div data-region="filter" class="modal-content" align="center"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-11" align="left">
+            <div data-region="filter-selection"></div>
         </div>
     </div>
 

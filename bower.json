@@ -30,7 +30,8 @@
     "d3": "~3.4.4",
     "nvd3": "~1.1.15-beta",
     "topojson": "~1.6.2",
-    "bootstrap": "~3.1.1"
+    "bootstrap": "~3.1.1",
+    "jquery-drilldown": "~0.1.4"
   },
   "resolutions": {
     "d3": "~3.4.4"
