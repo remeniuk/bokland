@@ -1,32 +1,23 @@
 {
     "status": 200,
-    "data": [{
-        "id": "platforms",
-        "data": [
-            ["vk", 1, "VK"],
-            ["fb", 2, "Facebook"],
-            ["tw", 3, "Twitter"],
-            ["inst", 4, "Instagramm"]
-        ]
-    }, {
-        "id": "sources",
-        "data": [
-            [1, 15, "Origin"]
-        ]
-    }, {
-        "id": "countries",
-        "data": [
-            ["ru", 1000, "Russian"],
-            ["us", 400, "USA"],
-            ["uk", 654, "United Kingdom"],
-            ["cn", 2560, "Chine"]
-        ]
-    }, {
-        "id": "segments",
-        "data": [
-            [1, 42, "Segment 1"],
-            [2, 32, "Segment 2"],
-            [3, 75, "Segment 3"]
-        ]
-    }]
+    "data": [
+        {
+            "id": "5246a3f928caf18a22b840e9",
+            "data": [
+                ["vk", 1, "VK"],
+                ["fb", 2, "Facebook"],
+                ["tw", 3, "Twitter"],
+                ["inst", 4, "Instagramm"]
+            ]
+        },
+        {
+            "id": "5246a97028caf18a22bcdf80",
+            "data": [
+                ["ru", 1000, "Russian"],
+                ["us", 400, "USA"],
+                ["uk", 654, "United Kingdom"],
+                ["cn", 2560, "Chine"]
+            ]
+        }
+    ]
 }

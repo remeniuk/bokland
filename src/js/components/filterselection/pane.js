@@ -57,12 +57,14 @@ define(function (require) {
                 _.each(_this.state.attributes, function (value, key) {
                     var criterionMeta = _this._findCriterionMeta(key);
 
-                    _this.ui.$pane.append(_this.criterionTemplate({
-                        id: key,
-                        name: criterionMeta.name,
-                        type: criterionMeta.type,
-                        values: _.map(_.flatten(value._), formatValue)
-                    }));
+                    if(!_.isUndefined(criterionMeta.name)){
+                        _this.ui.$pane.append(_this.criterionTemplate({
+                            id: key,
+                            name: criterionMeta.name,
+                            type: criterionMeta.type,
+                            values: _.map(_.flatten(value._), formatValue)
+                        }));
+                    }
                 });
             }
 

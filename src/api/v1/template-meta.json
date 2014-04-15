@@ -1,0 +1,27 @@
+{
+    "status": 200,
+    "data": {
+        "_id": "5246a97028caf18a22bcdf6e",
+        "title": "Dashboard",
+        "rows": [
+            {
+                "widgets": [
+                    {
+                        "id": "5246a3f928caf18a22b840e9",
+                        "widgetType": "row",
+                        "title": "Revenue",
+                        "filterBy": "rd",
+                        "width": 6
+                    },
+                    {
+                        "id": "5246a97028caf18a22bcdf80",
+                        "widgetType": "row",
+                        "title": "Online",
+                        "filterBy": "rd",
+                        "width": 6
+                    }
+                ]
+            }
+        ]
+    }
+}

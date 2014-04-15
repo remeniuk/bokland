@@ -4,13 +4,15 @@ define(function (require) {
 
     // imports
     var $ = require('jquery'),
+        _ = require('underscore'),
         bootstrap = require('bootstrap'),
         BaseView = require('libs/view'),
         DateDisplayComponent = require('components/dropdowns/datedisplay'),
         Filter = require('components/filter/filter'),
         FilterModel = require('modules/dashboard/models/filter'),
+        TemplateMetaModel = require('modules/dashboard/models/templatemeta'),
+        TemplateCell = require('components/template/templatecell'),
         FilterSelection = require('components/filterselection/pane'),
-        RowChartWidget = require('components/widget-stats/rowchart'),
         templates = require('templates/templates');
 
 
@@ -19,10 +21,11 @@ define(function (require) {
         template: templates['modules/dashboard/stats'],
 
         elementsUI: {
-            'filterPopover': '[data-toggle=popover]'
+            'filterPopover': '[data-toggle=popover]',
+            'dashboardTitle': '[data-region=title]'
         },
 
-        initialize: function () {
+        initialize: function (options) {
             var _this = this;
 
             _this.state.init({
@@ -32,6 +35,15 @@ define(function (require) {
                 c: {},  // countries
                 ch: {}  // segments
             });
+
+            _this.collection = options.collection;
+
+            _this.metaModel = new TemplateMetaModel();
+            _this.metaModel.set('id', options.id);
+
+            _this.listenTo(_this.metaModel, 'sync', _this.redraw);
+
+            _this.metaModel.fetch();
         },
 
         render: function () {
@@ -39,15 +51,6 @@ define(function (require) {
 
             _this.$el.html(_this.template({}));
             _this.bindUI();
-
-//            _this.ui.$filterPopover.modal({
-//                trigger: 'click',
-//                placement: 'bottom',
-//                html : true,
-//                content: function() {
-//                    return _this.region('filter').$el.html();
-//                }
-//            });
 
             var filterModel = new FilterModel();
 
@@ -65,82 +68,31 @@ define(function (require) {
 
             filterModel.fetch();
 
-//            var dateDisplay = new DateDisplayComponent({
-//                state: _this.state.ref('d')
-//            });
-//            _this.region('date-display').show(dateDisplay);
-
-            var platformsChart = new RowChartWidget({
-                collection: _this.collection,
-                name: 'platforms',
-                state: _this.state.ref('p'),
-                title: 'Platforms',
-                settings: {
-                    defaults: ['revenue'],
-                    opts: {
-                        'uniques': 'Uniques',
-                        'revenue': 'Revenue',
-                        'payers': 'Payers',
-                        'registrations': 'Registrations'
-                    }
-                }
-            });
-            _this.region('platforms').show(platformsChart);
-
-            var sourcesChart = new RowChartWidget({
-                collection: _this.collection,
-                name: 'sources',
-                state: _this.state.ref('s'),
-                title: 'Sources',
-                settings: {
-                    defaults: ['revenue'],
-                    opts: {
-                        'uniques': 'Uniques',
-                        'revenue': 'Revenue',
-                        'payers': 'Payers',
-                        'registrations': 'Registrations'
-                    }
-                }
-            });
-            _this.region('sources').show(sourcesChart);
-
-            var segmentsChart = new RowChartWidget({
-                collection: _this.collection,
-                name: 'segments',
-                state: _this.state.ref('ch'),
-                max: 20,
-                title: 'Segments',
-                settings: {
-                    defaults: ['revenue'],
-                    opts: {
-                        'uniques': 'Uniques',
-                        'revenue': 'Revenue',
-                        'payers': 'Payers',
-                        'registrations': 'Registrations'
-                    }
-                }
-            });
-            _this.region('segments').show(segmentsChart);
-
-            var countriesTopChart = new RowChartWidget({
-                collection: _this.collection,
-                name: 'countries',
-                state: _this.state.ref('c'),
-                max: 15,
-                title: 'Countries',
-                settings: {
-                    defaults: ['revenue'],
-                    opts: {
-                        'uniques': 'Uniques',
-                        'revenue': 'Revenue',
-                        'payers': 'Payers',
-                        'registrations': 'Registrations'
-                    }
-                }
-            });
-            _this.region('countries-top').show(countriesTopChart);
 
             return _this;
+        },
+
+        redraw: function () {
+            var _this = this;
+
+            var $rowsHtml = $('<div></div>');
+
+            _this.ui.$dashboardTitle.html(_this.metaModel.get('title'));
+
+            _.each(_this.metaModel.get('rows'), function (row) {
+                var $rowHtml = $('<div class="row"></div>');
+
+                _.each(row.widgets, function (widgetMeta) {
+                    $rowHtml.append(new TemplateCell({
+                        widget: widgetMeta,
+                        collection: _this.collection
+                    }).render().$el.html());
+                });
+
+                $rowsHtml.append($rowHtml);
+            });
+
+            _this.$el.find('[data-region="rows"]').html($rowsHtml);
         }
     });
 
