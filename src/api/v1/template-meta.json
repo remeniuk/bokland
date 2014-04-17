@@ -1,0 +1,38 @@
+{
+    "status": 200,
+    "data": {
+        "_id": "5246a97028caf18a22bcdf6e",
+        "title": "Dashboard",
+        "rows": [
+            {
+                "widgets": [
+                    {
+                        "id": "5246a3f928caf18a22b840e9",
+                        "widgetType": "bar",
+                        "title": "Platforms",
+                        "filterBy": "p",
+                        "width": 6
+                    },
+                    {
+                        "id": "5246a97028caf18a22bcdf80",
+                        "widgetType": "bar",
+                        "title": "Countries",
+                        "filterBy": "c",
+                        "width": 6
+                    }
+                ]
+            },
+            {
+                "widgets": [
+                    {
+                        "id": "5246a3f928caf18a22b84010",
+                        "widgetType": "area",
+                        "title": "Revenue",
+                        "filterBy": "p",
+                        "width": 12
+                    }
+                ]
+            }
+        ]
+    }
+}

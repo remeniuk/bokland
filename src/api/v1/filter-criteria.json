@@ -23,6 +23,11 @@
                     "id": "rd",
                     "type": "date",
                     "name": "Registration Date"
+                },
+                {
+                    "id": "c",
+                    "type": "category",
+                    "name": "Country"
                 }
             ]
         },

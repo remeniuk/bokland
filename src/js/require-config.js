@@ -58,4 +58,10 @@
             deparam: dirs.bower + 'jquery-bbq-deparam/jquery-deparam'
         }
     });
+
+    define(['d3'], function(d3) {
+        window.d3 || (window.d3 = d3);
+        return window.d3;
+    });
+
 })();

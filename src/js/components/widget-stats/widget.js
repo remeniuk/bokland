@@ -41,6 +41,7 @@ define(function(require) {
             });
 
             _this.$el.html(_this.template({
+                name: options.name,
                 title: options.title,
                 settings: options.settings
             }));

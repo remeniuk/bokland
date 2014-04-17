@@ -7,7 +7,6 @@ define(function (require) {
         _ = require('underscore'),
         bootstrap = require('bootstrap'),
         BaseView = require('libs/view'),
-        DateDisplayComponent = require('components/dropdowns/datedisplay'),
         Filter = require('components/filter/filter'),
         FilterModel = require('modules/dashboard/models/filter'),
         TemplateMetaModel = require('modules/dashboard/models/templatemeta'),
@@ -60,11 +59,11 @@ define(function (require) {
             });
             _this.region('filter').show(filter);
 
-            var filteSelection = new FilterSelection({
+            var filterSelection = new FilterSelection({
                 state: _this.state,
                 filterModel: filterModel
             });
-            _this.region('filter-selection').show(filteSelection);
+            _this.region('filter-selection').show(filterSelection);
 
             filterModel.fetch();
 

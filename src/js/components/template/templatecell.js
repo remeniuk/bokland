@@ -7,6 +7,8 @@ define(function (require) {
         _ = require('underscore'),
         BaseView = require('libs/view'),
         RowChartWidget = require('components/widget-stats/rowchart'),
+        NvBarChartWidget = require('components/widget-stats/nvbarchart'),
+        NvAreaChartWidget = require('components/widget-stats/nvareachart'),
         templates = require('templates/templates');
 
     // code
@@ -31,15 +33,18 @@ define(function (require) {
 
         _widgetFactory: function (widget) {
             var _this = this;
+            var widgetState = {
+                collection: _this.collection,
+                name: widget.id,
+                state: _this.state.ref(widget.filterBy),
+                title: widget.title
+            };
 
             switch (widget.widgetType) {
-                case 'row':
-                    return new RowChartWidget({
-                        collection: _this.collection,
-                        name: widget.id,
-                        state: _this.state.ref(widget.filterBy),
-                        title: widget.title
-                    });
+                case 'bar':
+                    return new NvBarChartWidget(widgetState);
+                case 'area':
+                    return new NvAreaChartWidget(widgetState);
             }
         }
     });
