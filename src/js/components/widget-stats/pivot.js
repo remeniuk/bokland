@@ -45,8 +45,7 @@ define(function (require) {
             var meta = {
                 rows: [_this.options.xAxis.label],
                 cols: [_this.options.yAxis.label],
-                vals: ['value'],
-                aggregatorName: 'intSum'
+                aggregator: $.pivotUtilities.aggregators.sum(['value'])
             };
 
             var chartRegionSelector = '[name="' + _this.name + '"] [data-region=chart]';
