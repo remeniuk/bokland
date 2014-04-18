@@ -27,17 +27,12 @@ define(function (require) {
         },
 
         createChart: function () {
-            return nv.models.discreteBarChart()
-                .x(function (d) {
-                    return d.label;
-                })
-                .y(function (d) {
-                    return d.value;
-                })
-                .staggerLabels(true)
-                .tooltips(false)
+            return nv.models.multiBarHorizontalChart()
+                .x(function(d) { return d.label;})
+                .y(function(d) { return d.value; })
                 .showValues(true)
-                .transitionDuration(350);
+                .tooltips(false)
+                .showControls(false);
         }
 
     });

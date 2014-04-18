@@ -84,6 +84,7 @@ define(function (require) {
                 _.each(row.widgets, function (widgetMeta) {
                     $rowHtml.append(new TemplateCell({
                         widget: widgetMeta,
+                        height: row.height,
                         collection: _this.collection
                     }).render().$el.html());
                 });

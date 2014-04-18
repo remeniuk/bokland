@@ -31,6 +31,7 @@
     "nvd3": "~1.1.15-beta",
     "topojson": "~1.6.2",
     "bootstrap": "~3.1.1",
-    "jquery-drilldown": "~0.1.4"
+    "jquery-drilldown": "~0.1.4",
+    "pivottable": "~1.1.1"
   }
 }

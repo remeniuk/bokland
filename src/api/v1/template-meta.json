@@ -11,14 +11,51 @@
                         "widgetType": "bar",
                         "title": "Platforms",
                         "filterBy": "p",
-                        "width": 6
+                        "xAxis": {
+                            "type": "",
+                            "format": "",
+                            "label": ""
+                        },
+                        "yAxis": {
+                            "type": "",
+                            "format": "",
+                            "label": ""
+                        },
+                        "width": 4
                     },
                     {
                         "id": "5246a97028caf18a22bcdf80",
                         "widgetType": "bar",
                         "title": "Countries",
                         "filterBy": "c",
-                        "width": 6
+                        "xAxis": {
+                            "type": "",
+                            "format": "",
+                            "label": ""
+                        },
+                        "yAxis": {
+                            "type": "",
+                            "format": "",
+                            "label": ""
+                        },
+                        "width": 4
+                    },
+                    {
+                        "id": "5246a3f928caf18a22b84011",
+                        "widgetType": "pie",
+                        "title": "Gender",
+                        "filterBy": "g",
+                        "xAxis": {
+                            "type": "",
+                            "format": "",
+                            "label": ""
+                        },
+                        "yAxis": {
+                            "type": "",
+                            "format": "",
+                            "label": ""
+                        },
+                        "width": 4
                     }
                 ]
             },
@@ -29,9 +66,76 @@
                         "widgetType": "area",
                         "title": "Revenue",
                         "filterBy": "p",
-                        "width": 12
+                        "xAxis": {
+                            "type": "date",
+                            "format": "%x",
+                            "label": ""
+                        },
+                        "yAxis": {
+                            "type": "",
+                            "format": ",.2f",
+                            "label": ""
+                        },
+                        "width": 6
+                    },
+                    {
+                        "id": "5246a3f928caf18a22b84012",
+                        "widgetType": "row",
+                        "title": "Sources",
+                        "filterBy": "s",
+                        "xAxis": {
+                            "type": "",
+                            "format": "",
+                            "label": ""
+                        },
+                        "yAxis": {
+                            "type": "",
+                            "format": ",.2f",
+                            "label": ""
+                        },
+                        "width": 6
                     }
-                ]
+                ],
+                "height": "300px"
+            },
+            {
+                "widgets": [
+                    {
+                        "id": "5246a3f928caf18a22b84013",
+                        "widgetType": "line",
+                        "title": "Registrations",
+                        "filterBy": "r",
+                        "xAxis": {
+                            "type": "date",
+                            "format": "%x",
+                            "label": "Date"
+                        },
+                        "yAxis": {
+                            "type": "",
+                            "format": ",.2f",
+                            "label": "Registrations"
+                        },
+                        "width": 7
+                    },
+                    {
+                        "id": "5246a3f928caf18a22b84014",
+                        "widgetType": "pivot",
+                        "title": "Registrations",
+                        "filterBy": "r",
+                        "xAxis": {
+                            "type": "date",
+                            "format": "%x",
+                            "label": "Date"
+                        },
+                        "yAxis": {
+                            "type": "",
+                            "format": "",
+                            "label": "Platforms"
+                        },
+                        "width": 5
+                    }
+                ],
+                "height": "300px"
             }
         ]
     }

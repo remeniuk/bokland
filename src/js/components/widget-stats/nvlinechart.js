@@ -16,26 +16,20 @@ define(function (require) {
             return _.map(data, function (d) {
                 return {
                     id: d[0],
-                    values: d[1],
+                    values: _.map(d[1], function(d){
+                        return {
+                            x: d[0],
+                            y: d[1]
+                        };
+                    }),
                     key: d[2]
                 };
             });
         },
 
         createChart: function () {
-            return nv.models.stackedAreaChart()
-                .margin({right: 100})
-                .x(function (d) {
-                    return d[0];
-                })
-                .y(function (d) {
-                    return d[1];
-                })
-                .useInteractiveGuideline(true)
-                .rightAlignYAxis(true)
-                .transitionDuration(500)
-                .showControls(true)
-                .clipEdge(true);
+            return nv.models.lineChart()
+                .useInteractiveGuideline(true);
         }
 
     });

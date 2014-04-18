@@ -6,9 +6,12 @@ define(function (require) {
     var $ = require('jquery'),
         _ = require('underscore'),
         BaseView = require('libs/view'),
-        RowChartWidget = require('components/widget-stats/rowchart'),
         NvBarChartWidget = require('components/widget-stats/nvbarchart'),
+        NvRowChartWidget = require('components/widget-stats/nvrowchart'),
         NvAreaChartWidget = require('components/widget-stats/nvareachart'),
+        NvPieChartWidget = require('components/widget-stats/nvpiechart'),
+        NvLineChartWidget = require('components/widget-stats/nvlinechart'),
+        PivotWidget = require('components/widget-stats/pivot'),
         templates = require('templates/templates');
 
     // code
@@ -19,6 +22,8 @@ define(function (require) {
             var _this = this;
 
             _this.widget = options.widget;
+            _this.height = options.height;
+
             _this.collection = options.collection;
         },
 
@@ -37,7 +42,10 @@ define(function (require) {
                 collection: _this.collection,
                 name: widget.id,
                 state: _this.state.ref(widget.filterBy),
-                title: widget.title
+                title: widget.title,
+                height: _this.height,
+                xAxis: widget.xAxis,
+                yAxis: widget.yAxis
             };
 
             switch (widget.widgetType) {
@@ -45,6 +53,14 @@ define(function (require) {
                     return new NvBarChartWidget(widgetState);
                 case 'area':
                     return new NvAreaChartWidget(widgetState);
+                case 'pie':
+                    return new NvPieChartWidget(widgetState);
+                case 'row':
+                    return new NvRowChartWidget(widgetState);
+                case 'line':
+                    return new NvLineChartWidget(widgetState);
+                case 'pivot':
+                    return new PivotWidget(widgetState);
             }
         }
     });

@@ -42,10 +42,16 @@
             topojson: {
                 exports: 'topojson'
             },
-            deparam: ['jquery']
+            deparam: ['jquery'],
+            pivottable: {
+                deps: [
+                    'jquery'
+                ]
+            }
         },
         paths: {
             jquery: dirs.bower + 'jquery/dist/jquery',
+            pivottable: dirs.bower + 'pivottable/dist/pivot',
             bootstrap: dirs.bower + 'bootstrap/dist/js/bootstrap',
             underscore: dirs.bower + 'underscore/underscore',
             // underscore: dirs.bower + 'lodash/dist/lodash.underscore',

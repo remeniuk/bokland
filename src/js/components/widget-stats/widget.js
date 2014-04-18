@@ -4,6 +4,7 @@ define(function(require) {
 
     // imports
     var $                 = require('jquery'),
+        d3                = require('d3'),
         _                 = require('underscore'),
         BaseView          = require('libs/view'),
         DropdownComponent = require('components/dropdowns/dropdown'),
@@ -105,6 +106,17 @@ define(function(require) {
             var _this = this;
             // implemented in child class
             return _this;
+        },
+
+        _formatterFactory: function (axis) {
+            switch (axis.type) {
+                case 'date':
+                    return function (d) {
+                        return d3.time.format(axis.format)(new Date(d));
+                    };
+                default:
+                    return d3.format(axis.format);
+            }
         }
     });
 
