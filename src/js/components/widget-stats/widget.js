@@ -1,14 +1,13 @@
 /* global define */
-define(function(require) {
+define(function (require) {
     'use strict';
 
     // imports
-    var $                 = require('jquery'),
-        d3                = require('d3'),
-        _                 = require('underscore'),
-        BaseView          = require('libs/view'),
-        DropdownComponent = require('components/dropdowns/dropdown'),
-        templates         = require('templates/templates');
+    var $ = require('jquery'),
+        d3 = require('d3'),
+        _ = require('underscore'),
+        BaseView = require('libs/view'),
+        templates = require('templates/templates');
 
 
     // code
@@ -20,19 +19,26 @@ define(function(require) {
 
         options: {
             name: null,
-            title: '',
-            settings: null
+            title: ''
         },
 
         elementsUI: {
-            'display': null
+            'display': null,
+            'edit': '[data-action="edit-widget"]',
+            'remove': '[data-action="remove-widget"]'
         },
 
-        initialize: function(options) {
+        events: {
+            'click @ui.edit': 'editWidget',
+            'click @ui.remove': 'removeWidget'
+        },
+
+        initialize: function (options) {
             var _this = this;
 
             _this.options = options;
             _this.name = options.name;
+            _this.dashboardMetaModel = options.dashboardMetaModel;
 
             _this._data = null;
 
@@ -43,25 +49,11 @@ define(function(require) {
 
             _this.$el.html(_this.template({
                 name: options.name,
-                title: options.title,
-                settings: options.settings
+                title: options.title
             }));
             _this.bindUI();
 
-            if (options.settings) {
-                var settings = new DropdownComponent(_.extend({}, options.settings, {
-                    state: _this.state.ref('opt')
-                }));
-
-                _this.listenTo(settings, 'display', function(view, info) {
-                    _this.ui.$display.text(info);
-                });
-
-                _this.region('settings').show(settings);
-            }
-
-
-            _this.listenTo(_this.collection, 'sync', function() {
+            _this.listenTo(_this.collection, 'sync', function () {
                 var collection = _this.collection,
                     data = collection.get(_this.name),
                     filter = _this.state.get('_');
@@ -72,7 +64,7 @@ define(function(require) {
                 }
             });
 
-            _this.listenTo(_this.state, 'change', function() {
+            _this.listenTo(_this.state, 'change', function () {
                 if (_this._data) {
                     var filter = _this.state.get('_');
                     _this.redraw(_this._data, filter);
@@ -80,18 +72,18 @@ define(function(require) {
             });
 
             $(window).on('resize.' + _this.cid, _.throttle(_this._resize.bind(_this), 100));
-            _this.listenTo(_this, 'pre:dispose', function() {
+            _this.listenTo(_this, 'pre:dispose', function () {
                 _this.$(window).off('resize.' + _this.cid);
             });
         },
 
-        redraw: function(data, filter) {
+        redraw: function (data, filter) {
             var _this = this;
             // implemented in child class
             return _this;
         },
 
-        size: function() {
+        size: function () {
             var _this = this,
                 $el = _this.$el,
                 $parent = $el.parent();
@@ -102,7 +94,29 @@ define(function(require) {
             };
         },
 
-        _resize: function(e) {
+        editWidget: function () {
+            console.log('Edit widget');
+        },
+
+        removeWidget: function () {
+            var _this = this;
+
+            console.log('Remove widget');
+
+            var rows = _.map(_this.dashboardMetaModel.get('rows'), function(row) {
+                var rowClone = _.clone(row);
+                rowClone.widgets = _.filter(rowClone.widgets, function(widget) {
+                    return widget.id !== _this.name;
+                });
+                return rowClone;
+            });
+
+            _this.dashboardMetaModel.set('rows', rows);
+
+            _this.$el.closest('.template-cell').remove();
+        },
+
+        _resize: function (e) {
             var _this = this;
             // implemented in child class
             return _this;

@@ -44,6 +44,7 @@ define(function (require) {
                 var cellElement = new TemplateCell({
                     widget: widgetMeta,
                     height: rowMetaModel.height,
+                    dashboardMetaModel: _this.metaModel,
                     collection: _this.collection
                 });
 

@@ -23,6 +23,7 @@ define(function (require) {
 
             _this.widget = options.widget;
             _this.height = options.height;
+            _this.dashboardMetaModel = options.dashboardMetaModel;
 
             _this.collection = options.collection;
         },
@@ -40,6 +41,7 @@ define(function (require) {
             var _this = this;
             var widgetState = {
                 collection: _this.collection,
+                dashboardMetaModel: _this.dashboardMetaModel,
                 name: widget.id,
                 state: _this.state.ref(widget.filterBy),
                 title: widget.title,

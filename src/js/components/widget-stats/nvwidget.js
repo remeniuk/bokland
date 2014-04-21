@@ -69,17 +69,6 @@ define(function (require) {
         },
 
         createChart: function () {
-        },
-
-        formatterFactory: function (axis) {
-            switch (axis.type) {
-                case 'date':
-                    return function (d) {
-                        return d3.time.format(axis.format)(new Date(d));
-                    };
-                default:
-                    return d3.format(axis.format);
-            }
         }
     });
 

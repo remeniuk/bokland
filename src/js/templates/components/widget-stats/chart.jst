@@ -1,8 +1,11 @@
 <div name="<%= name %>" class="panel panel-default">
     <div class="panel-heading">
-        <% if (settings) { %>
-            <div class="panel-setting" data-region="settings"></div>
-        <% } %>
+        <div class="panel-controls">
+            <button data-action="remove-widget" placeholder="Remove Widget" class="btn btn-default">
+                <span class="glyphicon glyphicon-remove"></span></button>
+            <button data-action="edit-widget" placeholder="Edit Widget" class="btn btn-default">
+                <span class="glyphicon glyphicon-edit"></span></button>
+        </div>
 
         <% if (title) { %>
             <div class="panel-title">
