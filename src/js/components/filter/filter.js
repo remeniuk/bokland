@@ -61,8 +61,6 @@ define(function (require) {
                 _this.ui.$selector.append($optgroup);
             });
 
-            _this.ui.$selector.prop('selectedIndex', -1);
-
             return _this;
         },
 

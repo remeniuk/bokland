@@ -1,7 +1,7 @@
 <div class="container">
     <h1 class="text-center" data-region="title"></h1>
 
-    <div class="row">
+    <div class="filter-row">
         <div class="col-md-1">
             <a type="button" class="btn btn-default" data-toggle="modal" data-target=".bs-filter-modal-lg">
                 <span class="glyphicon glyphicon-filter"></span> Filter
@@ -9,7 +9,7 @@
 
             <div class="modal fade bs-filter-modal-lg" tabindex="-1" role="dialog"  aria-hidden="true">
                 <div class="modal-dialog modal-lg">
-                    <div data-region="filter" class="modal-content" align="center"></div>
+                    <div data-region="filter" class="modal-content" align="left"></div>
                 </div>
             </div>
         </div>
@@ -22,4 +22,17 @@
     <hr/>
 
     <div data-region="rows"></div>
+
+    <div class="template-controls">
+        <a type="button" class="btn btn-default" data-toggle="modal" data-target=".bs-add-row-modal-lg">
+            <span class="glyphicon glyphicon-th-list"></span> Add Row
+        </a>
+
+        <div class="modal fade bs-add-row-modal-lg" tabindex="-1" role="dialog"  aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div data-region="add-row" class="modal-content" align="left"></div>
+            </div>
+        </div>
+    </div>
+
 </div>
