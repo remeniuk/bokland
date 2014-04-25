@@ -108,6 +108,10 @@ define(function (require) {
 
             console.log('Adding filter');
             _this.filterCriterion.fillState();
+
+            _this.ui.$selector.val('');
+            _this.region('criterion-conditions').hide();
+            _this.ui.$controls.addClass('hidden');
         }
     });
 
