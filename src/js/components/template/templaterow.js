@@ -7,6 +7,9 @@ define(function (require) {
         _ = require('underscore'),
         BaseView = require('libs/view'),
         TemplateCell = require('components/template/templatecell'),
+        WidgetModel = require('modules/dashboard/models/widget'),
+        WidgetData = require('modules/dashboard/models/series'),
+        RowModel = require('modules/dashboard/models/row'),
         templates = require('templates/templates');
 
     // code
@@ -27,50 +30,92 @@ define(function (require) {
             var _this = this;
 
             _this.rowNum = options.rowNum;
+            _this.rowModel = _.isUndefined(options.rowMeta) ? new RowModel() : new RowModel(options.rowMeta);
             _this.metaModel = options.metaModel;
+            _this.cubes = options.cubes;
             _this.collection = options.collection;
+            _this.builderView = options.builderView;
+
+            _this.listenTo(_this.rowModel, 'addWidget', _this._onWidgetAdded);
         },
 
         render: function () {
             var _this = this;
 
             _this.$el.html(_this.template({}));
-
             _this.bindUI();
 
-            var rowMetaModel = _this.metaModel.get('rows')[_this.rowNum];
-
-            _.each(rowMetaModel.widgets, function (widgetMeta) {
-                var cellElement = new TemplateCell({
-                    widget: widgetMeta,
-                    height: rowMetaModel.height,
-                    dashboardMetaModel: _this.metaModel,
-                    collection: _this.collection
-                });
-
-                _this.$el.children('.row').append(cellElement.$el);
-
-                cellElement.render();
-            });
+            _.each(_this.rowModel.get('widgets'), _this.addCell, _this);
 
             return _this;
         },
 
+        addCell: function (widgetMeta) {
+            var _this = this,
+                widgetModel = new WidgetModel(widgetMeta);
+
+            var cellElement = new TemplateCell({
+                widget: widgetMeta,
+                widgetModel: widgetModel,
+                height: _this.rowModel.get('height'),
+                dashboardMetaModel: _this.metaModel,
+                collection: _this.collection,
+                widgetBuilderView: _this.builderView,
+                cubes: _this.cubes,
+                rowNum: _this.rowNum,
+                rowModel: _this.rowModel
+            });
+
+            _this.$el.children('.row').append(cellElement.$el);
+
+            cellElement.render();
+
+            return widgetModel;
+        },
+
         _addWidget: function () {
             var _this = this;
-            console.log('Add widget');
+
+            _this.builderView.initialize({
+                cubes: _this.cubes,
+                widgetModel: new WidgetModel(),
+                rowModel: _this.rowModel,
+                dashboard: _this.metaModel,
+                dashboardData: _this.collection
+            });
         },
 
         _removeRow: function () {
             var _this = this;
-
-            console.log('Remove row');
 
             var rowMetaModel = _this.metaModel.get('rows');
             rowMetaModel.splice(_this.rowNum, 1);
             _this.metaModel.set('rows', rowMetaModel);
 
             this.remove();
+        },
+
+        _onWidgetAdded: function(widgetMeta) {
+            var _this = this,
+                widgetData = new WidgetData({id: widgetMeta.id});
+
+            _this._refreshMetaModel();
+
+            _this.listenToOnce(widgetData, 'sync', function(){
+                _this.collection.push(widgetData);
+                var newWidgetModel = _this.addCell(widgetMeta);
+                //_this.collection.trigger('sync');
+                newWidgetModel.trigger("redrawWidget");
+            });
+
+            widgetData.fetch()
+        },
+
+        _refreshMetaModel: function() {
+            var _this = this;
+
+            _this.metaModel.get('rows')[_this.rowNum] = _this.rowModel.toJSON();
+            //TODO _this.metaModel.save({trigger: false});
         }
     });
 

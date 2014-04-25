@@ -13,6 +13,8 @@ define(function (require) {
         TemplateRow = require('components/template/templaterow'),
         AddRowDialog = require('components/template/addrow'),
         FilterSelection = require('components/filterselection/pane'),
+        CubesCollection   = require('modules/dashboard/collections/cubes'),
+        WidgetBuilder = require('components/widget-builder/builder'),
         templates = require('templates/templates');
 
 
@@ -40,10 +42,16 @@ define(function (require) {
             _this.metaModel = new TemplateMetaModel();
             _this.metaModel.set('id', options.id);
 
+
+            _this.cubes = new CubesCollection([]);
+
             _this.listenTo(_this.metaModel, 'sync', _this.redraw);
             _this.listenTo(_this.metaModel, 'rowadded', _this._addRow);
 
+            _this.cubes.fetch();
             _this.metaModel.fetch();
+
+            _this.listenTo(_this.cubes, 'sync', _this._cubesLoaded);
         },
 
         render: function () {
@@ -73,7 +81,6 @@ define(function (require) {
 
             filterModel.fetch();
 
-
             return _this;
         },
 
@@ -90,17 +97,32 @@ define(function (require) {
         },
 
         _addRow: function (rowNum) {
-            var _this = this;
+            var _this = this,
+                rowInd = _.isUndefined(rowNum) ? (_this.metaModel.get('rows').length - 1) : rowNum;
 
             var rowElement = new TemplateRow({
                 metaModel: _this.metaModel,
-                rowNum: _.isUndefined(rowNum) ? (_this.metaModel.get('rows').length - 1) : rowNum,
-                collection: _this.collection
+                cubes: _this.cubes,
+                rowNum: rowInd,
+                rowMeta: _this.metaModel.get('rows')[rowInd],
+                collection: _this.collection,
+                builderView: _this.widgetBilderView
             });
 
             _this.$el.find('[data-region="rows"]').append(rowElement.$el);
 
             rowElement.render();
+        },
+
+        _cubesLoaded: function(){
+            var _this = this;
+
+            _this.widgetBilderView = new WidgetBuilder({
+                cubes: _this.cubes,
+                dashboard: _this.metaModel,
+                dashboardData: _this.collection
+            });
+            _this.region('widget-builder').show(_this.widgetBilderView);
         }
     });
 

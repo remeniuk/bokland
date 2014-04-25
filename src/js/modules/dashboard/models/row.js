@@ -4,13 +4,15 @@ define(function(require) {
 
     // imports
     var _         = require('underscore'),
-        config    = require('config/api'),
         BaseModel = require('libs/model');
 
 
     // code
     var Model = BaseModel.extend({
-        url: config.server + 'stats-series-single.json'
+        defaults: {
+            widgets: [],
+            height: "200px"
+        }
     });
 
     return Model;

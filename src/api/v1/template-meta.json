@@ -9,7 +9,16 @@
                     {
                         "id": "5246a3f928caf18a22b840e9",
                         "widgetType": "bar",
-                        "title": "Platforms",
+                        "name": "Platforms",
+                        "cubeId": "701829370419823",
+                        "rows":["platform"],
+                        "cols":[],
+                        "measures": [
+                            {
+                                "field": "dau",
+                                "func": "sum"
+                            }
+                        ],
                         "filterBy": "p",
                         "xAxis": {
                             "type": "",
@@ -26,7 +35,16 @@
                     {
                         "id": "5246a97028caf18a22bcdf80",
                         "widgetType": "bar",
-                        "title": "Countries",
+                        "name": "Countries",
+                        "cubeId": "701829370419823",
+                        "rows":["country"],
+                        "cols":[],
+                        "measures": [
+                            {
+                                "field": "dau",
+                                "func": "sum"
+                            }
+                        ],
                         "filterBy": "c",
                         "xAxis": {
                             "type": "",
@@ -43,7 +61,16 @@
                     {
                         "id": "5246a3f928caf18a22b84011",
                         "widgetType": "pie",
-                        "title": "Gender",
+                        "name": "Gender",
+                        "cubeId": "701829370419823",
+                        "rows":["gender"],
+                        "cols":[],
+                        "measures": [
+                            {
+                                "field": "dau",
+                                "func": "sum"
+                            }
+                        ],
                         "filterBy": "g",
                         "xAxis": {
                             "type": "",
@@ -64,7 +91,16 @@
                     {
                         "id": "5246a3f928caf18a22b84010",
                         "widgetType": "area",
-                        "title": "Revenue",
+                        "name": "Revenue",
+                        "cubeId": "701829370419823",
+                        "rows":["platform"],
+                        "cols":["date"],
+                        "measures": [
+                            {
+                                "field": "payers",
+                                "func": "sum"
+                            }
+                        ],
                         "filterBy": "p",
                         "xAxis": {
                             "type": "date",
@@ -81,7 +117,15 @@
                     {
                         "id": "5246a3f928caf18a22b84012",
                         "widgetType": "row",
-                        "title": "Sources",
+                        "name": "Sources",
+                        "rows":["source"],
+                        "cols":[],
+                        "measures": [
+                            {
+                                "field": "dau",
+                                "func": "sum"
+                            }
+                        ],
                         "filterBy": "s",
                         "xAxis": {
                             "type": "",
@@ -103,7 +147,15 @@
                     {
                         "id": "5246a3f928caf18a22b84013",
                         "widgetType": "line",
-                        "title": "Registrations",
+                        "name": "Registrations",
+                        "rows":["app_version"],
+                        "cols":["date"],
+                        "measures": [
+                            {
+                                "field": "new_users",
+                                "func": "sum"
+                            }
+                        ],
                         "filterBy": "r",
                         "xAxis": {
                             "type": "date",
@@ -120,7 +172,15 @@
                     {
                         "id": "5246a3f928caf18a22b84014",
                         "widgetType": "pivot",
-                        "title": "Registrations",
+                        "name": "Registrations",
+                        "rows":["platform"],
+                        "cols":["date"],
+                        "measures": [
+                            {
+                                "field": "new_users",
+                                "func": "sum"
+                            }
+                        ],
                         "filterBy": "r",
                         "xAxis": {
                             "type": "date",

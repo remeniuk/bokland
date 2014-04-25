@@ -38,7 +38,12 @@ define(function (require) {
 
             _this.options = options;
             _this.name = options.name;
+            _this.title = options.title;
             _this.dashboardMetaModel = options.dashboardMetaModel;
+            _this.widgetBuilderView = options.widgetBuilderView;
+            _this.rowModel = options.rowModel;
+            _this.cubes = options.cubes;
+            _this.widgetModel = options.widgetModel;
 
             _this._data = null;
 
@@ -46,12 +51,6 @@ define(function (require) {
                 _: [],
                 opt: {}
             });
-
-            _this.$el.html(_this.template({
-                name: options.name,
-                title: options.title
-            }));
-            _this.bindUI();
 
             _this.listenTo(_this.collection, 'sync', function () {
                 var collection = _this.collection,
@@ -71,10 +70,36 @@ define(function (require) {
                 }
             });
 
+            _this.listenTo(_this.widgetModel, 'redrawWidget', function () {
+                var collection = _this.collection,
+                    data = collection.get(_this.name),
+                    filter = _this.state.get('_');
+
+                if (data) {
+                    console.log("redrawing widget:");
+                    _this._data = data.get('data');
+                    _this.redraw(_this._data, filter);
+                }
+            });
+
             $(window).on('resize.' + _this.cid, _.throttle(_this._resize.bind(_this), 100));
             _this.listenTo(_this, 'pre:dispose', function () {
                 _this.$(window).off('resize.' + _this.cid);
             });
+        },
+
+        render: function () {
+            var _this = this;
+
+            console.log("WITGET RENDER ("+_this.name+")");
+
+            _this.$el.html(_this.template({
+                name: _this.name,
+                title: _this.title
+            }));
+            _this.bindUI();
+
+            return _this;
         },
 
         redraw: function (data, filter) {
@@ -95,13 +120,19 @@ define(function (require) {
         },
 
         editWidget: function () {
-            console.log('Edit widget');
+            var _this = this;
+
+            _this.widgetBuilderView.initialize({
+                cubes: _this.cubes,
+                widgetModel: _this.widgetModel,
+                rowModel: _this.rowModel,
+                dashboard: _this.dashboardMetaModel,
+                dashboardData: _this.collection
+            });
         },
 
         removeWidget: function () {
             var _this = this;
-
-            console.log('Remove widget');
 
             var rows = _.map(_this.dashboardMetaModel.get('rows'), function(row) {
                 var rowClone = _.clone(row);

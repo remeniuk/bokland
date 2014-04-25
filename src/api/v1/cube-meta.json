@@ -1,0 +1,9 @@
+{
+    "status": 200,
+    "data": {
+        "id": "701829370419823",
+        "title": "User",
+        "dimensions":["platform", "gender", "country", "lang", "app_version", "os_version", "date", "date-year", "date-month", "date-day"],
+        "measures": ["dau", "payers", "sessions", "session_duration", "new_users"]
+    }
+}
