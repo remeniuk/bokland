@@ -85,8 +85,9 @@ define(function (require) {
             _this._refreshMetaModel();
 
             _this.listenToOnce(widgetData, 'sync', function(){
-                _this.collection.remove(_this.collection.get(widgetId));
-                _this.collection.add(widgetData);
+                // TODO uncomment when server api is ready
+                //_this.collection.remove(_this.collection.get(widgetId));
+                //_this.collection.add(widgetData);
 
                 _this.widget = _this.widgetModel.toJSON();
 
