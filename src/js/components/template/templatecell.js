@@ -90,6 +90,7 @@ define(function (require) {
 
                 _this.widget = _this.widgetModel.toJSON();
 
+                _this.clearRegions();
                 _this.render();
 
                 //_this.collection.trigger('sync');

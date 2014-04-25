@@ -137,6 +137,12 @@ define(function(require) {
             }
 
             return regions[name];
+        },
+
+        clearRegions: function() {
+            var _this = this;
+
+            _this.regions = {};
         }
     });
 
