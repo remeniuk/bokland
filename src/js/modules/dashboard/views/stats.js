@@ -7,12 +7,10 @@ define(function (require) {
         _ = require('underscore'),
         bootstrap = require('bootstrap'),
         BaseView = require('libs/view'),
-        Filter = require('components/filter/filter'),
-        FilterModel = require('modules/dashboard/models/filter'),
+        FilterWidget = require('components/filter/filterwidget'),
         TemplateMetaModel = require('modules/dashboard/models/templatemeta'),
         TemplateRow = require('components/template/templaterow'),
         AddRowDialog = require('components/template/addrow'),
-        FilterSelection = require('components/filterselection/pane'),
         CubesCollection   = require('modules/dashboard/collections/cubes'),
         WidgetBuilder = require('components/widget-builder/builder'),
         templates = require('templates/templates');
@@ -60,26 +58,15 @@ define(function (require) {
             _this.$el.html(_this.template({}));
             _this.bindUI();
 
-            var filterModel = new FilterModel();
-
-            var filter = new Filter({
-                state: _this.state,
-                filterModel: filterModel
+            var filterWidget = new FilterWidget({
+                state: _this.state
             });
-            _this.region('filter').show(filter);
+            _this.region('filter').show(filterWidget);
 
             var addRowDialog = new AddRowDialog({
                 model: _this.metaModel
             });
             _this.region('add-row').show(addRowDialog);
-
-            var filterSelection = new FilterSelection({
-                state: _this.state,
-                filterModel: filterModel
-            });
-            _this.region('filter-selection').show(filterSelection);
-
-            filterModel.fetch();
 
             return _this;
         },

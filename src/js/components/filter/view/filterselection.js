@@ -56,13 +56,14 @@ define(function (require) {
                 _this.ui.$pane.empty();
                 _.each(_this.state.attributes, function (value, key) {
                     var criterionMeta = _this._findCriterionMeta(key);
+                    var values = _.map(_.flatten(value._), formatValue);
 
-                    if(!_.isUndefined(criterionMeta.name)){
+                    if(criterionMeta && values.length > 0){
                         _this.ui.$pane.append(_this.criterionTemplate({
                             id: key,
                             name: criterionMeta.name,
                             type: criterionMeta.type,
-                            values: _.map(_.flatten(value._), formatValue)
+                            values: values
                         }));
                     }
                 });
