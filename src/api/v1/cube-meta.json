@@ -1,9 +1,41 @@
 {
     "status": 200,
     "data": {
-        "id": "701829370419823",
-        "title": "User",
-        "dimensions":["platform", "gender", "country", "lang", "app_version", "os_version", "date", "date-year", "date-month", "date-day"],
-        "measures": ["dau", "payers", "sessions", "session_duration", "new_users"]
+        "dimensions": [
+            {"id": "platform", "name": "Platform", "type": "string"},
+            {"id": "gender", "name": "Gender", "type": "string"},
+            {"id": "country", "name": "Country", "type": "string"},
+            {"id": "lang", "name": "Language", "type": "string"},
+            {"id": "app_version", "name": "App version", "type": "string"},
+            {"id": "os_version", "name": "OS version", "type": "string"},
+            {"id": "age", "name": "Age", "type": "number"},
+            {"id": "date", "name": "Date", "type": "date"}
+        ],
+        "measures": [
+            {
+                "category": "Engagement",
+                "items": [
+                    {"id": "active_users", "name": "Active Users"},
+                    {"id": "users_count", "name": "Users Count"},
+                    {"id": "active_payed_users", "name": "Active Payed Users"},
+                    {"id": "sessions_count", "name": "Sessions Count"},
+                    {"id": "average_session_length", "name": "Average Session Length"},
+                    {"id": "sessions_per_users", "name": "Sessions Per Users"}
+                ]
+            },
+            {
+                "category": "Monetization",
+                "items": [
+                    {"id": "active_paying_users", "name": "Active Paying Users"},
+                    {"id": "total_revenue", "name": "Revenue"},
+                    {"id": "purchase_count", "name": "Purchases Count"},
+                    {"id": "payers_percent", "name": "Payers %"},
+                    {"id": "purchases_per_users", "name": "Purchases Per User"},
+                    {"id": "revenue_per_payer", "name": "Revenue Per Payer"},
+                    {"id": "revenue_per_user", "name": "Revenue Per User"},
+                    {"id": "revenue_per_transaction", "name": "Revenue Per Transaction"}
+                ]
+            }
+        ]
     }
 }

@@ -9,16 +9,17 @@
                     {
                         "id": "5246a3f928caf18a22b840e9",
                         "widgetType": "bar",
-                        "name": "Platforms",
-                        "cubeId": "701829370419823",
-                        "rows":["platform"],
-                        "cols":[],
-                        "measures": [
+                        "title": "Platforms",
+                        "cols":[
                             {
-                                "field": "dau",
-                                "func": "sum"
+                                "dim": "platform",
+                                "aggregation": {
+                                    "type":"category"
+                                }
                             }
                         ],
+                        "rows":[],
+                        "measures": ["users_count"],
                         "filterBy": "p",
                         "xAxis": {
                             "type": "",
@@ -35,16 +36,17 @@
                     {
                         "id": "5246a97028caf18a22bcdf80",
                         "widgetType": "bar",
-                        "name": "Countries",
-                        "cubeId": "701829370419823",
-                        "rows":["country"],
-                        "cols":[],
-                        "measures": [
+                        "title": "Countries",
+                        "cols":[
                             {
-                                "field": "dau",
-                                "func": "sum"
+                                "dim": "country",
+                                "aggregation": {
+                                    "type":"category"
+                                }
                             }
                         ],
+                        "rows":[],
+                        "measures": ["users_count"],
                         "filterBy": "c",
                         "xAxis": {
                             "type": "",
@@ -61,16 +63,17 @@
                     {
                         "id": "5246a3f928caf18a22b84011",
                         "widgetType": "pie",
-                        "name": "Gender",
-                        "cubeId": "701829370419823",
-                        "rows":["gender"],
-                        "cols":[],
-                        "measures": [
+                        "title": "Gender",
+                        "rows":[
                             {
-                                "field": "dau",
-                                "func": "sum"
+                                "dim": "gender",
+                                "aggregation": {
+                                    "type":"category"
+                                }
                             }
                         ],
+                        "cols":[],
+                        "measures": ["users_count"],
                         "filterBy": "g",
                         "xAxis": {
                             "type": "",
@@ -91,16 +94,25 @@
                     {
                         "id": "5246a3f928caf18a22b84010",
                         "widgetType": "area",
-                        "name": "Revenue",
-                        "cubeId": "701829370419823",
-                        "rows":["platform"],
-                        "cols":["date"],
-                        "measures": [
+                        "title": "Revenue",
+                        "rows":[
                             {
-                                "field": "payers",
-                                "func": "sum"
+                                "dim": "platform",
+                                "aggregation": {
+                                    "type":"category"
+                                }
                             }
                         ],
+                        "cols":[
+                            {
+                                "dim": "date",
+                                "aggregation": {
+                                    "type":"date",
+                                    "date_type": "Day"
+                                }
+                            }
+                        ],
+                        "measures": ["total_revenue"],
                         "filterBy": "p",
                         "xAxis": {
                             "type": "date",
@@ -117,15 +129,17 @@
                     {
                         "id": "5246a3f928caf18a22b84012",
                         "widgetType": "row",
-                        "name": "Sources",
-                        "rows":["source"],
-                        "cols":[],
-                        "measures": [
+                        "title": "Sources",
+                        "rows":[
                             {
-                                "field": "dau",
-                                "func": "sum"
+                                "dim": "source",
+                                "aggregation": {
+                                    "type":"category"
+                                }
                             }
                         ],
+                        "cols":[],
+                        "measures": ["users_count"],
                         "filterBy": "s",
                         "xAxis": {
                             "type": "",
@@ -147,15 +161,25 @@
                     {
                         "id": "5246a3f928caf18a22b84013",
                         "widgetType": "line",
-                        "name": "Registrations",
-                        "rows":["app_version"],
-                        "cols":["date"],
-                        "measures": [
+                        "title": "Registrations",
+                        "rows":[
                             {
-                                "field": "new_users",
-                                "func": "sum"
+                                "dim": "app_version",
+                                "aggregation": {
+                                    "type":"category"
+                                }
                             }
                         ],
+                        "cols":[
+                            {
+                                "dim": "date",
+                                "aggregation": {
+                                    "type":"date",
+                                    "date_type": "Day"
+                                }
+                            }
+                        ],
+                        "measures": ["users_count"],
                         "filterBy": "r",
                         "xAxis": {
                             "type": "date",
@@ -172,15 +196,25 @@
                     {
                         "id": "5246a3f928caf18a22b84014",
                         "widgetType": "pivot",
-                        "name": "Registrations",
-                        "rows":["platform"],
-                        "cols":["date"],
-                        "measures": [
+                        "title": "Registrations",
+                        "rows":[
                             {
-                                "field": "new_users",
-                                "func": "sum"
+                                "dim": "platform",
+                                "aggregation": {
+                                    "type":"category"
+                                }
                             }
                         ],
+                        "cols":[
+                            {
+                                "dim": "date",
+                                "aggregation": {
+                                    "type":"date",
+                                    "date_type": "Day"
+                                }
+                            }
+                        ],
+                        "measures": ["users_count"],
                         "filterBy": "r",
                         "xAxis": {
                             "type": "date",

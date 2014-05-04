@@ -10,7 +10,14 @@ define(function (require) {
 
     // code
     var Model = BaseModel.extend({
-        url: config.server + 'widget.json'
+        url: config.server + 'widget.json',
+        defaults: {
+            widgetType: 'pie',
+            rows: [],
+            cols: [],
+            measures: [],
+            width: 6
+        }
     });
 
     return Model;

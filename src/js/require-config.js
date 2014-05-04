@@ -43,17 +43,14 @@
                 exports: 'topojson'
             },
             deparam: ['jquery'],
-            pivottable: {
-                deps: [
-                    'jquery'
-                ]
-            }
+            pivottable: ['jquery'],
+            select2: ['jquery']
         },
         paths: {
             jquery: dirs.bower + 'jquery/dist/jquery',
             pivottable: dirs.bower + 'pivottable/dist/pivot',
             bootstrap: dirs.bower + 'bootstrap/dist/js/bootstrap',
-            multiselect: dirs.bower + 'bootstrap-multiselect/js/bootstrap-multiselect',
+            select2: dirs.bower + 'select2/select2',
             underscore: dirs.bower + 'underscore/underscore',
             // underscore: dirs.bower + 'lodash/dist/lodash.underscore',
             drilldown: dirs.bower + 'jquery-drilldown/jquery.drilldown',

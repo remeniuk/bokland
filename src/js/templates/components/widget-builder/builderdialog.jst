@@ -2,98 +2,66 @@
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     <h4 class="modal-title">Widget Builder</h4>
 </div>
-
+<% var vizRules     = rules.formRules[model.widgetType],
+       widgetTypes  = rules.widgetTypes,
+       widgetWidths = rules.widgetWidths;
+%>
 <div class="modal-body">
     <form role="form" class="form-horizontal">
         <div class="form-group">
-            <label for="widget-name" class="col-sm-2 control-label">Title</label>
+            <label for="widget-title" class="col-sm-2 control-label">Title</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="widget-name" name="name" value="<%= model.name %>">
+                <input type="text" class="form-control" id="widget-title" name="title" value="<%= model.title %>">
             </div>
         </div>
         <div class="form-group">
-            <label for="widget-cube" class="col-sm-2 control-label">On cube</label>
+            <label for="widget-type" class="col-sm-2 control-label">Type</label>
             <div class="col-sm-10">
-                <select class="form-control" id="widget-cube">
-                    <% _.each(cubes, function(cube) { %>
-                    <option value="<%= cube.id %>" <% if(cubeMeta.id == cube.id) { %>
+                <select class="form-control" id="widget-type">
+                    <% _.each(widgetTypes, function(type) { %>
+                    <option value="<%= type.id %>" <% if(model.widgetType == type.id) { %>
                     selected
-                    <% } %>><%= cube.name %></option>
+                    <% } %>><%= type.name %></option>
                     <% }); %>
                 </select>
             </div>
         </div>
-        <div class="cube-dependent">
-            <div class="form-group">
-                <label for="widget-type" class="col-sm-2 control-label">Type</label>
-                <div class="col-sm-10">
-                    <select class="form-control" id="widget-type">
-                        <% _.each(widgetTypes, function(type) { %>
-                        <option value="<%= type.id %>" <% if(model.widgetType == type.id) { %>
-                        selected
-                        <% } %>><%= type.name %></option>
-                        <% }); %>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group" id="widget-rows-group">
-                <label for="widget-rows" class="col-sm-2 control-label">Row</label>
-                <div class="col-sm-10">
-                    <select class="form-control" id="widget-rows">
-                        <% _.each(cubeMeta.dimensions, function(dim) { %>
-                        <option value="<%= dim.id %>" <% if(model.rows && model.rows[0] == dim.id) { %>
-                        selected
-                        <% } %>><%= dim.name %></option>
-                        <% }); %>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group" id="widget-cols-group">
-                <label for="widget-cols" class="col-sm-2 control-label">Column</label>
-                <div class="col-sm-10">
-                    <select class="form-control" id="widget-cols">
-                        <% _.each(cubeMeta.dimensions, function(dim) { %>
-                        <option value="<%= dim.id %>" <% if(model.cols && model.cols[0] == dim.id) { %>
-                        selected
-                        <% } %>><%= dim.name %></option>
-                        <% }); %>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="widget-measures" class="col-sm-2 control-label">Measure</label>
 
-                <div class="col-sm-3">
-                    <select class="form-control" id="widget-measures-func">
-                        <% _.each(measureFuncs, function(func) { %>
-                        <option value="<%= func.id %>" <% if(model.measures && model.measures[0].func == func.id) { %>
-                        selected
-                        <% } %>><%= func.name %></option>
-                        <% }); %>
-                    </select>
-                </div>
+        <% if(vizRules.rows.show) { %>
+            <%= tplDim({label: 'Rows', type: 'rows', dims: model.rows, aggregations: rules.aggregations, vizRules: vizRules, cubeMeta: cubeMeta}) %>
+        <% } %>
 
-                <div class="col-sm-7">
-                    <select class="form-control" id="widget-measures">
-                        <% _.each(cubeMeta.measures, function(msr) { %>
-                        <option value="<%= msr.id %>" <% if(model.measures && model.measures[0].field == msr.id) { %>
-                        selected
-                        <% } %>><%= msr.name %></option>
+        <% if(vizRules.cols.show) { %>
+            <%= tplDim({label: 'Columns', type: 'cols', dims: model.cols, aggregations: rules.aggregations, vizRules: vizRules, cubeMeta: cubeMeta}) %>
+        <% } %>
+
+        <div class="form-group">
+            <label for="widget-measures" class="col-sm-2 control-label">Measures</label>
+
+            <div class="col-sm-10">
+                <select class="form-control widget-measures" multiple="multiple" id="widget-measures">
+                    <% _.each(cubeMeta.measures, function(group){ %>
+                    <optgroup label="<%= group.category %>">
+                        <% _.each(group.items, function(msr) { %>
+                          <option value="<%= msr.id %>" <% if(model.measures && _.contains(model.measures, function(m){ return m === msr.id })) { %>
+                            selected
+                          <% } %>><%= msr.name %></option>
                         <% }); %>
-                    </select>
-                </div>
+                    </optgroup>
+                    <% }); %>
+                </select>
             </div>
-            <div class="form-group">
-                <label for="widget-width" class="col-sm-2 control-label">Width</label>
-                <div class="col-sm-10">
-                    <select class="form-control" id="widget-width">
-                        <% _.each(widgetWidths, function(width) { %>
-                        <option value="<%= width %>" <% if(model.width == width) { %>
-                        selected
-                        <% } %>><%= width %></option>
-                        <% }); %>
-                    </select>
-                </div>
+        </div>
+        <div class="form-group">
+            <label for="widget-width" class="col-sm-2 control-label">Width</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="widget-width">
+                    <% _.each(widgetWidths, function(width) { %>
+                    <option value="<%= width %>" <% if(model.width == width) { %>
+                    selected
+                    <% } %>><%= width %></option>
+                    <% }); %>
+                </select>
             </div>
         </div>
     </form>

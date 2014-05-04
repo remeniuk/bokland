@@ -2,17 +2,26 @@
     "status": 200,
     "data": {
         "id": "02983098hq230f479813h04",
-        "cubeId": "701829370419823",
         "widgetType": "pivot",
-        "name": "Revenue (Gender by Country)",
-        "rows":["gender"],
-        "cols":["country"],
-        "measures": [
+        "title": "Revenue (Gender by Country)",
+        "rows":[
             {
-                "field": "dau",
-                "func": "count"
+                "dim": "gender",
+                "aggregation": {
+                    "type":"category"
+                }
             }
         ],
+        "cols":[
+            {
+                "dim": "date",
+                "aggregation": {
+                    "type":"date",
+                    "date_type":"Day"
+                }
+            }
+        ],
+        "measures": ["rpu", "unique_users"],
         "filterBy": "",
         "xAxis": {
             "type": "",

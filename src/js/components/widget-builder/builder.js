@@ -3,73 +3,80 @@ define(function (require) {
     'use strict';
 
     // imports
-    var $ = require('jquery'),
-        _ = require('underscore'),
-        bootstrap = require('bootstrap'),
-        BaseView = require('libs/view'),
+    var $           = require('jquery'),
+        _           = require('underscore'),
+        bootstrap   = require('bootstrap'),
+        select2     = require('select2'),
+        BaseView    = require('libs/view'),
         WidgetModel = require('modules/dashboard/models/widget'),
-        WidgetData = require('modules/dashboard/models/series'),
-        RowModel = require('modules/dashboard/models/row'),
-        templates = require('templates/templates');
+        RulesModel  = require('components/widget-builder/model/rules'),
+        templates   = require('templates/templates');
 
     // code
     var View = BaseView.extend({
         template: templates['components/widget-builder/builderdialog'],
-
-        widgetTypes: [
-            { 'id': 'pivot', 'name': 'Pivot'},
-            { 'id': 'row', 'name': 'Row chart'},
-            { 'id': 'line', 'name': 'Line chart'},
-            { 'id': 'bar', 'name': 'Bar chart'},
-            { 'id': 'area', 'name': 'Area chart'},
-            { 'id': 'pie', 'name': 'Pie chart'}
-        ],
-
-        widgetWidths: [
-            1,2,3,4,5,6,7,8,9,10,11,12
-        ],
-
-        measureFuncs: [
-            { 'id': 'sum', 'name': 'SUM()'},
-            { 'id': 'avg', 'name': 'AVG()'},
-            { 'id': 'count', 'name': 'COUNT()'}
-        ],
+        tplDim: templates['components/widget-builder/dimension'],
 
         elementsUI: {
             'dialog': '#widget-builder',
-            'cubeselect': '#widget-cube',
-            'widgetname': '#widget-name',
+            'widgettitle': '#widget-title',
             'widgettype': '#widget-type',
-            'widgetrows': '#widget-rows',
-            'widgetcols': '#widget-cols',
-            'widgetmeasuresfield': '#widget-measures',
-            'widgetmeasuresfunc': '#widget-measures-func',
-            'widgetcolsgroup': '#widget-cols-group',
+            'widgetrows': '.widget-rows',
+            'widgetcols': '.widget-cols',
+            'widgetmeasures': '.widget-measures',
             'widgetwidth': '#widget-width',
+            'dimensions': '.dimensions',
+            'btn-add-dim': '.btn-add-dim',
+            'btn-remove-dim': '.btn-remove-dim',
 
             'save': '.btn-widget-save'
         },
 
-        addNewWidgetMode: false,
-        cubeSelected: null,
-
         events: {
-            'change @ui.cubeselect': '_changeCube',
-            'change @ui.widgetname': '_changeName',
+            'change @ui.widgettitle': '_changeTitle',
             'change @ui.widgetwidth': '_changeWidth',
             'change @ui.widgettype': '_changeWidgetType',
+            'change @ui.widgetmeasures': '_changeWidgetMeasures',
+            'change @ui.dimensions': '_changeDimension',
+            'click @ui.btn-add-dim': '_addDimension',
+            'click @ui.btn-remove-dim': '_removeDimension',
             'click @ui.save': '_saveWidget'
         },
+
+        addNewWidgetMode: false,
+        rules: null,
 
         initialize: function (options) {
             var _this = this;
 
-            _this.widgetModel = options.widgetModel;
-            _this.rowModel = options.rowModel;
+            _this.stopListening();
 
-            _this.cubes = options.cubes;
+            _this.cube = options.cube;
             _this.dashboard = options.dashboard;
             _this.dashboardData = options.dashboardData;
+
+            _this._initBuilder(options);
+
+            _this.rules = new RulesModel();
+            _this.rules.fetch();
+            _this.listenToOnce(_this.rules, 'sync', _this.redraw);
+        },
+
+        reinit: function (options) {
+            var _this = this;
+
+            _this._initBuilder(options);
+
+            _this.redraw();
+        },
+
+        _initBuilder: function (options) {
+            var _this = this;
+
+            _this.stopListening();
+
+            _this.widgetModel = options.widgetModel;
+            _this.rowModel = options.rowModel;
 
             if(!_this.widgetModel) {
                 _this.widgetModel = new WidgetModel();
@@ -80,47 +87,32 @@ define(function (require) {
             console.log('init builder [widgetID: '+_this.widgetModel.get('id')+']');
 
             _this.listenToOnce(_this.widgetModel, 'sync', _this._onSave);
-
-            if(_this.widgetModel.get('cubeId')) {
-                _this.cubeSelected = _this.cubes.get(_this.widgetModel.get('cubeId'));
-            } else {
-                _this.cubeSelected = _this.cubes.at(0);
-                _this.widgetModel.set('cubeId', _this.cubeSelected.get('id'))
-            }
-
-            _this.redraw();
         },
 
         redraw: function () {
             var _this = this;
 
             _this.$el.html(_this.template({
-                cubes: _this.cubes.toJSON(),
-                cubeMeta: _this.cubeSelected.toJSON(),
-                widgetTypes: _this.widgetTypes,
-                widgetWidths: _this.widgetWidths,
-                measureFuncs: _this.measureFuncs,
-                model: _this.widgetModel.toJSON()
+                cubeMeta: _this.cube.toJSON(),
+                rules: _this.rules.toJSON(),
+                model: _this.widgetModel.toJSON(),
+                tplDim: _this.tplDim
             }));
             _this.bindUI();
 
-            this._changeWidgetType();
+            var currentWidgetType = _this.widgetModel.get('widgetType') || _this.rules.get('widgetTypes')[0].id;
+            var maxMeasures = _this.rules.get('formRules')[currentWidgetType].measures.max;
+
+            _this.ui.$widgetmeasures.val(_this.widgetModel.get('measures')).select2({
+                maximumSelectionSize: maxMeasures
+            });
 
             return _this;
         },
 
-        _changeCube: function(){
-            var _this = this,
-                cubeId = _this.ui.$cubeselect.find(':selected').val();
-
-            _this.widgetModel.set('cubeId', cubeId);
-            _this.cubeSelected = _this.cubes.get(cubeId);
-            _this.redraw()
-        },
-
-        _changeName: function(){
+        _changeTitle: function(){
             var _this = this;
-            _this.widgetModel.set('name', _this.ui.$widgetname.val());
+            _this.widgetModel.set('title', _this.ui.$widgettitle.val());
         },
 
         _changeWidth: function(){
@@ -130,43 +122,81 @@ define(function (require) {
 
         _changeWidgetType: function(){
             var _this = this,
-                type = _this.ui.$widgettype.find(':selected').val();
+                type = _this.ui.$widgettype.find(':selected').val(),
+                measures = (_this.ui.$widgetmeasures.val() || []).slice(0,1);
 
-            _this.widgetModel.set('widgetType', type);
+            _this.widgetModel.set({ widgetType: type, rows: [], cols: [], measures: measures });
 
-            if(_this._hasCols(type)) {
-                _this.ui.$widgetcolsgroup.show();
-            } else {
-                _this.ui.$widgetcolsgroup.hide()
-            }
+            _this.redraw();
+        },
+
+        _changeWidgetMeasures: function(){
+            var _this = this,
+                measures = _this.ui.$widgetmeasures.val();
+
+            _this.widgetModel.set('measures', measures);
+
+            _this.redraw();
+        },
+
+        _changeDimension: function(e){
+            var _this = this,
+                $el = $(e.target),
+                dimType = $el.data("dim-type"),
+                dimIndex = $el.data("index"),
+                dims = _this.widgetModel.get(dimType);
+
+            dims[dimIndex] = { dim: $el.find(':selected').val() };
+
+            _this.redraw();
+        },
+
+        _addDimension: function(e) {
+            var _this = this,
+                $el = $(e.target).closest(".dim-row").find('.dimensions'),
+                dimType = $el.data("dim-type"),
+                dims = _this.widgetModel.get(dimType);
+
+            dims.push({ dim: '' });
+
+            _this.redraw();
+        },
+
+        _removeDimension: function(e) {
+            var _this = this,
+                $el = $(e.target).closest(".dim-row").find('.dimensions'),
+                dimType = $el.data("dim-type"),
+                dimIndex = $el.data("index"),
+                dims = _this.widgetModel.get(dimType);
+
+            dims.splice(dimIndex, 1);
+
+            _this.redraw();
         },
 
         _saveWidget: function() {
             var _this = this,
                 widgetId = _this.widgetModel.get('id'),
                 type = _this.ui.$widgettype.find(':selected').val(),
-                selectedRow = _this.ui.$widgetrows.find(':selected').val(),
-                selectedCol = _this.ui.$widgetcols.find(':selected').val(),
-                selectedMeasure = {
-                    field: _this.ui.$widgetmeasuresfield.find(':selected').val(),
-                    fund: _this.ui.$widgetmeasuresfunc.find(':selected').val()
-                };
+                selectedRows = _this.ui.$widgetrows ? _.map(_this.ui.$widgetrows, _this._collectDimForm) : [],
+                selectedCols = _this.ui.$widgetcols ? _.map(_this.ui.$widgetcols, _this._collectDimForm) : [],
+                selectedMeasures = _this.ui.$widgetmeasures.val();
 
             _this.widgetModel.set({
                 filterBy: '',
                 xAxis: {
                     type: '',
                     format: '',
-                    label: _this._hasCols(type) ? selectedCol : ''
+                    label: 'col label'
                 },
                 yAxis: {
                     type: '',
                     format: '',
-                    label: selectedRow
+                    label: 'row label'
                 },
-                rows: [selectedRow],
-                measures: [selectedMeasure],
-                cols: _this._hasCols(type) ? [selectedCol] : []
+                rows: selectedRows,
+                measures: selectedMeasures,
+                cols: selectedCols
             });
 
             //TODO _this.widgetModel.save();
@@ -195,11 +225,17 @@ define(function (require) {
             }
         },
 
-
-        _hasCols: function(type) {
-            return !(type === 'pie' || type === 'row' || type === 'bar');
+        _collectDimForm: function(row){
+            var $row = $(row),
+                $parent = $(row).closest('.dim-row'),
+                dim = $(row).find(':selected').val(),
+                aggType = $parent.find('.dim-agg-type').find(':selected').val(),
+                aggParam = $parent.find('.dim-agg-param').find(':selected').val() ||
+                    $parent.find('.dim-agg-param').val(),
+                rowMeta = { dim: dim, aggregation: { type: aggType}};
+            if(aggType === 'date') rowMeta.aggregation.date_type = aggParam;
+            return rowMeta;
         }
-
 
     });
 

@@ -1,0 +1,128 @@
+{
+    "status": 200,
+    "data": {
+        "widgetTypes": [
+            { "id": "pie", "name": "Pie chart"},
+            { "id": "row", "name": "Row chart"},
+            { "id": "bar", "name": "Bar chart"},
+            { "id": "line", "name": "Line chart"},
+            { "id": "area", "name": "Area chart"},
+            { "id": "pivot", "name": "Pivot"}
+        ],
+
+        "widgetWidths": [
+            1,2,3,4,5,6,7,8,9,10,11,12
+        ],
+
+        "aggregations": [
+            {
+                "name": "Histogram",
+                "type": "histogram",
+                "forDataTypes": ["date", "number"],
+                "params": {
+                    "date": {
+                        "type": "enum",
+                        "options": ["year", "quarter", "month", "week", "day"]
+                    },
+                    "number": {
+                        "type": "discrete"
+                    }
+                }
+            },
+            {
+                "name": "Category",
+                "type": "category",
+                "forDataTypes": ["string"]
+            }
+        ],
+
+        "formRules": {
+            "pie": {
+                "rows": {
+                    "show": true,
+                    "min": 1,
+                    "max": 1
+                },
+                "cols": {
+                    "show": false
+                },
+                "measures": {
+                    "max": 1
+                }
+            },
+            "row": {
+                "rows": {
+                    "show": true,
+                    "min": 1,
+                    "max": 2
+                },
+                "cols": {
+                    "show": false
+                },
+                "measures": {
+                    "max": 1
+                }
+            },
+            "bar": {
+                "rows": {
+                    "show": false
+                },
+                "cols": {
+                    "show": true,
+                    "min": 1,
+                    "max": 2
+                },
+                "measures": {
+                    "max": 1
+                }
+            },
+            "line": {
+                "rows": {
+                    "show": true,
+                    "min": 1,
+                    "max": 1
+                },
+                "cols": {
+                    "show": true,
+                    "min": 1,
+                    "max": 1,
+                    "allowedTypes": ["date"]
+                },
+                "measures": {
+                    "max": 1
+                }
+            },
+            "area": {
+                "rows": {
+                    "show": true,
+                    "min": 1,
+                    "max": 1
+                },
+                "cols": {
+                    "show": true,
+                    "min": 1,
+                    "max": 1,
+                    "allowedTypes": ["date"]
+                },
+                "measures": {
+                    "max": 1
+                }
+            },
+            "pivot": {
+                "rows": {
+                    "show": true,
+                    "min": 0,
+                    "max": 100
+                },
+                "cols": {
+                    "show": true,
+                    "min": 1,
+                    "max": 100
+                },
+                "measures": {
+                    "max": 100
+                }
+            }
+        }
+    }
+}

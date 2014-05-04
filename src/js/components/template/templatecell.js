@@ -3,43 +3,50 @@ define(function (require) {
     'use strict';
 
     // imports
-    var $ = require('jquery'),
-        _ = require('underscore'),
-        BaseView = require('libs/view'),
-        NvBarChartWidget = require('components/widget-stats/nvbarchart'),
-        NvRowChartWidget = require('components/widget-stats/nvrowchart'),
-        NvAreaChartWidget = require('components/widget-stats/nvareachart'),
-        NvPieChartWidget = require('components/widget-stats/nvpiechart'),
-        NvLineChartWidget = require('components/widget-stats/nvlinechart'),
-        PivotWidget = require('components/widget-stats/pivot'),
-        WidgetModel = require('modules/dashboard/models/widget'),
-        WidgetData = require('modules/dashboard/models/series'),
-        templates = require('templates/templates');
+    var $                   = require('jquery'),
+        _                   = require('underscore'),
+        BaseView            = require('libs/view'),
+        NvBarChartWidget    = require('components/widget-stats/nvbarchart'),
+        NvRowChartWidget    = require('components/widget-stats/nvrowchart'),
+        NvAreaChartWidget   = require('components/widget-stats/nvareachart'),
+        NvPieChartWidget    = require('components/widget-stats/nvpiechart'),
+        NvLineChartWidget   = require('components/widget-stats/nvlinechart'),
+        PivotWidget         = require('components/widget-stats/pivot'),
+        WidgetData          = require('modules/dashboard/models/series'),
+        templates           = require('templates/templates');
 
     // code
     var View = BaseView.extend({
         template: templates['components/template/cell'],
 
+        activeVeiew: null,
+
         initialize: function (options) {
             var _this = this;
 
             _this.widget = options.widget;
-            _this.widgetModel = options.widgetModel; //new WidgetModel(_this.widget);
+            _this.widgetModel = options.widgetModel;
             _this.height = options.height;
             _this.dashboardMetaModel = options.dashboardMetaModel;
             _this.widgetBuilderView = options.widgetBuilderView;
             _this.rowNum = options.rowNum;
             _this.rowModel = options.rowModel;
-            _this.cubes = options.cubes;
+            _this.cube = options.cube;
 
-            _this.listenTo(_this.widgetModel, 'updateWidget', _this._onWidgetUpdated, _this)
+            _this.listenTo(_this.widgetModel, 'updateWidget', _this._onWidgetUpdated)
         },
 
         render: function () {
             var _this = this;
 
             _this.$el.html(_this.template(_this.widget));
-            _this.region('widget').show(_this._widgetFactory(_this.widget));
+
+            if(_this.activeVeiew) {
+                _this.activeVeiew.stopListening();
+                _this.activeVeiew.remove();
+            }
+            _this.activeVeiew = _this._widgetFactory(_this.widget);
+            _this.region('widget').show(_this.activeVeiew);
 
             return _this;
         },
@@ -50,12 +57,12 @@ define(function (require) {
                 collection: _this.collection,
                 dashboardMetaModel: _this.dashboardMetaModel,
                 widgetBuilderView: _this.widgetBuilderView,
-                cubes: _this.cubes,
+                cube: _this.cube,
                 rowModel: _this.rowModel,
                 widgetModel: _this.widgetModel,
                 name: widget.id,
                 state: _this.state.ref(widget.filterBy),
-                title: widget.name,
+                title: widget.title,
                 height: _this.height,
                 xAxis: widget.xAxis,
                 yAxis: widget.yAxis

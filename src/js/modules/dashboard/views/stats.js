@@ -3,17 +3,17 @@ define(function (require) {
     'use strict';
 
     // imports
-    var $ = require('jquery'),
-        _ = require('underscore'),
-        bootstrap = require('bootstrap'),
-        BaseView = require('libs/view'),
-        FilterWidget = require('components/filter/filterwidget'),
-        TemplateMetaModel = require('modules/dashboard/models/templatemeta'),
-        TemplateRow = require('components/template/templaterow'),
-        AddRowDialog = require('components/template/addrow'),
-        CubesCollection   = require('modules/dashboard/collections/cubes'),
-        WidgetBuilder = require('components/widget-builder/builder'),
-        templates = require('templates/templates');
+    var $                   = require('jquery'),
+        _                   = require('underscore'),
+        bootstrap           = require('bootstrap'),
+        BaseView            = require('libs/view'),
+        FilterWidget        = require('components/filter/filterwidget'),
+        TemplateMetaModel   = require('modules/dashboard/models/templatemeta'),
+        TemplateRow         = require('components/template/templaterow'),
+        AddRowDialog        = require('components/template/addrow'),
+        CubeModel           = require('../models/cube'),
+        WidgetBuilder       = require('components/widget-builder/builder'),
+        templates           = require('templates/templates');
 
 
     // code
@@ -41,15 +41,15 @@ define(function (require) {
             _this.metaModel.set('id', options.id);
 
 
-            _this.cubes = new CubesCollection([]);
+            _this.cube = new CubeModel();
 
             _this.listenTo(_this.metaModel, 'sync', _this.redraw);
             _this.listenTo(_this.metaModel, 'rowadded', _this._addRow);
 
-            _this.cubes.fetch();
+            _this.cube.fetch();
             _this.metaModel.fetch();
 
-            _this.listenTo(_this.cubes, 'sync', _this._cubesLoaded);
+            _this.listenTo(_this.cube, 'sync', _this._cubeLoaded);
         },
 
         render: function () {
@@ -89,7 +89,7 @@ define(function (require) {
 
             var rowElement = new TemplateRow({
                 metaModel: _this.metaModel,
-                cubes: _this.cubes,
+                cube: _this.cube,
                 rowNum: rowInd,
                 rowMeta: _this.metaModel.get('rows')[rowInd],
                 collection: _this.collection,
@@ -101,11 +101,11 @@ define(function (require) {
             rowElement.render();
         },
 
-        _cubesLoaded: function(){
+        _cubeLoaded: function(){
             var _this = this;
 
             _this.widgetBilderView = new WidgetBuilder({
-                cubes: _this.cubes,
+                cube: _this.cube,
                 dashboard: _this.metaModel,
                 dashboardData: _this.collection
             });

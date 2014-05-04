@@ -33,6 +33,6 @@
     "bootstrap": "~3.1.1",
     "jquery-drilldown": "~0.1.4",
     "pivottable": "~1.1.1",
-    "bootstrap-multiselect": "~0.9.4"
+    "select2": "~3.4.8"
   }
 }

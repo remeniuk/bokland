@@ -3,10 +3,10 @@ define(function (require) {
     'use strict';
 
     // imports
-    var $ = require('jquery'),
-        d3 = require('d3'),
-        _ = require('underscore'),
-        BaseView = require('libs/view'),
+    var $         = require('jquery'),
+        d3        = require('d3'),
+        _         = require('underscore'),
+        BaseView  = require('libs/view'),
         templates = require('templates/templates');
 
 
@@ -42,7 +42,7 @@ define(function (require) {
             _this.dashboardMetaModel = options.dashboardMetaModel;
             _this.widgetBuilderView = options.widgetBuilderView;
             _this.rowModel = options.rowModel;
-            _this.cubes = options.cubes;
+            _this.cube = options.cube;
             _this.widgetModel = options.widgetModel;
 
             _this._data = null;
@@ -76,7 +76,7 @@ define(function (require) {
                     filter = _this.state.get('_');
 
                 if (data) {
-                    console.log("redrawing widget:");
+                    console.log("redrawing widget " + _this.widgetModel.get('id'));
                     _this._data = data.get('data');
                     _this.redraw(_this._data, filter);
                 }
@@ -90,8 +90,6 @@ define(function (require) {
 
         render: function () {
             var _this = this;
-
-            console.log("WITGET RENDER ("+_this.name+")");
 
             _this.$el.html(_this.template({
                 name: _this.name,
@@ -122,12 +120,9 @@ define(function (require) {
         editWidget: function () {
             var _this = this;
 
-            _this.widgetBuilderView.initialize({
-                cubes: _this.cubes,
+            _this.widgetBuilderView.reinit({
                 widgetModel: _this.widgetModel,
-                rowModel: _this.rowModel,
-                dashboard: _this.dashboardMetaModel,
-                dashboardData: _this.collection
+                rowModel: _this.rowModel
             });
         },
 

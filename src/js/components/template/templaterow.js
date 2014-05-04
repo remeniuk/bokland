@@ -3,14 +3,14 @@ define(function (require) {
     'use strict';
 
     // imports
-    var $ = require('jquery'),
-        _ = require('underscore'),
-        BaseView = require('libs/view'),
-        TemplateCell = require('components/template/templatecell'),
-        WidgetModel = require('modules/dashboard/models/widget'),
-        WidgetData = require('modules/dashboard/models/series'),
-        RowModel = require('modules/dashboard/models/row'),
-        templates = require('templates/templates');
+    var $               = require('jquery'),
+        _               = require('underscore'),
+        BaseView        = require('libs/view'),
+        TemplateCell    = require('components/template/templatecell'),
+        WidgetModel     = require('modules/dashboard/models/widget'),
+        WidgetData      = require('modules/dashboard/models/series'),
+        RowModel        = require('modules/dashboard/models/row'),
+        templates       = require('templates/templates');
 
     // code
     var View = BaseView.extend({
@@ -32,7 +32,7 @@ define(function (require) {
             _this.rowNum = options.rowNum;
             _this.rowModel = _.isUndefined(options.rowMeta) ? new RowModel() : new RowModel(options.rowMeta);
             _this.metaModel = options.metaModel;
-            _this.cubes = options.cubes;
+            _this.cube = options.cube;
             _this.collection = options.collection;
             _this.builderView = options.builderView;
 
@@ -61,7 +61,7 @@ define(function (require) {
                 dashboardMetaModel: _this.metaModel,
                 collection: _this.collection,
                 widgetBuilderView: _this.builderView,
-                cubes: _this.cubes,
+                cube: _this.cube,
                 rowNum: _this.rowNum,
                 rowModel: _this.rowModel
             });
@@ -76,12 +76,9 @@ define(function (require) {
         _addWidget: function () {
             var _this = this;
 
-            _this.builderView.initialize({
-                cubes: _this.cubes,
+            _this.builderView.reinit({
                 widgetModel: new WidgetModel(),
-                rowModel: _this.rowModel,
-                dashboard: _this.metaModel,
-                dashboardData: _this.collection
+                rowModel: _this.rowModel
             });
         },
 
