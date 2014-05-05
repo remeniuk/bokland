@@ -26,6 +26,8 @@ define(function (require) {
             'dashboardTitle': '[data-region=title]'
         },
 
+        widgetBilderView: null,
+
         initialize: function (options) {
             var _this = this;
 

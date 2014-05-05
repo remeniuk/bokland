@@ -120,10 +120,12 @@ define(function (require) {
         editWidget: function () {
             var _this = this;
 
-            _this.widgetBuilderView.reinit({
-                widgetModel: _this.widgetModel,
-                rowModel: _this.rowModel
-            });
+            if(_this.widgetBuilderView) {
+                _this.widgetBuilderView.reinit({
+                    widgetModel: _this.widgetModel,
+                    rowModel: _this.rowModel
+                });
+            }
         },
 
         removeWidget: function () {

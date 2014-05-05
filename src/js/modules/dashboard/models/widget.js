@@ -13,6 +13,17 @@ define(function (require) {
         url: config.server + 'widget.json',
         defaults: {
             widgetType: 'pie',
+            filterBy: '',
+            xAxis: {
+                type: '',
+                format: '',
+                label: ''
+            },
+            yAxis: {
+                type: '',
+                format: '',
+                label: ''
+            },
             rows: [],
             cols: [],
             measures: [],

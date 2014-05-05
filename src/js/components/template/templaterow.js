@@ -76,10 +76,12 @@ define(function (require) {
         _addWidget: function () {
             var _this = this;
 
-            _this.builderView.reinit({
-                widgetModel: new WidgetModel(),
-                rowModel: _this.rowModel
-            });
+            if(_this.builderView) {
+                _this.builderView.reinit({
+                    widgetModel: new WidgetModel(),
+                    rowModel: _this.rowModel
+                });
+            }
         },
 
         _removeRow: function () {

@@ -197,7 +197,7 @@
                         "id": "5246a3f928caf18a22b84014",
                         "widgetType": "pivot",
                         "title": "Registrations",
-                        "rows":[
+                        "cols":[
                             {
                                 "dim": "platform",
                                 "aggregation": {
@@ -205,7 +205,7 @@
                                 }
                             }
                         ],
-                        "cols":[
+                        "rows":[
                             {
                                 "dim": "date",
                                 "aggregation": {
