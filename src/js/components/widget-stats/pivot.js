@@ -24,33 +24,33 @@ define(function (require) {
         redraw: function (data, filter) {
             var _this = this;
 
+            var rows = _.map(_this.widgetModel.get("rows"), function(r){ return r.dimension.fieldName; });
+            var cols = _.map(_this.widgetModel.get("cols"), function(r){ return r.dimension.fieldName; })
+
+            var rowLabels = _.map(rows, function(row) { return _this.cube.dimensionLabel(row); });
+            var colLabels = _.map(cols, function(col) { return _this.cube.dimensionLabel(col); });
+
             var values = _.map(data, function (d) {
-                return _.map(d[1], function (d) {
-                    var tuple = {};
-
-                    var isDefined = function (value) {
-                        return !_.isUndefined(value) && value !== '';
-                    };
-
-                    tuple[_this.options.xAxis.label] =
-                        isDefined(_this.options.xAxis.format) ? _this._formatterFactory(_this.options.xAxis)(d[0]) : d[0];
-                    tuple[_this.options.yAxis.label] =
-                        isDefined(_this.options.yAxis.format) ? _this._formatterFactory(_this.options.yAxis)(d[1]) : d[1];
-
-                    tuple.value = d[2];
-                    return tuple;
+                _.each(rows, function(row) {
+                    d[_this.cube.dimensionLabel(row)] = _this.cube.dimensionValueLabel(row, d[row]);
                 });
+
+                _.each(cols, function(col) {
+                    d[_this.cube.dimensionLabel(col)] = _this.cube.dimensionValueLabel(col, d[col]);
+                });
+
+                return d;
             });
 
             var meta = {
-                rows: [_this.options.xAxis.label],
-                cols: [_this.options.yAxis.label],
-                aggregator: $.pivotUtilities.aggregators.sum(['value'])
+                rows: rowLabels,
+                cols: colLabels,
+                aggregator: $.pivotUtilities.aggregators.sum(_this.widgetModel.get("measures"))
             };
 
             var chartRegionSelector = '[name="' + _this.name + '"] [data-region=chart]';
 
-            $(chartRegionSelector).pivot(values[0], meta);
+            $(chartRegionSelector).pivot(values, meta);
 
             return _this;
         }

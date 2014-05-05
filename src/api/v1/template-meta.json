@@ -37,9 +37,9 @@
                     },
                     {
                         "id": "5246a97028caf18a22bcdf80",
-                        "widgetType": "bar",
+                        "widgetType": "row",
                         "title": "Countries",
-                        "cols":[
+                        "rows":[
                             {
                                 "dimension": {
                                     "fieldName": "country"
@@ -49,7 +49,7 @@
                                 }
                             }
                         ],
-                        "rows":[],
+                        "cols":[],
                         "measures": ["users_count"],
                         "filterBy": "c",
                         "xAxis": {
@@ -144,6 +144,14 @@
                             {
                                 "dimension": {
                                     "fieldName": "source"
+                                },
+                                "aggregation": {
+                                    "type":"category"
+                                }
+                            },
+                            {
+                                "dimension": {
+                                    "fieldName": "gender"
                                 },
                                 "aggregation": {
                                     "type":"category"

@@ -3,9 +3,10 @@
     "data": {
         "dimensions": [
             {"id": "platform", "name": "Platform", "type": "string"},
-            {"id": "gender", "name": "Gender", "type": "string"},
-            {"id": "country", "name": "Country", "type": "string"},
-            {"id": "lang", "name": "Language", "type": "string"},
+            {"id": "gender", "name": "Gender", "type": "string", "dictionary": { "m": "Male", "f": "Female" } },
+            {"id": "country", "name": "Country", "type": "string", "dictionary": { "ru": "Russia", "us": "USA", "uk": "United Kingdom", "cn": "China" } },
+            {"id": "lang", "name": "Language", "type": "string" },
+            {"id": "source", "name": "Source", "type": "string", "dictionary": { "fb": "Facebook", "or": "Organic", "vk": "Vkontakte", "ok": "Odnoklassniki" } },
             {"id": "app_version", "name": "App version", "type": "string"},
             {"id": "os_version", "name": "OS version", "type": "string"},
             {"id": "age", "name": "Age", "type": "number"},

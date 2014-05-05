@@ -13,13 +13,17 @@ define(function (require) {
     var View = NvWidget.extend({
 
         parseData: function (data) {
+            var _this = this;
+
+            var rowName = _this.widgetModel.get("cols")[0].dimension.fieldName;
+            var measureName = _this.widgetModel.get("measures")[0];
+
             return [
                 {
                     values: _.map(data, function (d) {
                         return {
-                            id: d[0],
-                            value: d[1],
-                            label: d[2]
+                            value: d[measureName],
+                            label: _this.cube.dimensionValueLabel(rowName, d[rowName])
                         };
                     })
                 }

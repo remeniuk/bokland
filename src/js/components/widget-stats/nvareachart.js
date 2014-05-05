@@ -13,13 +13,32 @@ define(function (require) {
     var View = NvWidget.extend({
 
         parseData: function (data) {
-            return _.map(data, function (d) {
+            var _this = this;
+
+            var colName = _this.widgetModel.get("cols")[0].dimension.fieldName;
+            var seriesName = _this.widgetModel.get("rows")[0] ? _this.widgetModel.get("rows")[0].dimension.fieldName : undefined;
+
+            var measureName = _this.widgetModel.get("measures")[0];
+
+            function parseSeries(series, key) {
                 return {
-                    id: d[0],
-                    values: d[1],
-                    key: d[2]
-                };
-            });
+                    key: seriesName ? _this.cube.dimensionValueLabel(seriesName, key) : undefined,
+                    values: _.map(series, function (d) {
+                        return [d[colName], d[measureName]];
+                    })
+                }
+            }
+
+            if (seriesName) {
+                var series = _.groupBy(data, function (d) {
+                    return d[seriesName];
+                });
+                return _.map(series, function (value, key) {
+                    return parseSeries(value, key);
+                });
+            } else {
+                return [ parseSeries(data) ];
+            }
         },
 
         createChart: function () {
