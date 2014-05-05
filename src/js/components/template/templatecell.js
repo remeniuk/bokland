@@ -102,7 +102,7 @@ define(function (require) {
                 _this.render();
 
                 //_this.collection.trigger('sync');
-                _this.widgetModel.trigger("redrawWidget");
+                _this.widgetModel.trigger('redrawWidget');
             });
 
             widgetData.fetch()
