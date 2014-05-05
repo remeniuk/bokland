@@ -163,9 +163,9 @@ define(function (require) {
                 dimIndex = $el.data('index'),
                 dims = _this.widgetModel.get(dimType);
 
-            dims[dimIndex] = { dim: $el.find(':selected').val() };
+            dims[dimIndex] = { dimension: { fieldName: $el.find(':selected').val() } };
 
-            var dimDataType = _.findWhere(_this.cube.get('dimensions'),{id: dims[0].dim}) || {name:'', type: 'string'},
+            var dimDataType = _.findWhere(_this.cube.get('dimensions'),{id: dims[0].dimension.fieldName}) || {name:'', type: 'string'},
                 axis = dimType === 'rows' ? 'x' : 'y',
                 axisModel = _this.widgetModel.get(axis + 'Axis');
 
@@ -182,7 +182,7 @@ define(function (require) {
                 dimType = $el.data('dim-type'),
                 dims = _this.widgetModel.get(dimType);
 
-            dims.push({ dim: '' });
+            dims.push({ dimension: { fieldName: '' } });
 
             _this.redraw();
         },
@@ -247,7 +247,7 @@ define(function (require) {
                 aggType = $parent.find('.dim-agg-type').find(':selected').val(),
                 aggParam = $parent.find('.dim-agg-param').find(':selected').val() ||
                     $parent.find('.dim-agg-param').val(),
-                rowMeta = { dim: dim, aggregation: { type: aggType}};
+                rowMeta = { dimension: { fieldName: dim }, aggregation: { type: aggType}};
             if(aggType === 'date') rowMeta.aggregation.date_type = aggParam;
             return rowMeta;
         }

@@ -12,7 +12,9 @@
                         "title": "Platforms",
                         "cols":[
                             {
-                                "dim": "platform",
+                                "dimension": {
+                                    "fieldName": "platform"
+                                },
                                 "aggregation": {
                                     "type":"category"
                                 }
@@ -39,7 +41,9 @@
                         "title": "Countries",
                         "cols":[
                             {
-                                "dim": "country",
+                                "dimension": {
+                                    "fieldName": "country"
+                                },
                                 "aggregation": {
                                     "type":"category"
                                 }
@@ -66,7 +70,9 @@
                         "title": "Gender",
                         "rows":[
                             {
-                                "dim": "gender",
+                                "dimension": {
+                                    "fieldName": "gender"
+                                },
                                 "aggregation": {
                                     "type":"category"
                                 }
@@ -97,7 +103,9 @@
                         "title": "Revenue",
                         "rows":[
                             {
-                                "dim": "platform",
+                                "dimension": {
+                                    "fieldName": "platform"
+                                },
                                 "aggregation": {
                                     "type":"category"
                                 }
@@ -105,7 +113,9 @@
                         ],
                         "cols":[
                             {
-                                "dim": "date",
+                                "dimension": {
+                                    "fieldName": "date"
+                                },
                                 "aggregation": {
                                     "type":"date",
                                     "date_type": "Day"
@@ -132,7 +142,9 @@
                         "title": "Sources",
                         "rows":[
                             {
-                                "dim": "source",
+                                "dimension": {
+                                    "fieldName": "source"
+                                },
                                 "aggregation": {
                                     "type":"category"
                                 }
@@ -164,7 +176,9 @@
                         "title": "Registrations",
                         "rows":[
                             {
-                                "dim": "app_version",
+                                "dimension": {
+                                    "fieldName": "app_version"
+                                },
                                 "aggregation": {
                                     "type":"category"
                                 }
@@ -172,7 +186,9 @@
                         ],
                         "cols":[
                             {
-                                "dim": "date",
+                                "dimension": {
+                                    "fieldName": "date"
+                                },
                                 "aggregation": {
                                     "type":"date",
                                     "date_type": "Day"
@@ -199,7 +215,9 @@
                         "title": "Registrations",
                         "cols":[
                             {
-                                "dim": "platform",
+                                "dimension": {
+                                    "fieldName": "platform"
+                                },
                                 "aggregation": {
                                     "type":"category"
                                 }
@@ -207,7 +225,9 @@
                         ],
                         "rows":[
                             {
-                                "dim": "date",
+                                "dimension": {
+                                    "fieldName": "date"
+                                },
                                 "aggregation": {
                                     "type":"date",
                                     "date_type": "Day"

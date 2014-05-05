@@ -6,7 +6,9 @@
         "title": "Revenue (Gender by Country)",
         "rows":[
             {
-                "dim": "gender",
+                "dimension": {
+                    "fieldName": "gender"
+                },
                 "aggregation": {
                     "type":"category"
                 }
@@ -14,7 +16,9 @@
         ],
         "cols":[
             {
-                "dim": "date",
+                "dimension": {
+                    "fieldName": "date"
+                },
                 "aggregation": {
                     "type":"date",
                     "date_type":"Day"
