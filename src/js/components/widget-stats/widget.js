@@ -76,7 +76,7 @@ define(function (require) {
                     filter = _this.state.get('_');
 
                 if (data) {
-                    console.log("redrawing widget " + _this.widgetModel.get('id'));
+                    console.log('redrawing widget ' + _this.widgetModel.get('id'));
                     _this._data = data.get('data');
                     _this.redraw(_this._data, filter);
                 }

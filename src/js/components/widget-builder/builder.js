@@ -144,7 +144,7 @@ define(function (require) {
         _changeAxisInfo: function(e){
             var _this = this,
                 $axisInfo = $(e.target).closest('.axis-info'),
-                axisName = $axisInfo.data("axis"),
+                axisName = $axisInfo.data('axis'),
                 label = $axisInfo.find('.axis-label').val(),
                 type = $axisInfo.find('.axis-type').val(),
                 format = $axisInfo.find('.axis-format').val();
@@ -159,8 +159,8 @@ define(function (require) {
         _changeDimension: function(e){
             var _this = this,
                 $el = $(e.target),
-                dimType = $el.data("dim-type"),
-                dimIndex = $el.data("index"),
+                dimType = $el.data('dim-type'),
+                dimIndex = $el.data('index'),
                 dims = _this.widgetModel.get(dimType);
 
             dims[dimIndex] = { dim: $el.find(':selected').val() };
@@ -178,8 +178,8 @@ define(function (require) {
 
         _addDimension: function(e) {
             var _this = this,
-                $el = $(e.target).closest(".dim-row").find('.dimensions'),
-                dimType = $el.data("dim-type"),
+                $el = $(e.target).closest('.dim-row').find('.dimensions'),
+                dimType = $el.data('dim-type'),
                 dims = _this.widgetModel.get(dimType);
 
             dims.push({ dim: '' });
@@ -189,9 +189,9 @@ define(function (require) {
 
         _removeDimension: function(e) {
             var _this = this,
-                $el = $(e.target).closest(".dim-row").find('.dimensions'),
-                dimType = $el.data("dim-type"),
-                dimIndex = $el.data("index"),
+                $el = $(e.target).closest('.dim-row').find('.dimensions'),
+                dimType = $el.data('dim-type'),
+                dimIndex = $el.data('index'),
                 dims = _this.widgetModel.get(dimType);
 
             dims.splice(dimIndex, 1);
@@ -245,10 +245,14 @@ define(function (require) {
                 $parent = $(row).closest('.dim-row'),
                 dim = $(row).find(':selected').val(),
                 aggType = $parent.find('.dim-agg-type').find(':selected').val(),
-                aggParam = $parent.find('.dim-agg-param').find(':selected').val() ||
-                    $parent.find('.dim-agg-param').val(),
+                aggParam = $parent.find('.dim-agg-param').find(':selected').val() || $parent.find('.dim-agg-param').val(),
                 rowMeta = { dim: dim, aggregation: { type: aggType}};
-            if(aggType === 'date') rowMeta.aggregation.date_type = aggParam;
+
+            if (aggType === 'date') {
+                /* jshint camelcase:false */
+                rowMeta.aggregation.date_type = aggParam;
+                /* jshint camelcase:true */
+            }
             return rowMeta;
         }
 

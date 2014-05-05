@@ -104,10 +104,10 @@ define(function (require) {
                 _this.collection.push(widgetData);
                 var newWidgetModel = _this.addCell(widgetMeta);
                 //_this.collection.trigger('sync');
-                newWidgetModel.trigger("redrawWidget");
+                newWidgetModel.trigger('redrawWidget');
             });
 
-            widgetData.fetch()
+            widgetData.fetch();
         },
 
         _refreshMetaModel: function() {

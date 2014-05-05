@@ -33,7 +33,7 @@ define(function (require) {
             _this.rowModel = options.rowModel;
             _this.cube = options.cube;
 
-            _this.listenTo(_this.widgetModel, 'updateWidget', _this._onWidgetUpdated)
+            _this.listenTo(_this.widgetModel, 'updateWidget', _this._onWidgetUpdated);
         },
 
         render: function () {
@@ -102,10 +102,10 @@ define(function (require) {
                 _this.render();
 
                 //_this.collection.trigger('sync');
-                _this.widgetModel.trigger("redrawWidget");
+                _this.widgetModel.trigger('redrawWidget');
             });
 
-            widgetData.fetch()
+            widgetData.fetch();
         },
 
         _refreshMetaModel: function() {
