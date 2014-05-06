@@ -10,7 +10,7 @@
             {"id": "app_version", "name": "App version", "type": "string"},
             {"id": "os_version", "name": "OS version", "type": "string"},
             {"id": "age", "name": "Age", "type": "number"},
-            {"id": "date", "name": "Date", "type": "date"}
+            {"id": "date", "name": "Date", "type": "date", "format": "%x"}
         ],
         "measures": [
             {
@@ -28,13 +28,13 @@
                 "category": "Monetization",
                 "items": [
                     {"id": "active_paying_users", "name": "Active Paying Users"},
-                    {"id": "total_revenue", "name": "Revenue"},
+                    {"id": "total_revenue", "name": "Revenue", "format": "$"},
                     {"id": "purchase_count", "name": "Purchases Count"},
                     {"id": "payers_percent", "name": "Payers %"},
                     {"id": "purchases_per_users", "name": "Purchases Per User"},
-                    {"id": "revenue_per_payer", "name": "Revenue Per Payer"},
-                    {"id": "revenue_per_user", "name": "Revenue Per User"},
-                    {"id": "revenue_per_transaction", "name": "Revenue Per Transaction"}
+                    {"id": "revenue_per_payer", "name": "Revenue Per Payer", "format": "$"},
+                    {"id": "revenue_per_user", "name": "Revenue Per User", "format": "$"},
+                    {"id": "revenue_per_transaction", "name": "Revenue Per Transaction", "format": "$"}
                 ]
             }
         ]

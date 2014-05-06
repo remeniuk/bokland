@@ -107,7 +107,7 @@ define(function (require) {
                 newWidgetModel.trigger('redrawWidget');
             });
 
-            widgetData.fetch()
+            widgetData.fetch();
         },
 
         _refreshMetaModel: function() {

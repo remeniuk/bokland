@@ -150,14 +150,20 @@ define(function (require) {
             return _this;
         },
 
-        _formatterFactory: function (axis) {
-            switch (axis.type) {
+        _formatterFactory: function (type, format) {
+            switch (type) {
                 case 'date':
                     return function (d) {
-                        return d3.time.format(axis.format)(new Date(d));
+                        return d3.time.format(format)(new Date(d));
                     };
                 default:
-                    return d3.format(axis.format);
+                    if(format === '$') {
+                        return function (d){
+                            return '$' + d3.format(',.2f')(d);
+                        };
+                    } else {
+                        return format? d3.format(format) : function(d){ return d; };
+                    }
             }
         }
     });

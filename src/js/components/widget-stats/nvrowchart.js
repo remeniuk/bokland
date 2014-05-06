@@ -15,10 +15,10 @@ define(function (require) {
         parseData: function (data) {
             var _this = this;
 
-            var rowName = _this.widgetModel.get("rows")[0].dimension.fieldName;
-            var seriesName = _this.widgetModel.get("rows")[1] ? _this.widgetModel.get("rows")[1].dimension.fieldName : undefined;
+            var rowName = _this.widgetModel.get('rows')[0].dimension.fieldName;
+            var seriesName = _this.widgetModel.get('rows')[1] ? _this.widgetModel.get('rows')[1].dimension.fieldName : undefined;
 
-            var measureName = _this.widgetModel.get("measures")[0];
+            var measureName = _this.widgetModel.get('measures')[0];
 
             function parseSeries(series, key) {
                 return {
@@ -29,7 +29,7 @@ define(function (require) {
                             label: _this.cube.dimensionValueLabel(rowName, d[rowName])
                         };
                     })
-                }
+                };
             }
 
             if (seriesName) {

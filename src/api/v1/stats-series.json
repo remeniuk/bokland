@@ -115,17 +115,20 @@
                 {
                     "date": 1025409600000,
                     "platform": "iPad",
-                    "users_count": 100
+                    "total_revenue": 100,
+                    "users_count": 21
                 },
                 {
                     "date": 1028088000000,
                     "platform": "iPhone",
-                    "users_count": 200
+                    "total_revenue": 200,
+                    "users_count": 31
                 },
                 {
                     "date": 1030766400000,
                     "platform": "iPad",
-                    "users_count": 300
+                    "total_revenue": 300,
+                    "users_count": 89
                 }
             ]
         },

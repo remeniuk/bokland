@@ -24,8 +24,9 @@ define(function (require) {
         redraw: function (data, filter) {
             var _this = this;
 
-            var rows = _.map(_this.widgetModel.get("rows"), function(r){ return r.dimension.fieldName; });
-            var cols = _.map(_this.widgetModel.get("cols"), function(r){ return r.dimension.fieldName; })
+            var rows = _.map(_this.widgetModel.get('rows'), function(r){ return r.dimension.fieldName; });
+            var cols = _.map(_this.widgetModel.get('cols'), function(r){ return r.dimension.fieldName; });
+            var measures = _this.widgetModel.get('measures');
 
             var rowLabels = _.map(rows, function(row) { return _this.cube.dimensionLabel(row); });
             var colLabels = _.map(cols, function(col) { return _this.cube.dimensionLabel(col); });
@@ -45,7 +46,7 @@ define(function (require) {
             var meta = {
                 rows: rowLabels,
                 cols: colLabels,
-                aggregator: $.pivotUtilities.aggregators.sum(_this.widgetModel.get("measures"))
+                aggregator: $.pivotUtilities.aggregators.sum(measures)
             };
 
             var chartRegionSelector = '[name="' + _this.name + '"] [data-region=chart]';

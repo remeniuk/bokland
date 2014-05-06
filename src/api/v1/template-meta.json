@@ -23,16 +23,6 @@
                         "rows":[],
                         "measures": ["users_count"],
                         "filterBy": "p",
-                        "xAxis": {
-                            "type": "",
-                            "format": "",
-                            "label": ""
-                        },
-                        "yAxis": {
-                            "type": "",
-                            "format": "",
-                            "label": ""
-                        },
                         "width": 4
                     },
                     {
@@ -52,16 +42,6 @@
                         "cols":[],
                         "measures": ["users_count"],
                         "filterBy": "c",
-                        "xAxis": {
-                            "type": "",
-                            "format": "",
-                            "label": ""
-                        },
-                        "yAxis": {
-                            "type": "",
-                            "format": "",
-                            "label": ""
-                        },
                         "width": 4
                     },
                     {
@@ -81,16 +61,6 @@
                         "cols":[],
                         "measures": ["users_count"],
                         "filterBy": "g",
-                        "xAxis": {
-                            "type": "",
-                            "format": "",
-                            "label": ""
-                        },
-                        "yAxis": {
-                            "type": "",
-                            "format": "",
-                            "label": ""
-                        },
                         "width": 4
                     }
                 ]
@@ -124,16 +94,6 @@
                         ],
                         "measures": ["total_revenue"],
                         "filterBy": "p",
-                        "xAxis": {
-                            "type": "date",
-                            "format": "%x",
-                            "label": ""
-                        },
-                        "yAxis": {
-                            "type": "",
-                            "format": ",.2f",
-                            "label": ""
-                        },
                         "width": 6
                     },
                     {
@@ -161,16 +121,6 @@
                         "cols":[],
                         "measures": ["users_count"],
                         "filterBy": "s",
-                        "xAxis": {
-                            "type": "",
-                            "format": "",
-                            "label": ""
-                        },
-                        "yAxis": {
-                            "type": "",
-                            "format": ",.2f",
-                            "label": ""
-                        },
                         "width": 6
                     }
                 ],
@@ -205,22 +155,12 @@
                         ],
                         "measures": ["users_count"],
                         "filterBy": "r",
-                        "xAxis": {
-                            "type": "date",
-                            "format": "%x",
-                            "label": "Date"
-                        },
-                        "yAxis": {
-                            "type": "",
-                            "format": ",.2f",
-                            "label": "Registrations"
-                        },
                         "width": 7
                     },
                     {
                         "id": "5246a3f928caf18a22b84014",
                         "widgetType": "pivot",
-                        "title": "Registrations",
+                        "title": "KPIs",
                         "cols":[
                             {
                                 "dimension": {
@@ -242,18 +182,8 @@
                                 }
                             }
                         ],
-                        "measures": ["users_count"],
+                        "measures": ["total_revenue", "users_count"],
                         "filterBy": "r",
-                        "xAxis": {
-                            "type": "date",
-                            "format": "%x",
-                            "label": "Date"
-                        },
-                        "yAxis": {
-                            "type": "",
-                            "format": "",
-                            "label": "Platforms"
-                        },
                         "width": 5
                     }
                 ],

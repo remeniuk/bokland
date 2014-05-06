@@ -33,7 +33,7 @@ define(function (require) {
             _this.rowModel = options.rowModel;
             _this.cube = options.cube;
 
-            _this.listenTo(_this.widgetModel, 'updateWidget', _this._onWidgetUpdated)
+            _this.listenTo(_this.widgetModel, 'updateWidget', _this._onWidgetUpdated);
         },
 
         render: function () {
@@ -63,9 +63,7 @@ define(function (require) {
                 name: widget.id,
                 state: _this.state.ref(widget.filterBy),
                 title: widget.title,
-                height: _this.height,
-                xAxis: widget.xAxis,
-                yAxis: widget.yAxis
+                height: _this.height
             };
 
             switch (widget.widgetType) {
@@ -105,7 +103,7 @@ define(function (require) {
                 _this.widgetModel.trigger('redrawWidget');
             });
 
-            widgetData.fetch()
+            widgetData.fetch();
         },
 
         _refreshMetaModel: function() {

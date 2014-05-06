@@ -13,28 +13,40 @@ define(function (require) {
     var Model = BaseModel.extend({
         url: config.server + 'cube-meta.json',
 
-        dimensionLabel: function (fieldName) {
+        measure: function (fieldName) {
             var _this = this;
 
-            var dimension = _.find(_this.get("dimensions"), function (dim) {
-                return dim.id == fieldName;
-            });
+            var measures = _.flatten(_.map(_this.get('measures'), function (category) {
+                return category.items;
+            }));
 
-            return dimension.name;
+            return _.find(measures, function (measure) {
+                return measure.id === fieldName;
+            });
+        },
+
+        dimension: function (fieldName) {
+            var _this = this;
+
+            return _.find(_this.get('dimensions'), function (dim) {
+                return dim.id === fieldName;
+            });
+        },
+
+        dimensionLabel: function (fieldName) {
+            return this.dimension(fieldName).name;
         },
 
         dimensionValueLabel: function (fieldName, key) {
             var _this = this;
 
-            var dimension = _.find(_this.get("dimensions"), function (dim) {
-                return dim.id == fieldName;
-            });
+            var dimension = _this.dimension(fieldName);
 
             if(dimension.dictionary && dimension.dictionary[key]){
                 return dimension.dictionary[key];
             } else {
-                if(dimension.type == 'date'){
-                    return d3.time.format("%x")(new Date(key));
+                if(dimension.type === 'date'){
+                    return d3.time.format('%x')(new Date(key));
                 } else {
                     return key;
                 }

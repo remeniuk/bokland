@@ -33,24 +33,36 @@ define(function (require) {
                 var chartRegionSelector = '[name="' + _this.name + '"] [data-region=chart]';
                 $(chartRegionSelector).html('<svg style="height:' + _this.options.height + '"></svg>');
 
-                if (chart.xAxis) {
-                    chart.xAxis.showMaxMin(false);
-                    if(!_.isUndefined(_this.options.xAxis.label) && _this.options.xAxis.label !== ''){
-                        chart.xAxis.axisLabel(_this.options.xAxis.label);
-                    }
-                    if(!_.isUndefined(_this.options.xAxis.format) && _this.options.xAxis.format !== ''){
-                        chart.xAxis.tickFormat(_this._formatterFactory(_this.options.xAxis));
+                function formatAxis(axisName, axisType) {
+                    if (chart[axisName] && _this.widgetModel.get(axisType)[0]) {
+                        chart[axisName].showMaxMin(false);
+
+                        var dimension;
+
+                        if(_.contains(['rows', 'cols'], axisType)) {
+                            var dimensionName = _this.widgetModel.get(axisType)[0].dimension.fieldName;
+                            dimension = _this.cube.dimension(dimensionName);
+                        } else if(axisType === 'measures') {
+                            var measureName = _this.widgetModel.get(axisType)[0];
+                            dimension = _this.cube.measure(measureName);
+                            dimension.type = 'number';
+                        }
+
+                        chart[axisName].axisLabel(dimension.name);
+                        chart[axisName].tickFormat(_this._formatterFactory(dimension.type, dimension.format));
                     }
                 }
 
-                if (chart.yAxis) {
-                    chart.yAxis.showMaxMin(false);
-                    if(!_.isUndefined(_this.options.yAxis.label) && _this.options.yAxis.label !== ''){
-                        chart.yAxis.axisLabel(_this.options.yAxis.label);
-                    }
-                    if(!_.isUndefined(_this.options.yAxis.format) && _this.options.yAxis.format !== ''){
-                        chart.yAxis.tickFormat(_this._formatterFactory(_this.options.yAxis));
-                    }
+                if(_.contains(['bar', 'line', 'area'], _this.widgetModel.get('widgetType'))){
+                    formatAxis('yAxis', 'measures');
+                } else {
+                    formatAxis('yAxis', 'rows');
+                }
+
+                if(_.contains(['row'], _this.widgetModel.get('widgetType'))){
+                    formatAxis('xAxis', 'measures');
+                } else {
+                    formatAxis('xAxis', 'cols');
                 }
 
                 d3.select(chartRegionSelector + ' svg')

@@ -25,7 +25,6 @@ define(function (require) {
             'widgetcols': '.widget-cols',
             'widgetmeasures': '.widget-measures',
             'widgetwidth': '#widget-width',
-            'widgetaxisinfos': '.axis-info input',
             'dimensions': '.dimensions',
             'btn-add-dim': '.btn-add-dim',
             'btn-remove-dim': '.btn-remove-dim',
@@ -39,7 +38,6 @@ define(function (require) {
             'change @ui.widgettype': '_changeWidgetType',
             'change @ui.widgetmeasures': '_changeWidgetMeasures',
             'change @ui.dimensions': '_changeDimension',
-            'change @ui.widgetaxisinfos': '_changeAxisInfo',
             'click @ui.btn-add-dim': '_addDimension',
             'click @ui.btn-remove-dim': '_removeDimension',
             'click @ui.save': '_saveWidget'
@@ -141,21 +139,6 @@ define(function (require) {
             _this.redraw();
         },
 
-        _changeAxisInfo: function(e){
-            var _this = this,
-                $axisInfo = $(e.target).closest('.axis-info'),
-                axisName = $axisInfo.data('axis'),
-                label = $axisInfo.find('.axis-label').val(),
-                type = $axisInfo.find('.axis-type').val(),
-                format = $axisInfo.find('.axis-format').val();
-
-            _this.widgetModel.set(axisName, {
-                label: label,
-                type: type,
-                format: format
-            });
-        },
-
         _changeDimension: function(e){
             var _this = this,
                 $el = $(e.target),
@@ -164,14 +147,6 @@ define(function (require) {
                 dims = _this.widgetModel.get(dimType);
 
             dims[dimIndex] = { dimension: { fieldName: $el.find(':selected').val() } };
-
-            var dimDataType = _.findWhere(_this.cube.get('dimensions'),{id: dims[0].dimension.fieldName}) || {name:'', type: 'string'},
-                axis = dimType === 'rows' ? 'x' : 'y',
-                axisModel = _this.widgetModel.get(axis + 'Axis');
-
-            axisModel.label = dimDataType.name;
-            axisModel.type = dimDataType.type;
-            axisModel.format = dimDataType.type === 'date' ? '%' + axis : '';
 
             _this.redraw();
         },

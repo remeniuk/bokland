@@ -15,8 +15,8 @@ define(function (require) {
         parseData: function (data) {
             var _this = this;
 
-            var rowName = _this.widgetModel.get("rows")[0].dimension.fieldName;
-            var measureName = _this.widgetModel.get("measures")[0];
+            var rowName = _this.widgetModel.get('rows')[0].dimension.fieldName;
+            var measureName = _this.widgetModel.get('measures')[0];
 
             return _.map(data, function (d) {
                 return {
