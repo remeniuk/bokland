@@ -23,7 +23,7 @@ define(function(require) {
 
         fillState: function () {
             var _this = this;
-            _this.state.set('_', [_this.ui.$from.val(), _this.ui.$to.val()]);
+            _this.state.set('_', [[_this.ui.$from.val(), _this.ui.$to.val()]]);
         }
     });
 
