@@ -5,6 +5,7 @@ define(function(require) {
     // imports
     var $          = require('jquery'),
         _          = require('underscore'),
+        select2     = require('select2'),
         BaseView   = require('libs/view');
 
     // code
@@ -28,6 +29,8 @@ define(function(require) {
 
             _this.$el.html(_this.template({}));
             _this.bindUI();
+
+            _this.ui.$multi.select2();
 
             _this.redraw();
 
