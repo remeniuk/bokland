@@ -1,13 +1,15 @@
 {
     "status": 200,
     "data": {
-        "id": "02983098hq230f479813h04",
+        "_id": {
+            "$oid": "02983098hq230f479813h04"
+        },
         "widgetType": "pivot",
         "title": "Revenue (Gender by Country)",
         "rows":[
             {
                 "dimension": {
-                    "fieldName": "gender"
+                    "field": "gender"
                 },
                 "aggregation": {
                     "type":"category"
@@ -17,7 +19,7 @@
         "cols":[
             {
                 "dimension": {
-                    "fieldName": "date"
+                    "field": "date"
                 },
                 "aggregation": {
                     "type":"date",
@@ -27,16 +29,6 @@
         ],
         "measures": ["rpu", "unique_users"],
         "filterBy": "",
-        "xAxis": {
-            "type": "",
-            "format": "",
-            "label": "Country"
-        },
-        "yAxis": {
-            "type": "",
-            "format": "",
-            "label": "Gender"
-        },
         "width": 6
     }
 }

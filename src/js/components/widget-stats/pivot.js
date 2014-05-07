@@ -24,8 +24,8 @@ define(function (require) {
         redraw: function (data, filter) {
             var _this = this;
 
-            var rows = _.map(_this.widgetModel.get('rows'), function(r){ return r.dimension.fieldName; });
-            var cols = _.map(_this.widgetModel.get('cols'), function(r){ return r.dimension.fieldName; });
+            var rows = _.map(_this.widgetModel.get('rows'), function(r){ return r.dimension.field; });
+            var cols = _.map(_this.widgetModel.get('cols'), function(r){ return r.dimension.field; });
             var measures = _this.widgetModel.get('measures');
 
             var rowLabels = _.map(rows, function(row) { return _this.cube.dimensionLabel(row); });

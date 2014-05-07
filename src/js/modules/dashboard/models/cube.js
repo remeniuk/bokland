@@ -13,7 +13,7 @@ define(function (require) {
     var Model = BaseModel.extend({
         url: config.server + 'cube-meta.json',
 
-        measure: function (fieldName) {
+        measure: function (field) {
             var _this = this;
 
             var measures = _.flatten(_.map(_this.get('measures'), function (category) {
@@ -21,26 +21,26 @@ define(function (require) {
             }));
 
             return _.find(measures, function (measure) {
-                return measure.id === fieldName;
+                return measure.id === field;
             });
         },
 
-        dimension: function (fieldName) {
+        dimension: function (field) {
             var _this = this;
 
             return _.find(_this.get('dimensions'), function (dim) {
-                return dim.id === fieldName;
+                return dim.id === field;
             });
         },
 
-        dimensionLabel: function (fieldName) {
-            return this.dimension(fieldName).name;
+        dimensionLabel: function (field) {
+            return this.dimension(field).name;
         },
 
-        dimensionValueLabel: function (fieldName, key) {
+        dimensionValueLabel: function (field, key) {
             var _this = this;
 
-            var dimension = _this.dimension(fieldName);
+            var dimension = _this.dimension(field);
 
             if(dimension.dictionary && dimension.dictionary[key]){
                 return dimension.dictionary[key];

@@ -60,7 +60,7 @@ define(function (require) {
                 cube: _this.cube,
                 rowModel: _this.rowModel,
                 widgetModel: _this.widgetModel,
-                name: widget.id,
+                name: _this.widgetModel.get('_id').$oid,
                 state: _this.state.ref(widget.filterBy),
                 title: widget.title,
                 height: _this.height

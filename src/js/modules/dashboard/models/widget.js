@@ -28,6 +28,22 @@ define(function (require) {
             cols: [],
             measures: [],
             width: 6
+        },
+
+        parse: function(resp) {
+            var _this = this,
+                data;
+
+            if (resp.status) {
+                _this._errors = resp.errors;
+                data = resp.data;
+            } else {
+                data = resp;
+            }
+
+            data.id = (data._id || {}).$oid;
+
+            return data;
         }
     });
 

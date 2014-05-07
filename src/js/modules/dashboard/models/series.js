@@ -10,7 +10,23 @@ define(function(require) {
 
     // code
     var Model = BaseModel.extend({
-        url: config.server + 'stats-series-single.json'
+        url: config.server + 'stats-series-single.json',
+
+        parse: function(resp) {
+            var _this = this,
+                data;
+
+            if (resp.status) {
+                _this._errors = resp.errors;
+                data = resp.data;
+            } else {
+                data = resp;
+            }
+
+            data.id = (data._id || {}).$oid;
+
+            return data;
+        }
     });
 
     return Model;

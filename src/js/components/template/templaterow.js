@@ -54,6 +54,8 @@ define(function (require) {
             var _this = this,
                 widgetModel = new WidgetModel(widgetMeta);
 
+            widgetMeta.id = widgetModel.get('_id').$oid;
+
             var cellElement = new TemplateCell({
                 widget: widgetMeta,
                 widgetModel: widgetModel,

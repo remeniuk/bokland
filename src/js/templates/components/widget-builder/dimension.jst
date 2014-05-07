@@ -14,7 +14,7 @@
     <div class="col-sm-3">
         <select class="form-control dimensions widget-<%= type %>" data-dim-type="<%= type %>" data-index="<%= index %>" id="widget-<%= type %>-<%= index %>">
             <% _.each(allowedDims, function(dim) { %>
-            <option value="<%= dim.id %>" <% if(userDim.dim == dim.id) { selectedDim = dim; %>
+            <option value="<%= dim.id %>" <% if(userDim.dimension && userDim.dimension.field === dim.id) { selectedDim = dim; %>
             selected
             <% } %>><%= dim.name %></option>
             <% }); %>
@@ -26,7 +26,7 @@
     <div class="col-sm-3">
         <select class="form-control dim-agg-type">
             <% _.each(typeAggs, function(agg) { %>
-            <option value="<%= agg.type%>" <% if(userDim.aggregation && userDim.aggregation.type == agg.type) { selectedAgg = agg; %>
+            <option value="<%= agg.type%>" <% if(userDim.aggregation && userDim.aggregation.type === agg.type) { selectedAgg = agg; %>
             selected
             <% } %>><%= agg.name %></option>
             <% }); %>

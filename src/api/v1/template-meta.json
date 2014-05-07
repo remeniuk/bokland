@@ -1,19 +1,23 @@
 {
     "status": 200,
     "data": {
-        "_id": "5246a97028caf18a22bcdf6e",
+        "_id": {
+            "$oid": "5246a97028caf18a22bcdf6e"
+        },
         "title": "Dashboard",
         "rows": [
             {
                 "widgets": [
                     {
-                        "id": "5246a3f928caf18a22b840e9",
+                        "_id": {
+                            "$oid": "5246a3f928caf18a22b840e9"
+                        },
                         "widgetType": "bar",
                         "title": "Platforms",
                         "cols":[
                             {
                                 "dimension": {
-                                    "fieldName": "platform"
+                                    "field": "platform"
                                 },
                                 "aggregation": {
                                     "type":"category"
@@ -26,13 +30,15 @@
                         "width": 4
                     },
                     {
-                        "id": "5246a97028caf18a22bcdf80",
+                        "_id": {
+                            "$oid": "5246a97028caf18a22bcdf80"
+                        },
                         "widgetType": "row",
                         "title": "Countries",
                         "rows":[
                             {
                                 "dimension": {
-                                    "fieldName": "country"
+                                    "field": "country"
                                 },
                                 "aggregation": {
                                     "type":"category"
@@ -45,13 +51,15 @@
                         "width": 4
                     },
                     {
-                        "id": "5246a3f928caf18a22b84011",
+                        "_id": {
+                            "$oid": "5246a3f928caf18a22b84011"
+                        },
                         "widgetType": "pie",
                         "title": "Gender",
                         "rows":[
                             {
                                 "dimension": {
-                                    "fieldName": "gender"
+                                    "field": "gender"
                                 },
                                 "aggregation": {
                                     "type":"category"
@@ -68,13 +76,15 @@
             {
                 "widgets": [
                     {
-                        "id": "5246a3f928caf18a22b84010",
+                        "_id": {
+                            "$oid": "5246a3f928caf18a22b84010"
+                        },
                         "widgetType": "area",
                         "title": "Revenue",
                         "rows":[
                             {
                                 "dimension": {
-                                    "fieldName": "platform"
+                                    "field": "platform"
                                 },
                                 "aggregation": {
                                     "type":"category"
@@ -84,7 +94,7 @@
                         "cols":[
                             {
                                 "dimension": {
-                                    "fieldName": "date"
+                                    "field": "date"
                                 },
                                 "aggregation": {
                                     "type":"date",
@@ -97,13 +107,15 @@
                         "width": 6
                     },
                     {
-                        "id": "5246a3f928caf18a22b84012",
+                        "_id": {
+                            "$oid": "5246a3f928caf18a22b84012"
+                        },
                         "widgetType": "row",
                         "title": "Sources",
                         "rows":[
                             {
                                 "dimension": {
-                                    "fieldName": "source"
+                                    "field": "source"
                                 },
                                 "aggregation": {
                                     "type":"category"
@@ -111,7 +123,7 @@
                             },
                             {
                                 "dimension": {
-                                    "fieldName": "gender"
+                                    "field": "gender"
                                 },
                                 "aggregation": {
                                     "type":"category"
@@ -129,13 +141,15 @@
             {
                 "widgets": [
                     {
-                        "id": "5246a3f928caf18a22b84013",
+                        "_id": {
+                            "$oid": "5246a3f928caf18a22b84013"
+                        },
                         "widgetType": "line",
                         "title": "Registrations",
                         "rows":[
                             {
                                 "dimension": {
-                                    "fieldName": "app_version"
+                                    "field": "app_version"
                                 },
                                 "aggregation": {
                                     "type":"category"
@@ -145,7 +159,7 @@
                         "cols":[
                             {
                                 "dimension": {
-                                    "fieldName": "date"
+                                    "field": "date"
                                 },
                                 "aggregation": {
                                     "type":"date",
@@ -158,13 +172,15 @@
                         "width": 7
                     },
                     {
-                        "id": "5246a3f928caf18a22b84014",
+                        "_id": {
+                            "$oid": "5246a3f928caf18a22b84014"
+                        },
                         "widgetType": "pivot",
                         "title": "KPIs",
                         "cols":[
                             {
                                 "dimension": {
-                                    "fieldName": "platform"
+                                    "field": "platform"
                                 },
                                 "aggregation": {
                                     "type":"category"
@@ -174,7 +190,7 @@
                         "rows":[
                             {
                                 "dimension": {
-                                    "fieldName": "date"
+                                    "field": "date"
                                 },
                                 "aggregation": {
                                     "type":"date",

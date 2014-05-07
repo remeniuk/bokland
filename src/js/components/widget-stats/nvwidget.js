@@ -40,7 +40,7 @@ define(function (require) {
                         var dimension;
 
                         if(_.contains(['rows', 'cols'], axisType)) {
-                            var dimensionName = _this.widgetModel.get(axisType)[0].dimension.fieldName;
+                            var dimensionName = _this.widgetModel.get(axisType)[0].dimension.field;
                             dimension = _this.cube.dimension(dimensionName);
                         } else if(axisType === 'measures') {
                             var measureName = _this.widgetModel.get(axisType)[0];

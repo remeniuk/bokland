@@ -2,11 +2,22 @@
     "status": 200,
     "data":
         {
-            "id": "1111111111111111111111111111",
+            "_id": {
+                "$oid": "1111111111111111111111111111"
+            },
             "data": [
-                ["ipad", 18943, "iPad"],
-                ["iphone", 20285, "iPhone"],
-                ["andr", 3395, "Android"]
+                {
+                    "platform": "iPad",
+                    "users_count": 354673
+                },
+                {
+                    "platform": "iPhone",
+                    "users_count": 678356
+                },
+                {
+                    "platform": "Android",
+                    "users_count": 23455
+                }
             ]
         }
 }
