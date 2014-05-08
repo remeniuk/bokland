@@ -34,3 +34,23 @@ Gulp tasks
 `gulp build` - build code
 
 `gulp` - watch files and rebuild code when a file changes
+
+Libs, missing in npm
+---------
+
+    npm install vinyl
+    npm install dateformat
+    npm install lodash.template
+    npm install lodash._reinterpolate
+    npm install minimist
+    npm install through2
+    npm install multipipe
+    npm install through
+    npm install ordered-read-streams
+    npm install unique-stream
+    npm install glob
+    npm install minimatch
+    npm install glob2base
+    npm install clone-stats
+    npm install gaze
+    
