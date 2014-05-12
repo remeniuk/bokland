@@ -10,7 +10,7 @@ define(function (require) {
 
     // code
     var Model = BaseModel.extend({
-        url: config.server + 'filter-criteria.json'
+        url: 'api/v1/filter-criteria.json'
     });
 
     return Model;

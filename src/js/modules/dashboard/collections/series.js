@@ -13,7 +13,11 @@ define(function(require) {
     var __super__ = BaseCollection.prototype;
     var Collection = BaseCollection.extend({
         model: SeriesModel,
-        url: config.server + 'stats-series.json',
+        url: function() {
+            return config.server + (config.stubs ?
+                'stats-series.json' :
+                'data/dashboards');
+        },
         parametric: true,
 
         parse: function(response) {

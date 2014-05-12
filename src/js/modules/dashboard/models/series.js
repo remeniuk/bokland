@@ -10,7 +10,11 @@ define(function(require) {
 
     // code
     var Model = BaseModel.extend({
-        url: config.server + 'stats-series-single.json',
+        url: function() {
+            return config.server + (config.stubs ?
+                'stats-series-single.json' :
+                'data/widgets');
+        },
 
         parse: function(resp) {
             var _this = this,

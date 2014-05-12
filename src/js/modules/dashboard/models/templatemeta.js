@@ -11,7 +11,11 @@ define(function (require) {
     // code
     var Model = BaseModel.extend({
         parametric: true,
-        url: config.server + 'template-meta.json',
+        url: function() {
+            return config.server + (config.stubs ?
+                'template-meta.json' :
+                'meta/dashboards/' + this.get('id'));
+        },
 
 
         parse: function(resp) {

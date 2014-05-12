@@ -18,7 +18,7 @@ define(function(require) {
             var _this = this;
 
             _this.collection = new SeriesCollection([], {
-                params: _this.state
+                params: _this.state // TODO did (dashboard_id): '536b8979682cfa5294504719',
             });
 
             _this.listenTo(_this.state, 'change', _this.navigate);
@@ -30,6 +30,7 @@ define(function(require) {
                 view;
 
             view = new DashboardStatsView({
+                id: '536b8979682cfa5294504719',
                 collection: _this.collection,
                 state: _this.state
             });

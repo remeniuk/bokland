@@ -10,7 +10,7 @@ define(function (require) {
 
     // code
     var Model = BaseModel.extend({
-        url: config.server + 'widget-builder-rules.json'
+        url: 'api/v1/widget-builder-rules.json'
     });
 
     return Model;

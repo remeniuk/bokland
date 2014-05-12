@@ -103,7 +103,7 @@ define(function (require) {
                 _this.widgetModel.trigger('redrawWidget');
             });
 
-            widgetData.fetch();
+            widgetData.fetch({data: {id: widgetId}});
         },
 
         _refreshMetaModel: function() {

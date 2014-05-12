@@ -11,7 +11,11 @@ define(function (require) {
 
     // code
     var Model = BaseModel.extend({
-        url: config.server + 'cube-meta.json',
+        url: function() {
+            return config.server + (config.stubs ?
+                'cube-meta.json' :
+                'meta/dimensions');
+        },
 
         measure: function (field) {
             var _this = this;

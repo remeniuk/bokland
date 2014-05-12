@@ -85,7 +85,10 @@ define(function (require) {
             _this.addNewWidgetMode = _.isUndefined(_this.widgetModel.get('_id'));
 
             var _id = _this.widgetModel.get('_id') || { $oid: 'none' };
-            console.log('init builder [widgetID: ' + _id.$oid + ']');
+            console.log('init builder [widgetID: ' + (_id.$oid || 'none') + ']');
+            if(_id.$oid) {
+                _this.widgetModel.set('id', _id.$oid);
+            }
 
             _this.listenToOnce(_this.widgetModel, 'sync', _this._onSave);
         },
