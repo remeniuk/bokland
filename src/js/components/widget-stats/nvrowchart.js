@@ -54,6 +54,7 @@ define(function (require) {
                 })
                 .showValues(true)
                 .tooltips(false)
+                .color(this.COLORS)
                 .showControls(false);
         }
 

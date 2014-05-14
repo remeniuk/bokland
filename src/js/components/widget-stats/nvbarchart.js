@@ -41,6 +41,7 @@ define(function (require) {
                 .staggerLabels(true)
                 .tooltips(false)
                 .showValues(true)
+                .color(this.COLORS)
                 .transitionDuration(350);
         }
 

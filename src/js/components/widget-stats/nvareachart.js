@@ -54,6 +54,7 @@ define(function (require) {
                 .rightAlignYAxis(true)
                 .transitionDuration(500)
                 .showControls(true)
+                .color(this.COLORS)
                 .clipEdge(true);
         }
 

@@ -10,10 +10,25 @@ define(function (require) {
         WidgetView = require('./widget'),
         templates = require('templates/templates');
 
+    var $lime = '#8CBF26',
+        $red = '#e5603b',
+        $redDark = '#d04f4f',
+        $blue = '#6a8da7',
+        $green = '#56bc76',
+        $orange = '#eac85e',
+        $pink = '#E671B8',
+        $purple = '#A700AE',
+        $brown = '#A05000',
+        $teal = '#4ab0ce',
+        $gray = '#666',
+        $white = '#fff',
+        $textColor = $gray;
 
     // code
     var __super__ = WidgetView.prototype;
     var View = WidgetView.extend({
+        COLORS: [$red, $orange, $green, $blue, $teal, $redDark],
+
         initialize: function (options) {
             var _this = this;
 

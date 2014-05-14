@@ -46,6 +46,7 @@ define(function (require) {
 
         createChart: function () {
             return nv.models.lineChart()
+                .color(this.COLORS)
                 .useInteractiveGuideline(true);
         }
 
