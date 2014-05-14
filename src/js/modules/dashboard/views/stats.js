@@ -76,7 +76,7 @@ define(function (require) {
         redraw: function () {
             var _this = this;
 
-            _this.ui.$dashboardTitle.html(_this.metaModel.get('title'));
+            _this.ui.$dashboardTitle.val(_this.metaModel.get('title'));
 
             _this.$el.find('[data-region="rows"]').empty();
 

@@ -1,5 +1,20 @@
 <div class="container">
-    <h1 class="text-center" data-region="title"></h1>
+    <div class="title" width="100%">
+        <h1><input type="text" data-region="title"/></h1>
+        <div class="controls">
+            <select data-action="select-dashboard" class="form-control">
+            </select>
+            <button data-action="export-data" placeholder="Save As" class="btn btn-default">
+                <span class="glyphicon glyphicon-floppy-disk"></span> Save As
+            </button>
+            <button data-action="export-data" placeholder="Export as CSV" class="btn btn-default">
+                <span class="glyphicon glyphicon-export"></span> Export Raw
+            </button>
+            <button data-action="export-data" placeholder="Removes Dashboard" class="btn btn-default">
+                <span class="glyphicon glyphicon-remove-circle"></span> Remove
+            </button>
+        </div>
+    </div>
 
     <div data-region="filter"></div>
 
