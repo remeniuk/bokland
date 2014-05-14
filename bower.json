@@ -1,38 +1,42 @@
 {
-  "name": "bokland",
-  "version": "0.0.1",
-  "homepage": "https://github.com/bokland/bokland",
-  "description": "nvd3-based dashboard builder",
-  "main": "src/bokland.js",
-  "keywords": [
-    "dashboard",
-    "builder"
-  ],
-  "authors": [
-    "bokland team"
-  ],
-  "license": "MIT",
-  "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    "requirejs": "~2.1.11",
-    "jquery": "~2.1.0",
-    "jquery-bbq-deparam": "~1.2.1",
-    "lodash": "~2.4.1",
-    "backbone": "~1.1.2",
-    "backbone-nested-model": "~2.0.0",
-    "d3": "~3.4.4",
-    "nvd3": "~1.1.15-beta",
-    "topojson": "~1.6.2",
-    "bootstrap": "~3.1.1",
-    "jquery-drilldown": "~0.1.4",
-    "pivottable": "~1.1.1",
-    "select2": "~3.4.8"
-  }
+    "name": "bokland",
+    "version": "0.0.1",
+    "homepage": "https://github.com/bokland/bokland",
+    "description": "nvd3-based dashboard builder",
+    "main": "src/bokland.js",
+    "keywords": [
+        "dashboard",
+        "builder"
+    ],
+    "authors": [
+        "bokland team"
+    ],
+    "license": "MIT",
+    "private": true,
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "requirejs": "~2.1.11",
+        "jquery": "~2.1.0",
+        "jquery-bbq-deparam": "~1.2.1",
+        "lodash": "~2.4.1",
+        "backbone": "~1.1.2",
+        "backbone-nested-model": "~2.0.0",
+        "d3": "~3.4.4",
+        "nvd3": "~1.1.15-beta",
+        "topojson": "~1.6.2",
+        "bootstrap": "~3.1.1",
+        "jquery-drilldown": "~0.1.4",
+        "pivottable": "~1.1.1",
+        "select2": "~3.4.8"
+    },
+    "resolutions": {
+        "d3": "~3.4.4"
+    }
+
 }
