@@ -5,6 +5,7 @@ define(function (require) {
     // imports
     var $                   = require('jquery'),
         _                   = require('underscore'),
+        config              = require('config/api'),
         BaseView            = require('libs/view'),
         NvBarChartWidget    = require('components/widget-stats/nvbarchart'),
         NvRowChartWidget    = require('components/widget-stats/nvrowchart'),
@@ -19,7 +20,7 @@ define(function (require) {
     var View = BaseView.extend({
         template: templates['components/template/cell'],
 
-        activeVeiew: null,
+        activeView: null,
 
         initialize: function (options) {
             var _this = this;
@@ -41,12 +42,12 @@ define(function (require) {
 
             _this.$el.html(_this.template(_this.widget));
 
-            if(_this.activeVeiew) {
-                _this.activeVeiew.stopListening();
-                _this.activeVeiew.remove();
+            if(_this.activeView) {
+                _this.activeView.stopListening();
+                _this.activeView.remove();
             }
-            _this.activeVeiew = _this._widgetFactory(_this.widget);
-            _this.region('widget').show(_this.activeVeiew);
+            _this.activeView = _this._widgetFactory(_this.widget);
+            _this.region('widget').show(_this.activeView);
 
             return _this;
         },
@@ -84,33 +85,37 @@ define(function (require) {
 
         _onWidgetUpdated: function() {
             var _this = this,
-                widgetId = _this.widgetModel.get('id'),
-                widgetData = new WidgetData({id: widgetId});
+                widgetId = _this.widgetModel.get('id');
 
-            _this._refreshMetaModel();
+            if(widgetId) {
+                var widgetData = new WidgetData({id: widgetId});
 
-            _this.listenToOnce(widgetData, 'sync', function(){
-                // TODO uncomment when server api is ready
-                //_this.collection.remove(_this.collection.get(widgetId));
-                //_this.collection.add(widgetData);
+                _this._refreshMetaModel();
 
-                _this.widget = _this.widgetModel.toJSON();
+                _this.listenToOnce(widgetData, 'sync', function() {
+                    if(!config.stubs) {
+                        _this.collection.add(widgetData, {merge: true, trigger: false});
+                    }
 
-                _this.clearRegions();
-                _this.render();
+                    _this.widget = _this.widgetModel.toJSON();
 
-                //_this.collection.trigger('sync');
-                _this.widgetModel.trigger('redrawWidget');
-            });
+                    _this.clearRegions();
+                    _this.render();
 
-            widgetData.fetch({data: {id: widgetId}});
+                    _this.widgetModel.trigger('redrawWidget');
+                });
+
+                widgetData.fetch({data: {id: widgetId}});
+            }
         },
 
         _refreshMetaModel: function() {
             var _this = this;
 
             _this.dashboardMetaModel.get('rows')[_this.rowNum] = _this.rowModel.toJSON();
-            //TODO _this.metaModel.save({trigger: false});
+            if(!config.stubs) {
+                _this.dashboardMetaModel.save();
+            }
         }
     });
 

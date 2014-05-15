@@ -5,10 +5,11 @@ define(function (require) {
     // imports
     var $           = require('jquery'),
         _           = require('underscore'),
+        config      = require('config/api'),
         bootstrap   = require('bootstrap'),
         select2     = require('select2'),
         BaseView    = require('libs/view'),
-        WidgetModel = require('modules/dashboard/models/widget'),
+        WidgetModel = require('components/widget-builder/model/widget'),
         RulesModel  = require('components/widget-builder/model/rules'),
         templates   = require('templates/templates');
 
@@ -52,8 +53,6 @@ define(function (require) {
             _this.stopListening();
 
             _this.cube = options.cube;
-            _this.dashboard = options.dashboard;
-            _this.dashboardData = options.dashboardData;
 
             _this._initBuilder(options);
 
@@ -84,7 +83,7 @@ define(function (require) {
 
             _this.addNewWidgetMode = _.isUndefined(_this.widgetModel.get('_id'));
 
-            var _id = _this.widgetModel.get('_id') || { $oid: 'none' };
+            var _id = _this.widgetModel.get('_id') || { };
             console.log('init builder [widgetID: ' + (_id.$oid || 'none') + ']');
             if(_id.$oid) {
                 _this.widgetModel.set('id', _id.$oid);
@@ -121,7 +120,7 @@ define(function (require) {
 
         _changeWidth: function(){
             var _this = this;
-            _this.widgetModel.set('width', _this.ui.$widgetwidth.find(':selected').val());
+            _this.widgetModel.set('width', parseInt(_this.ui.$widgetwidth.find(':selected').val()));
         },
 
         _changeWidgetType: function(){
@@ -191,8 +190,20 @@ define(function (require) {
                 cols: selectedCols
             });
 
-            //TODO _this.widgetModel.save();
-            _this.widgetModel.trigger('sync');
+            if(config.stubs) {
+                _this.widgetModel.trigger('sync');
+            } else {
+                _this.widgetModel.save(null,
+                    {
+                        success : function(model, response) {
+                            var id = response.data._id;
+                            console.log("saved widget id: " + id);
+                            _this.widgetModel.set('id', id);
+                            _this.widgetModel.set('_id', { '$oid': id });
+                        }
+                    });
+            }
+
         },
 
         _onSave: function() {
@@ -201,11 +212,16 @@ define(function (require) {
                 widgets = _this.rowModel.get('widgets');
 
             if(_this.addNewWidgetMode) {
-                _this.widgetModel.set('id', '1111111111111111111111111111'); // test id
-                _this.widgetModel.set('_id', { '$oid': '1111111111111111111111111111' }); // test id
-
-                widgets.push(_this.widgetModel.toJSON());
-                _this.rowModel.set('widgets', widgets);
+                if(config.stubs) {
+                    _this.widgetModel.set('id', '1111111111111111111111111111'); // test id
+                    _this.widgetModel.set('_id', { '$oid': '1111111111111111111111111111' }); // test id
+                } else if(!widgetId) {
+                    var _id = _this.widgetModel.get('_id') || { };
+                    console.log('on saved widget [widgetID: ' + (_id.$oid || 'none') + ']');
+                    if (_id.$oid) {
+                        _this.widgetModel.set('id', _id.$oid);
+                    }
+                }
 
                 _this.rowModel.trigger('addWidget', _this.widgetModel.toJSON());
             } else {

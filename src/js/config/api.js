@@ -3,7 +3,7 @@ define(function(require) {
     'use strict';
 
     // code
-    var env = (location.hostname === 'localhost') || /\.local/.test(location.hostname) ? 'dev-stub' : 'prod';
+    var env = (location.hostname === 'localhost') || /\.local/.test(location.hostname) ? 'dev-server' : 'prod';
 
     var config = {
         'dev-stub': {

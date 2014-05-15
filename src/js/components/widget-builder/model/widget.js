@@ -10,20 +10,14 @@ define(function (require) {
 
     // code
     var Model = BaseModel.extend({
-        url: config.server + 'widget.json',
+        urlRoot: function() {
+            return config.server + (config.stubs ?
+                'widget.json' :
+                'meta/widgets/');
+        },
         defaults: {
             widgetType: 'pie',
             filterBy: '',
-            xAxis: {
-                type: '',
-                format: '',
-                label: ''
-            },
-            yAxis: {
-                type: '',
-                format: '',
-                label: ''
-            },
             rows: [],
             cols: [],
             measures: [],

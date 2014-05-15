@@ -11,9 +11,9 @@ define(function (require) {
     // code
     var Model = BaseModel.extend({
         url: function() {
-            return config.server + (config.stubs ?
-                'filter-criteria.json' :
-                '');
+            return (config.stubs ?
+                config.server + 'filter-criteria.json' :
+                'api/v1/filter-criteria.json');
         }
     });
 

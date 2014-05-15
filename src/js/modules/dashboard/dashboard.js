@@ -18,7 +18,7 @@ define(function(require) {
             var _this = this;
 
             _this.collection = new SeriesCollection([], {
-                params: _this.state // TODO did (dashboard_id): '536b8979682cfa5294504719',
+                params: _this.state
             });
 
             _this.listenTo(_this.state, 'change', _this.navigate);
@@ -78,6 +78,7 @@ define(function(require) {
     if (!RouterManager.start()) {
         var range = time.period(new Date(), 'last-day-7');
         dashboard.state.set('d._', [range]);
+        dashboard.state.set('did', '536b8979682cfa5294504719'); // TODO prepopulate with the first dashboard available
     }
 
     return dashboard;

@@ -5,9 +5,10 @@ define(function (require) {
     // imports
     var $               = require('jquery'),
         _               = require('underscore'),
+        config          = require('config/api'),
         BaseView        = require('libs/view'),
         TemplateCell    = require('components/template/templatecell'),
-        WidgetModel     = require('modules/dashboard/models/widget'),
+        WidgetModel     = require('components/widget-builder/model/widget'),
         WidgetData      = require('modules/dashboard/models/series'),
         RowModel        = require('modules/dashboard/models/row'),
         templates       = require('templates/templates');
@@ -31,7 +32,7 @@ define(function (require) {
 
             _this.rowNum = options.rowNum;
             _this.rowModel = _.isUndefined(options.rowMeta) ? new RowModel() : new RowModel(options.rowMeta);
-            _this.metaModel = options.metaModel;
+            _this.dashboardMetaModel = options.metaModel;
             _this.cube = options.cube;
             _this.collection = options.collection;
             _this.builderView = options.builderView;
@@ -60,7 +61,7 @@ define(function (require) {
                 widget: widgetMeta,
                 widgetModel: widgetModel,
                 height: _this.rowModel.get('height'),
-                dashboardMetaModel: _this.metaModel,
+                dashboardMetaModel: _this.dashboardMetaModel,
                 collection: _this.collection,
                 widgetBuilderView: _this.builderView,
                 cube: _this.cube,
@@ -89,34 +90,44 @@ define(function (require) {
         _removeRow: function () {
             var _this = this;
 
-            var rowMetaModel = _this.metaModel.get('rows');
+            var rowMetaModel = _this.dashboardMetaModel.get('rows');
             rowMetaModel.splice(_this.rowNum, 1);
-            _this.metaModel.set('rows', rowMetaModel);
+            _this.dashboardMetaModel.set('rows', rowMetaModel);
+
+            _this.dashboardMetaModel.save({trigger: false});
 
             this.remove();
         },
 
         _onWidgetAdded: function(widgetMeta) {
             var _this = this,
-                widgetData = new WidgetData({id: widgetMeta.id});
+                widgetId = widgetMeta.id || (widgetMeta._id || {}).$oid;
 
-            _this._refreshMetaModel();
+            if(widgetId) {
+                var widgetData = new WidgetData({id: widgetMeta.id}),
+                    widgets = _this.rowModel.get('widgets');
 
-            _this.listenToOnce(widgetData, 'sync', function(){
-                _this.collection.push(widgetData);
-                var newWidgetModel = _this.addCell(widgetMeta);
-                //_this.collection.trigger('sync');
-                newWidgetModel.trigger('redrawWidget');
-            });
+                widgets.push(widgetMeta);
+                _this.rowModel.set('widgets', widgets);
+                _this._refreshMetaModel();
 
-            widgetData.fetch();
+                _this.listenToOnce(widgetData, 'sync', function(){
+                    _this.collection.push(widgetData);
+                    var newWidgetModel = _this.addCell(widgetMeta);
+                    newWidgetModel.trigger('redrawWidget');
+                });
+
+                widgetData.fetch();
+            }
         },
 
         _refreshMetaModel: function() {
             var _this = this;
 
-            _this.metaModel.get('rows')[_this.rowNum] = _this.rowModel.toJSON();
-            //TODO _this.metaModel.save({trigger: false});
+            _this.dashboardMetaModel.get('rows')[_this.rowNum] = _this.rowModel.toJSON();
+            if(!config.stubs) {
+                _this.dashboardMetaModel.save();
+            }
         }
     });
 

@@ -13,7 +13,7 @@ define(function(require) {
         url: function() {
             return config.server + (config.stubs ?
                 'stats-series-single.json' :
-                'data/widgets');
+                'data/widgets/' + this.get('id'));
         },
 
         parse: function(resp) {

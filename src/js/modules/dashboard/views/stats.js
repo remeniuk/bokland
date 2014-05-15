@@ -32,6 +32,7 @@ define(function (require) {
             var _this = this;
 
             _this.state.init({
+                did: {}, // dashboard id
                 d: {},  // date
                 p: {},  // platform
                 s: {},  // source
@@ -45,7 +46,7 @@ define(function (require) {
 
             _this.cube = new CubeModel();
 
-            _this.listenTo(_this.metaModel, 'sync', _this.redraw);
+            _this.listenToOnce(_this.metaModel, 'sync', _this.redraw);
             _this.listenTo(_this.metaModel, 'rowadded', _this._addRow);
 
             _this.cube.fetch();
@@ -107,9 +108,7 @@ define(function (require) {
             var _this = this;
 
             _this.widgetBilderView = new WidgetBuilder({
-                cube: _this.cube,
-                dashboard: _this.metaModel,
-                dashboardData: _this.collection
+                cube: _this.cube
             });
             _this.region('widget-builder').show(_this.widgetBilderView);
         }
