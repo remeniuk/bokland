@@ -6,6 +6,7 @@ define(function (require) {
     var $         = require('jquery'),
         d3        = require('d3'),
         _         = require('underscore'),
+        config    = require('config/api'),
         BaseView  = require('libs/view'),
         templates = require('templates/templates');
 
@@ -140,6 +141,9 @@ define(function (require) {
             });
 
             _this.dashboardMetaModel.set('rows', rows);
+            if(!config.stubs) {
+                _this.dashboardMetaModel.save();
+            }
 
             _this.$el.closest('.template-cell').remove();
         },

@@ -88,13 +88,15 @@ define(function (require) {
         },
 
         _removeRow: function () {
-            var _this = this;
+            var _this = this,
+                rowMetaModel = _this.dashboardMetaModel.get('rows');
 
-            var rowMetaModel = _this.dashboardMetaModel.get('rows');
             rowMetaModel.splice(_this.rowNum, 1);
-            _this.dashboardMetaModel.set('rows', rowMetaModel);
 
-            _this.dashboardMetaModel.save({trigger: false});
+            _this.dashboardMetaModel.set('rows', rowMetaModel);
+            if(!config.stubs) {
+                _this.dashboardMetaModel.save();
+            }
 
             this.remove();
         },
