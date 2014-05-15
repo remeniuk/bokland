@@ -9,6 +9,7 @@ define(function (require) {
         bootstrap           = require('bootstrap'),
         BaseView            = require('libs/view'),
         FilterWidget        = require('components/filter/filterwidget'),
+        AllDashboardsModel  = require('modules/dashboard/models/dashboards'),
         TemplateMetaModel   = require('modules/dashboard/models/templatemeta'),
         TemplateRow         = require('components/template/templaterow'),
         AddRowDialog        = require('components/template/addrow'),
@@ -25,10 +26,12 @@ define(function (require) {
         elementsUI: {
             'filterPopover': '[data-toggle=popover]',
             'dashboardTitle': '[data-region=title]',
+            'selectDashboard': '[data-action=select-dashboard]',
             'saveDashboard': '[data-action=save-dashboard]'
         },
 
         events: {
+            'change @ui.selectDashboard' : '_changeDashboard',
             'click @ui.saveDashboard' : '_saveDashboard'
         },
 
@@ -38,7 +41,7 @@ define(function (require) {
             var _this = this;
 
             _this.state.init({
-                did: {}, // dashboard id
+                did: '', // dashboard id
                 d: {},  // date
                 p: {},  // platform
                 s: {},  // source
@@ -47,18 +50,49 @@ define(function (require) {
             });
 
             _this.metaModel = new TemplateMetaModel();
-            _this.metaModel.set('id', options.id);
-
-
+            _this.dashboards = new AllDashboardsModel();
             _this.cube = new CubeModel();
+
+            _this.dashboards.fetch();
+            _this.cube.fetch();
+
+            _this.listenToOnce(_this.cube, 'sync', _this._cubeLoaded);
+            _this.listenToOnce(_this.dashboards, 'sync', _this._loadDashboard);
+        },
+
+        _loadDashboard: function() {
+            var _this = this,
+                dashboards = _this.dashboards.get('dashboards'),
+                defaultDashboard = dashboards[0],
+                selectedDashboardId = _this.state.get('did');
+
+            _this.metaModel.set('id', selectedDashboardId ? selectedDashboardId : defaultDashboard.id);
+
+            _.each(dashboards, function(dash){
+                if(dash) {
+                    _this.ui.$selectDashboard.append('<option value="' + dash.id + '"' + (selectedDashboardId === dash.id ? 'selected' : '') + '>' + dash.title + '</option>');
+                }
+
+            });
+
+            var onSuccess = function() {
+                if(selectedDashboardId) {
+                    _this.state.trigger('change');
+                } else {
+                    _this.state.set('did', defaultDashboard.id);
+                }
+            };
+
+            _this._loadMeta(onSuccess);
+        },
+
+        _loadMeta: function(success) {
+            var _this = this;
 
             _this.listenToOnce(_this.metaModel, 'sync', _this.redraw);
             _this.listenTo(_this.metaModel, 'rowadded', _this._addRow);
 
-            _this.cube.fetch();
-            _this.metaModel.fetch();
-
-            _this.listenTo(_this.cube, 'sync', _this._cubeLoaded);
+            _this.metaModel.fetch({success: success});
         },
 
         render: function () {
@@ -125,6 +159,20 @@ define(function (require) {
             if(!config.stubs) {
                 _this.metaModel.save();
             }
+        },
+
+        _changeDashboard: function() {
+            var _this = this,
+                selectedDashboardId = _this.ui.$dashboardTitle.find(':selected').val();
+
+            _this.metaModel.set('id', selectedDashboardId);
+
+            var onSuccess = function(){
+                _this.state.set('did', selectedDashboardId);
+            };
+
+            _this._loadMeta(onSuccess);
+
         }
     });
 

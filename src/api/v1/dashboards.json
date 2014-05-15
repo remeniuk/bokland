@@ -1,0 +1,11 @@
+{
+    "status": 200,
+    "data": {
+        "dashboards": [
+            {
+                "id": "536b8979682cfa5294504719",
+                "title": "Dashboard"
+            }
+        ]
+    }
+}
