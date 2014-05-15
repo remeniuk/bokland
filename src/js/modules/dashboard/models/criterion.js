@@ -11,18 +11,29 @@ define(function (require) {
     // code
     var Model = BaseModel.extend({
         url: function () {
-            return config.server + this.json;
+            return config.server + (config.stubs ? this.json :
+                'meta/filters/' + this.json);
         },
 
         fetch: function (options) {
-            var _this = this;
+            var _this = this,
+                _mapping;
 
-            var _mapping = {
-                'p': 'filter-criterion-category.json',
-                'rd': 'filter-criterion-date.json',
-                'd': 'filter-criterion-date.json',
-                'em': 'filter-criterion-range.json'
-            };
+            if (config.stubs) {
+                _mapping = {
+                    'p': 'filter-criterion-category.json',
+                    'rd': 'filter-criterion-date.json',
+                    'd': 'filter-criterion-date.json',
+                    'em': 'filter-criterion-range.json'
+                };
+            } else {
+                _mapping = {
+                    'p': 'category',
+                    'rd': 'date',
+                    'd': 'date',
+                    'em': 'range'
+                };
+            }
 
             _this.json = _mapping[_this.id];
 
