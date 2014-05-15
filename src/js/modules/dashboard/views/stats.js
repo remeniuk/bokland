@@ -5,6 +5,7 @@ define(function (require) {
     // imports
     var $                   = require('jquery'),
         _                   = require('underscore'),
+        config              = require('config/api'),
         bootstrap           = require('bootstrap'),
         BaseView            = require('libs/view'),
         FilterWidget        = require('components/filter/filterwidget'),
@@ -23,7 +24,12 @@ define(function (require) {
 
         elementsUI: {
             'filterPopover': '[data-toggle=popover]',
-            'dashboardTitle': '[data-region=title]'
+            'dashboardTitle': '[data-region=title]',
+            'saveDashboard': '[data-action=save-dashboard]'
+        },
+
+        events: {
+            'click @ui.saveDashboard' : '_saveDashboard'
         },
 
         widgetBilderView: null,
@@ -104,13 +110,21 @@ define(function (require) {
             rowElement.render();
         },
 
-        _cubeLoaded: function(){
+        _cubeLoaded: function() {
             var _this = this;
 
             _this.widgetBilderView = new WidgetBuilder({
                 cube: _this.cube
             });
             _this.region('widget-builder').show(_this.widgetBilderView);
+        },
+
+        _saveDashboard: function() {
+            var _this = this;
+            _this.metaModel.set('title', _this.ui.$dashboardTitle.val());
+            if(!config.stubs) {
+                _this.metaModel.save();
+            }
         }
     });
 
