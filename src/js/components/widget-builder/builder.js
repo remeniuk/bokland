@@ -181,7 +181,18 @@ define(function (require) {
             var _this = this,
                 selectedRows = _this.ui.$widgetrows ? _.map(_this.ui.$widgetrows, _this._collectDimForm) : [],
                 selectedCols = _this.ui.$widgetcols ? _.map(_this.ui.$widgetcols, _this._collectDimForm) : [],
-                selectedMeasures = _this.ui.$widgetmeasures.val();
+                selectedMeasures = _this.ui.$widgetmeasures.val(),
+                title = _this.ui.$widgettitle.val(),
+                hasErrors = false;
+
+            if(!selectedMeasures) {
+                _this.ui.$widgetmeasures.closest('.form-group').addClass('has-error');
+                hasErrors = true;
+            }
+            if(!title) {
+                _this.ui.$widgettitle.closest('.form-group').addClass('has-error');
+                hasErrors = true;
+            }
 
             _this.widgetModel.set({
                 filterBy: '',
@@ -197,13 +208,15 @@ define(function (require) {
                     {
                         success : function(model, response) {
                             var id = response.data._id;
-                            console.log("saved widget id: " + id);
+                            console.log('saved widget id: ' + id);
                             _this.widgetModel.set('id', id);
                             _this.widgetModel.set('_id', { '$oid': id });
                         }
                     });
             }
 
+            if(hasErrors) return false;
+            else _this.$el.find('.form-group').removeClass('has-error');
         },
 
         _onSave: function() {
