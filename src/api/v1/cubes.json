@@ -1,0 +1,19 @@
+{
+    "status": 200,
+    "data": {
+        "cubes": [
+            {
+                "id": "users",
+                "name": "Users"
+            },
+            {
+                "id": "purchases",
+                "name": "Purchases"
+            },
+            {
+                "id": "sessions",
+                "name": "Sessions"
+            }
+        ]
+    }
+}

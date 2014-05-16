@@ -7,12 +7,18 @@
             <button data-action="save-dashboard" placeholder="Save As" class="btn btn-default">
                 <span class="glyphicon glyphicon-floppy-disk"></span> Save As
             </button>
-            <button data-action="export-data" placeholder="Export as CSV" class="btn btn-default">
+            <button data-action="export-data" placeholder="Export as CSV" class="btn btn-default" data-toggle="modal" data-target=".bs-export-data-modal-lg">
                 <span class="glyphicon glyphicon-export"></span> Export Raw
             </button>
-            <button data-action="export-data" placeholder="Removes Dashboard" class="btn btn-default">
+            <button data-action="remove-dashboard" placeholder="Removes Dashboard" onclick="return confirm('Are you sure you want to delete the dashboard?')" class="btn btn-default">
                 <span class="glyphicon glyphicon-remove-circle"></span> Remove
             </button>
+        </div>
+    </div>
+
+    <div class="modal fade bs-export-data-modal-lg" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div data-region="export-data" class="modal-content" align="left"></div>
         </div>
     </div>
 

@@ -197,7 +197,7 @@ define(function (require) {
                     {
                         success : function(model, response) {
                             var id = response.data._id;
-                            console.log("saved widget id: " + id);
+                            console.log('saved widget id: ' + id);
                             _this.widgetModel.set('id', id);
                             _this.widgetModel.set('_id', { '$oid': id });
                         }

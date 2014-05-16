@@ -13,6 +13,7 @@ define(function (require) {
         TemplateMetaModel   = require('modules/dashboard/models/templatemeta'),
         TemplateRow         = require('components/template/templaterow'),
         AddRowDialog        = require('components/template/addrow'),
+        ExportDialog        = require('components/template/export'),
         CubeModel           = require('../models/cube'),
         WidgetBuilder       = require('components/widget-builder/builder'),
         templates           = require('templates/templates');
@@ -27,12 +28,14 @@ define(function (require) {
             'filterPopover': '[data-toggle=popover]',
             'dashboardTitle': '[data-region=title]',
             'selectDashboard': '[data-action=select-dashboard]',
-            'saveDashboard': '[data-action=save-dashboard]'
+            'saveDashboard': '[data-action=save-dashboard]',
+            'removeDashboard': '[data-action=remove-dashboard]'
         },
 
         events: {
             'change @ui.selectDashboard' : '_changeDashboard',
-            'click @ui.saveDashboard' : '_saveDashboard'
+            'click @ui.saveDashboard' : '_saveDashboard',
+            'click @ui.removeDashboard' : '_removeDashboard'
         },
 
         widgetBilderView: null,
@@ -95,6 +98,13 @@ define(function (require) {
             _this.metaModel.fetch({success: success});
         },
 
+        _removeDashboard: function(ev) {
+            var _this = this;
+            ev.preventDefault();
+
+            _this.metaModel.sync("delete", _this.metaModel);
+        },
+
         render: function () {
             var _this = this;
 
@@ -110,6 +120,11 @@ define(function (require) {
                 model: _this.metaModel
             });
             _this.region('add-row').show(addRowDialog);
+
+            var exportDialog = new ExportDialog({
+                state: _this.state
+            });
+            _this.region('export-data').show(exportDialog);
 
             return _this;
         },
