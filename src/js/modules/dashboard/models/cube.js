@@ -3,8 +3,8 @@ define(function (require) {
     'use strict';
 
     // imports
-    var _ = require('underscore'),
-        config = require('config/api'),
+    var _         = require('underscore'),
+        config    = require('config/api'),
         d3        = require('d3'),
         BaseModel = require('libs/model');
 

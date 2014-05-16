@@ -13,7 +13,7 @@ define(function (require) {
         url: function() {
             return (config.stubs ?
                 config.server + 'widget-builder-rules.json' :
-                'api/v1/widget-builder-rules.json');
+                'meta/rules');
         }
     });
 

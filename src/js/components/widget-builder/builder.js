@@ -181,7 +181,18 @@ define(function (require) {
             var _this = this,
                 selectedRows = _this.ui.$widgetrows ? _.map(_this.ui.$widgetrows, _this._collectDimForm) : [],
                 selectedCols = _this.ui.$widgetcols ? _.map(_this.ui.$widgetcols, _this._collectDimForm) : [],
-                selectedMeasures = _this.ui.$widgetmeasures.val();
+                selectedMeasures = _this.ui.$widgetmeasures.val(),
+                title = _this.ui.$widgettitle.val(),
+                hasErrors = false;
+
+            if(!selectedMeasures) {
+                _this.ui.$widgetmeasures.closest('.form-group').addClass('has-error');
+                hasErrors = true;
+            }
+            if(!title) {
+                _this.ui.$widgettitle.closest('.form-group').addClass('has-error');
+                hasErrors = true;
+            }
 
             _this.widgetModel.set({
                 filterBy: '',
@@ -204,6 +215,8 @@ define(function (require) {
                     });
             }
 
+            if(hasErrors) return false;
+            else _this.$el.find('.form-group').removeClass('has-error');
         },
 
         _onSave: function() {
