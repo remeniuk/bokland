@@ -11,8 +11,8 @@ define(function (require) {
     // code
     var Model = BaseModel.extend({
         url: function() {
-            return (config.stubs ?
-                config.server + 'widget-builder-rules.json' :
+            return config.server + (config.stubs ?
+                 'widget-builder-rules.json' :
                 'meta/rules');
         }
     });
