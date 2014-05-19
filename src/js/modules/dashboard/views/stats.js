@@ -61,6 +61,9 @@ define(function (require) {
 
             _this.listenToOnce(_this.cube, 'sync', _this._cubeLoaded);
             _this.listenToOnce(_this.dashboards, 'sync', _this._loadDashboard);
+
+            _this.listenToOnce(_this.metaModel, 'sync', _this.redraw);
+            _this.listenTo(_this.metaModel, 'rowadded', _this._addRow);
         },
 
         _loadDashboard: function() {
@@ -92,9 +95,6 @@ define(function (require) {
         _loadMeta: function(success) {
             var _this = this;
 
-            _this.listenToOnce(_this.metaModel, 'sync', _this.redraw);
-            _this.listenTo(_this.metaModel, 'rowadded', _this._addRow);
-
             _this.metaModel.fetch({success: success});
         },
 
@@ -102,7 +102,7 @@ define(function (require) {
             var _this = this;
             ev.preventDefault();
 
-            _this.metaModel.sync("delete", _this.metaModel);
+            _this.metaModel.sync('delete', _this.metaModel);
         },
 
         render: function () {
@@ -178,7 +178,7 @@ define(function (require) {
 
         _changeDashboard: function() {
             var _this = this,
-                selectedDashboardId = _this.ui.$dashboardTitle.find(':selected').val();
+                selectedDashboardId = _this.ui.$selectDashboard.find(':selected').val();
 
             _this.metaModel.set('id', selectedDashboardId);
 

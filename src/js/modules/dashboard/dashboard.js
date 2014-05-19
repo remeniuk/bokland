@@ -30,7 +30,6 @@ define(function(require) {
                 view;
 
             view = new DashboardStatsView({
-                id: '536b8979682cfa5294504719',
                 collection: _this.collection,
                 state: _this.state
             });

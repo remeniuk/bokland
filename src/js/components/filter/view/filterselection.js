@@ -14,6 +14,8 @@ define(function (require) {
         template: templates['components/filterselection/pane'],
         criterionTemplate: templates['components/filterselection/criterion'],
 
+        usedKeys: ['d', 'p', 's', 'c', 'ch'],
+
         elementsUI: {
             'pane': '.filter-pane'
         },
@@ -54,7 +56,9 @@ define(function (require) {
 
             if (_this.filterMetaLoaded) {
                 _this.ui.$pane.empty();
-                _.each(_this.state.attributes, function (value, key) {
+                _.each(_.filter(_this.state.attributes, function(attr){
+                        return _.contains(_this.usedKeys, attr);
+                    }), function (value, key) {
                     var criterionMeta = _this._findCriterionMeta(key);
                     var values = _.map(_.flatten(value._), formatValue);
 
