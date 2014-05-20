@@ -21,6 +21,14 @@ define(function (require) {
             var measureName = _this.widgetModel.get('measures')[0];
 
             function parseSeries(series, key) {
+                var dimension = _this.cube.dimension(colName);
+
+                if(dimension.type == 'date') {
+                    series = _.sortBy(series, function(s){
+                        return s[colName];
+                    });
+                }
+
                 return {
                     key: seriesName ? _this.cube.dimensionValueLabel(seriesName, key) : undefined,
                     values: _.map(series, function (d) {
