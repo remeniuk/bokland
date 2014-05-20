@@ -23,7 +23,7 @@ define(function (require) {
             function parseSeries(series, key) {
                 var dimension = _this.cube.dimension(colName);
 
-                if(dimension.type == 'date') {
+                if(dimension.type === 'date') {
                     series = _.sortBy(series, function(s){
                         return s[colName];
                     });

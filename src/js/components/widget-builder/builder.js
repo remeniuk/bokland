@@ -215,8 +215,12 @@ define(function (require) {
                     });
             }
 
-            if(hasErrors) return false;
-            else _this.$el.find('.form-group').removeClass('has-error');
+            if(hasErrors) {
+                return false;
+            }
+            else {
+                _this.$el.find('.form-group').removeClass('has-error');
+            }
         },
 
         _onSave: function() {
