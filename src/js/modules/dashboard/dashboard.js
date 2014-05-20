@@ -76,7 +76,7 @@ define(function(require) {
     // start routing
     if (!RouterManager.start()) {
         var range = time.period(new Date(), 'last-day-7');
-        dashboard.state.set('d._', [range]);
+        dashboard.state.set('date._', [range]);
     }
 
     return dashboard;

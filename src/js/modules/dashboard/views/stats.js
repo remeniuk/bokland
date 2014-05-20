@@ -45,7 +45,7 @@ define(function (require) {
 
             _this.state.init({
                 did: '', // dashboard id
-                d: {},  // date
+                date: {},  // date
                 p: {},  // platform
                 s: {},  // source
                 c: {},  // countries
