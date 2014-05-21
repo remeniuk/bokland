@@ -29,12 +29,14 @@ define(function (require) {
             'dashboardTitle': '[data-region=title]',
             'selectDashboard': '[data-action=select-dashboard]',
             'saveDashboard': '[data-action=save-dashboard]',
+            'createDashboard': '[data-action=create-dashboard]',
             'removeDashboard': '[data-action=remove-dashboard]'
         },
 
         events: {
             'change @ui.selectDashboard' : '_changeDashboard',
             'click @ui.saveDashboard' : '_saveDashboard',
+            'click @ui.createDashboard' : '_createDashboard',
             'click @ui.removeDashboard' : '_removeDashboard'
         },
 
@@ -73,14 +75,11 @@ define(function (require) {
                 selectedDashboardId = _this.state.get('did');
 
             if(!defaultDashboard){
-                _this.metaModel.set({title: 'New dashboard', app_id: 'new'});
-                _this.metaModel.save(null, {success: function(model, response){
-                    _this.listenToOnce(_this.dashboards, 'sync', _this._loadDashboard);
-                    _this.dashboards.fetch();
-                }});
+                _this._createDashboard();
             } else {
                 _this.metaModel.set('id', selectedDashboardId ? selectedDashboardId : defaultDashboard.id);
 
+                _this.ui.$selectDashboard.find('option').remove();
                 _.each(dashboards, function(dash){
                     if(dash) {
                         _this.ui.$selectDashboard.append('<option value="' + dash.id + '"' + (selectedDashboardId === dash.id ? 'selected' : '') + '>' + dash.title + '</option>');
@@ -176,6 +175,23 @@ define(function (require) {
             _this.region('widget-builder').show(_this.widgetBilderView);
         },
 
+        _createDashboard: function() {
+            var _this = this;
+
+            /* jshint camelcase:false */
+            _this.metaModel = new TemplateMetaModel({title: 'New dashboard ' + Math.round(Math.random() * 10), app_id: 'new'});
+            /* jshint camelcase:true */
+            _this.metaModel.save(null, {
+                success: function(model, response){
+                    if(response.data) {
+                        _this.state.set({did: response.data.id}, {silent:true});
+                    }
+                    _this.listenToOnce(_this.metaModel, 'sync', _this.redraw);
+                    _this.listenToOnce(_this.dashboards, 'sync', _this._loadDashboard);
+                    _this.dashboards.fetch();
+                }});
+        },
+
         _saveDashboard: function() {
             var _this = this;
             _this.metaModel.set('title', _this.ui.$dashboardTitle.val());
@@ -188,6 +204,7 @@ define(function (require) {
             var _this = this,
                 selectedDashboardId = _this.ui.$selectDashboard.find(':selected').val();
 
+            _this.listenToOnce(_this.metaModel, 'sync', _this.redraw);
             _this.metaModel.set('id', selectedDashboardId);
 
             var onSuccess = function(){
