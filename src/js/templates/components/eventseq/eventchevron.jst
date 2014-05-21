@@ -1,0 +1,17 @@
+<a href="#">
+    <div class="event-name"><%= name %></div>
+    <div class="event-item"><% if(typeof item_id !== "undefined") { %> <%= item_id %> <% } else { %> &nbsp; <% } %></div>
+    <div class="event-param">
+        <% if(typeof parameter !== "undefined") { if(parameter.type === "gt") { %>
+        > <%= parameter.from %>
+        <% } else if(parameter.type === "lt") { %>
+        < <%= parameter.to %>
+        <% } else if(parameter.type === "eq") { %>
+        = <%= parameter.value %>
+        <% } else if(parameter.type === "btw") { %>
+        <%= parameter.from %> to <%= parameter.to %>
+        <% }} else { %>
+        &nbsp;
+        <% } %>
+    </div>
+</a>

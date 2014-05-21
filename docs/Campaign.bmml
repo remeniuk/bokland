@@ -1,0 +1,158 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="991" measuredH="487" mockupW="721" mockupH="467">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="270" y="20" w="721" h="467" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Dashboard%0Ahttp%3A//bokland.com/dashboard</text>
+      </controlProperties>
+    </control>
+    <control controlID="30" controlTypeID="com.balsamiq.mockups::Canvas" x="359" y="161" w="542" h="275" measuredW="100" measuredH="70" zOrder="1" locked="false" isInGroup="-1"/>
+    <control controlID="47" controlTypeID="__group__" x="374" y="176" w="254" h="56" measuredW="254" measuredH="56" zOrder="2" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="0" w="254" h="56" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="47">
+          <controlProperties>
+            <color>16776960</color>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="15" y="6" w="-1" h="-1" measuredW="79" measuredH="21" zOrder="1" locked="false" isInGroup="47">
+          <controlProperties>
+            <text>Campaign%20%231</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="15" y="21" w="-1" h="-1" measuredW="139" measuredH="20" zOrder="2" locked="false" isInGroup="47">
+          <controlProperties>
+            <size>12</size>
+            <text>2014/01/01%20-%202014/02/01</text>
+          </controlProperties>
+        </control>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="109" y="6" w="-1" h="-1" measuredW="21" measuredH="20" zOrder="3" locked="false" isInGroup="47">
+          <controlProperties>
+            <size>12</size>
+            <text>A/B</text>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="194" y="11" w="-1" h="-1" measuredW="45" measuredH="28" zOrder="4" locked="false" isInGroup="47">
+          <controlProperties>
+            <size>20</size>
+            <text>40%25</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="48" controlTypeID="__group__" x="475" y="239" w="385" h="56" measuredW="385" measuredH="56" zOrder="3" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="0" w="385" h="56" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="48">
+          <controlProperties>
+            <color>15374745</color>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="23" y="6" w="120" h="-1" measuredW="82" measuredH="21" zOrder="1" locked="false" isInGroup="48">
+          <controlProperties>
+            <text>Campaign%20%232</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="23" y="21" w="211" h="-1" measuredW="139" measuredH="20" zOrder="2" locked="false" isInGroup="48">
+          <controlProperties>
+            <size>12</size>
+            <text>2014/01/01%20-%202014/02/01</text>
+          </controlProperties>
+        </control>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="108" y="6" w="85" h="-1" measuredW="44" measuredH="20" zOrder="3" locked="false" isInGroup="48">
+          <controlProperties>
+            <size>12</size>
+            <text>PROMO</text>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="294" y="11" w="68" h="-1" measuredW="44" measuredH="28" zOrder="4" locked="false" isInGroup="48">
+          <controlProperties>
+            <size>20</size>
+            <text>20%25</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="49" controlTypeID="__group__" x="424" y="302" w="385" h="56" measuredW="385" measuredH="56" zOrder="4" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="0" w="385" h="56" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="49">
+          <controlProperties>
+            <color>16776960</color>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="23" y="6" w="120" h="-1" measuredW="82" measuredH="21" zOrder="1" locked="false" isInGroup="49">
+          <controlProperties>
+            <text>Campaign%20%232</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="23" y="21" w="211" h="-1" measuredW="139" measuredH="20" zOrder="2" locked="false" isInGroup="49">
+          <controlProperties>
+            <size>12</size>
+            <text>2014/01/01%20-%202014/02/01</text>
+          </controlProperties>
+        </control>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="108" y="6" w="85" h="-1" measuredW="21" measuredH="20" zOrder="3" locked="false" isInGroup="49">
+          <controlProperties>
+            <size>12</size>
+            <text>A/B</text>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="294" y="11" w="68" h="-1" measuredW="44" measuredH="28" zOrder="4" locked="false" isInGroup="49">
+          <controlProperties>
+            <size>20</size>
+            <text>20%25</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="51" controlTypeID="__group__" x="628" y="365" w="254" h="56" measuredW="254" measuredH="56" zOrder="5" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="0" w="254" h="56" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="51">
+          <controlProperties>
+            <color>15374745</color>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="15" y="6" w="-1" h="-1" measuredW="79" measuredH="21" zOrder="1" locked="false" isInGroup="51">
+          <controlProperties>
+            <text>Campaign%20%231</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="15" y="21" w="-1" h="-1" measuredW="139" measuredH="20" zOrder="2" locked="false" isInGroup="51">
+          <controlProperties>
+            <size>12</size>
+            <text>2014/01/01%20-%202014/02/01</text>
+          </controlProperties>
+        </control>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="109" y="6" w="-1" h="-1" measuredW="44" measuredH="20" zOrder="3" locked="false" isInGroup="51">
+          <controlProperties>
+            <size>12</size>
+            <text>PROMO</text>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="194" y="11" w="-1" h="-1" measuredW="45" measuredH="28" zOrder="4" locked="false" isInGroup="51">
+          <controlProperties>
+            <size>20</size>
+            <text>40%25</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="52" controlTypeID="com.balsamiq.mockups::SearchBox" x="781" y="116" w="-1" h="-1" measuredW="120" measuredH="25" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>search</text>
+      </controlProperties>
+    </control>
+    <control controlID="53" controlTypeID="com.balsamiq.mockups::DateChooser" x="359" y="116" w="-1" h="-1" measuredW="90" measuredH="25" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20%20/%20%20/%20%20%20%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="54" controlTypeID="com.balsamiq.mockups::DateChooser" x="456" y="116" w="-1" h="-1" measuredW="90" measuredH="25" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20%20/%20%20/%20%20%20%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="55" controlTypeID="com.balsamiq.mockups::ComboBox" x="713" y="116" w="-1" h="-1" measuredW="59" measuredH="24" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Tags</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
