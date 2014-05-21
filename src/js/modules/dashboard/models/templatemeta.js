@@ -11,12 +11,6 @@ define(function (require) {
     // code
     var Model = BaseModel.extend({
         parametric: true,
-        url: function() {
-            return config.server + (config.stubs ?
-                'template-meta.json' :
-                'meta/dashboards/' + this.get('id'));
-        },
-
 
         parse: function(resp) {
             var _this = this,
@@ -34,6 +28,12 @@ define(function (require) {
             return data;
         }
     });
+
+    if(config.stubs){
+        Model = Model.extend({ url: config.server + 'template-meta.json'});
+    } else {
+        Model = Model.extend({urlRoot: config.server + 'meta/dashboards/'});
+    }
 
     return Model;
 });

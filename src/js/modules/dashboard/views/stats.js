@@ -56,14 +56,14 @@ define(function (require) {
             _this.dashboards = new AllDashboardsModel();
             _this.cube = new CubeModel();
 
-            _this.dashboards.fetch();
-            _this.cube.fetch();
-
             _this.listenToOnce(_this.cube, 'sync', _this._cubeLoaded);
             _this.listenToOnce(_this.dashboards, 'sync', _this._loadDashboard);
 
             _this.listenToOnce(_this.metaModel, 'sync', _this.redraw);
             _this.listenTo(_this.metaModel, 'rowadded', _this._addRow);
+
+            _this.dashboards.fetch();
+            _this.cube.fetch();
         },
 
         _loadDashboard: function() {
@@ -72,24 +72,32 @@ define(function (require) {
                 defaultDashboard = dashboards[0],
                 selectedDashboardId = _this.state.get('did');
 
-            _this.metaModel.set('id', selectedDashboardId ? selectedDashboardId : defaultDashboard.id);
+            if(!defaultDashboard){
+                _this.metaModel.set({title: 'New dashboard', app_id: 'new'});
+                _this.metaModel.save(null, {success: function(model, response){
+                    _this.listenToOnce(_this.dashboards, 'sync', _this._loadDashboard);
+                    _this.dashboards.fetch();
+                }});
+            } else {
+                _this.metaModel.set('id', selectedDashboardId ? selectedDashboardId : defaultDashboard.id);
 
-            _.each(dashboards, function(dash){
-                if(dash) {
-                    _this.ui.$selectDashboard.append('<option value="' + dash.id + '"' + (selectedDashboardId === dash.id ? 'selected' : '') + '>' + dash.title + '</option>');
-                }
+                _.each(dashboards, function(dash){
+                    if(dash) {
+                        _this.ui.$selectDashboard.append('<option value="' + dash.id + '"' + (selectedDashboardId === dash.id ? 'selected' : '') + '>' + dash.title + '</option>');
+                    }
 
-            });
+                });
 
-            var onSuccess = function() {
-                if(selectedDashboardId) {
-                    _this.state.trigger('change');
-                } else {
-                    _this.state.set('did', defaultDashboard.id);
-                }
-            };
+                var onSuccess = function() {
+                    if(selectedDashboardId) {
+                        _this.state.trigger('change');
+                    } else {
+                        _this.state.set('did', defaultDashboard.id);
+                    }
+                };
 
-            _this._loadMeta(onSuccess);
+                _this._loadMeta(onSuccess);
+            }
         },
 
         _loadMeta: function(success) {
