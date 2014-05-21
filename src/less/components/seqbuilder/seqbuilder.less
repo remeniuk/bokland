@@ -1,0 +1,125 @@
+.add-row-dialog {
+  padding: 20px;
+}
+
+.sequence {
+  padding: 20px;
+  list-style: none;
+  overflow: hidden;
+
+  .event-name {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  .event-item, .event-param {
+    font-size: 13px;
+    line-height: 13px;
+  }
+}
+
+.sequence li {
+  float: left;
+}
+
+.sequence li a {
+  color: black;
+  text-decoration: none;
+  padding: 10px 0 10px 40px;
+  background: #808080; /* fallback color */
+  background: hsl(0, 0%, 63%);
+  position: relative;
+  display: block;
+  float: left;
+}
+
+#param, #from-param, #to-param {
+  margin-top: 15px;
+  display: inline;
+  width: 45%;
+}
+
+.sequence li a:after {
+  content: " ";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 50px solid transparent; /* Go big on the size, and let overflow hide */
+  border-bottom: 50px solid transparent;
+  border-left: 30px solid hsl(0, 0%, 63%);
+  position: absolute;
+  top: 50%;
+  margin-top: -50px;
+  left: 100%;
+  z-index: 2;
+  outline: none;
+}
+
+.sequence li a:before {
+  content: " ";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 50px solid transparent; /* Go big on the size, and let overflow hide */
+  border-bottom: 50px solid transparent;
+  border-left: 30px solid white;
+  position: absolute;
+  top: 50%;
+  margin-top: -50px;
+  margin-left: 1px;
+  left: 100%;
+  z-index: 1;
+}
+
+.sequence li:first-child a {
+  padding-left: 10px;
+}
+
+.sequence li:nth-child(2) a {
+  background: hsl(0, 0%, 63%);
+}
+
+.sequence li:nth-child(2) a:after {
+  border-left-color: hsl(0, 0%, 63%);
+}
+
+.sequence li:nth-child(3) a {
+  background: hsl(0, 0%, 63%);
+}
+
+.sequence li:nth-child(3) a:after {
+  border-left-color: hsl(0, 0%, 63%);
+}
+
+.sequence li:nth-child(4) a {
+  background: hsl(0, 0%, 63%);
+}
+
+.sequence li:nth-child(4) a:after {
+  border-left-color: hsl(0, 0%, 63%);
+}
+
+.sequence li:nth-child(5) a {
+  background: hsl(0, 0%, 63%);
+}
+
+.sequence li:nth-child(5) a:after {
+  border-left-color: hsl(0, 0%, 63%);
+}
+
+.sequence li:last-child a {
+  background: hsl(0, 0%, 63%);
+}
+
+.sequence li:last-child a:after {
+  border-left-color: hsl(0, 0%, 63%);
+}
+
+.sequence li a:hover {
+  background: hsl(0, 0%, 44%);
+}
+
+.sequence li a:hover:after {
+  border-left-color: hsl(0, 0%, 44%) !important;
+}
