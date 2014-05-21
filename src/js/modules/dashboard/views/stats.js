@@ -45,14 +45,17 @@ define(function (require) {
         initialize: function (options) {
             var _this = this;
 
+            /* jshint camelcase:false */
             _this.state.init({
                 did: '', // dashboard id
+                app_id: {}, // app id
                 date: {},  // date
                 p: {},  // platform
                 s: {},  // source
                 c: {},  // countries
                 ch: {}  // segments
             });
+            /* jshint camelcase:true */
 
             _this.metaModel = new TemplateMetaModel();
             _this.dashboards = new AllDashboardsModel();
@@ -89,9 +92,11 @@ define(function (require) {
 
                 var onSuccess = function() {
                     if(selectedDashboardId) {
+                        _this.state.set('app_id._', [_this.metaModel.get('app_id')]);
                         _this.state.trigger('change');
                     } else {
-                        _this.state.set('did', defaultDashboard.id);
+                        _this.state.set({did: defaultDashboard.id}, {silent: true});
+                        _this.state.set('app_id._', [_this.metaModel.get('app_id')]);
                     }
                 };
 
@@ -179,7 +184,7 @@ define(function (require) {
             var _this = this;
 
             /* jshint camelcase:false */
-            _this.metaModel = new TemplateMetaModel({title: 'New dashboard ' + Math.round(Math.random() * 10), app_id: 'new'});
+            _this.metaModel = new TemplateMetaModel({title: 'New dashboard', app_id: 'new'});
             /* jshint camelcase:true */
             _this.metaModel.save(null, {
                 success: function(model, response){
