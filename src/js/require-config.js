@@ -44,13 +44,15 @@
             },
             deparam: ['jquery'],
             pivottable: ['jquery'],
-            select2: ['jquery']
+            select2: ['jquery'],
+            spin: ['jquery']
         },
         paths: {
             jquery: dirs.bower + 'jquery/dist/jquery',
             pivottable: dirs.bower + 'pivottable/dist/pivot',
             bootstrap: dirs.bower + 'bootstrap/dist/js/bootstrap',
             select2: dirs.bower + 'select2/select2',
+            spin: dirs.bower + 'spin/javascripts/jquery.spin',
             underscore: dirs.bower + 'underscore/underscore',
             // underscore: dirs.bower + 'lodash/dist/lodash.underscore',
             drilldown: dirs.bower + 'jquery-drilldown/jquery.drilldown',

@@ -6,6 +6,7 @@ define(function (require) {
     var $         = require('jquery'),
         d3        = require('d3'),
         _         = require('underscore'),
+        spin      = require('spin'),
         config    = require('config/api'),
         BaseView  = require('libs/view'),
         templates = require('templates/templates');
@@ -25,6 +26,7 @@ define(function (require) {
 
         elementsUI: {
             'display': null,
+            'spin': '.spin',
             'edit': '[data-action="edit-widget"]',
             'remove': '[data-action="remove-widget"]'
         },
@@ -97,6 +99,8 @@ define(function (require) {
                 title: _this.title
             }));
             _this.bindUI();
+
+            _this.ui.$spin.spin();
 
             return _this;
         },
