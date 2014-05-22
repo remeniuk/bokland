@@ -209,7 +209,6 @@ define(function (require) {
             var _this = this,
                 selectedDashboardId = _this.ui.$selectDashboard.find(':selected').val();
 
-            _this.listenToOnce(_this.metaModel, 'sync', _this.redraw);
             _this.metaModel.set('id', selectedDashboardId);
 
             var onSuccess = function(){

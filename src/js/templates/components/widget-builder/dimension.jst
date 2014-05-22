@@ -2,7 +2,7 @@
          _.filter(cubeMeta.dimensions, function (dim) { return _.contains(vizRules[type].allowedTypes, dim.type); }) :
          cubeMeta.dimensions),
        selectedDim = allowedDims[0];
-       dims = !_.isEmpty(dims) ? dims : [{'dim': selectedDim.id, 'aggregation': { 'type': (selectedDim.type === 'string' ? 'category' : 'histogram') }}];
+       dims = !_.isEmpty(dims) ? dims : [{'dimension': { 'field' : selectedDim.id}, 'aggregation': { 'type': (selectedDim.type === 'category' ? 'category' : 'histogram') }}];
   _.each(dims, function(userDim, index) { %>
   <div class="form-group dim-row">
     <% if(index === 0) { %>
@@ -32,7 +32,7 @@
             <% }); %>
         </select>
     </div>
-    <% if(selectedAgg.params) { %>
+    <% if(selectedAgg && selectedAgg.params) { %>
     <div class="col-sm-2">
         <% if(selectedAgg.params[selectedDim.type].type === "discrete") { %>
         <input type="text" class="form-control dim-agg-param dim-agg-value" name="dim-agg-param" value="<%= userDim.aggregation ? userDim.aggregation.value : 10 %>">

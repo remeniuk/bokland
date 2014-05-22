@@ -7,15 +7,15 @@
             },
             "data": [
                 {
-                    "platform": "iPad",
+                    "platforms.device_platform": "iPad",
                     "users_count": 1232
                 },
                 {
-                    "platform": "iPhone",
+                    "platforms.device_platform": "iPhone",
                     "users_count": 2190
                 },
                 {
-                    "platform": "Android",
+                    "platforms.device_platform": "Android",
                     "users_count": 3019
                 }
             ]
@@ -26,19 +26,19 @@
             },
             "data": [
                 {
-                    "country": "ru",
+                    "profile.country": "ru",
                     "users_count": 1000
                 },
                 {
-                    "country": "us",
+                    "profile.country": "us",
                     "users_count": 400
                 },
                 {
-                    "country": "uk",
+                    "profile.country": "uk",
                     "users_count": 654
                 },
                 {
-                    "country": "cn",
+                    "profile.country": "cn",
                     "users_count": 2560
                 }
             ]
@@ -50,32 +50,32 @@
             "data": [
                 {
                     "date": 1025409600000,
-                    "platform": "iPad",
+                    "platforms.device_platform": "iPad",
                     "total_revenue": 23.041422681023
                 },
                 {
                     "date": 1028088000000,
-                    "platform": "iPad",
+                    "platforms.device_platform": "iPad",
                     "total_revenue": 19.854291255832
                 },
                 {
                     "date": 1030766400000,
-                    "platform": "iPad",
+                    "platforms.device_platform": "iPad",
                     "total_revenue": 21.02286281168
                 },
                 {
                     "date": 1025409600000,
-                    "platform": "iPhone",
+                    "platforms.device_platform": "iPhone",
                     "total_revenue": 7.9356392949025
                 },
                 {
                     "date": 1028088000000,
-                    "platform": "iPhone",
+                    "platforms.device_platform": "iPhone",
                     "total_revenue": 7.4514668527298
                 },
                 {
                     "date": 1030766400000,
-                    "platform": "iPhone",
+                    "platforms.device_platform": "iPhone",
                     "total_revenue": 7.9085410566608
                 }
             ]
@@ -86,33 +86,33 @@
             },
             "data": [
                 {
-                    "date": 1025409600000,
-                    "app_version": "1.0",
+                    "reg_date": 1025409600000,
+                    "platforms.app_version": "1.0",
                     "users_count": 23
                 },
                 {
-                    "date": 1028088000000,
-                    "app_version": "1.0",
+                    "reg_date": 1028088000000,
+                    "platforms.app_version": "1.0",
                     "users_count": 19
                 },
                 {
-                    "date": 1030766400000,
-                    "app_version": "1.0",
+                    "reg_date": 1030766400000,
+                    "platforms.app_version": "1.0",
                     "users_count": 21
                 },
                 {
-                    "date": 1025409600000,
-                    "app_version": "2.0",
+                    "reg_date": 1025409600000,
+                    "platforms.app_version": "2.0",
                     "users_count": 7
                 },
                 {
-                    "date": 1028088000000,
-                    "app_version": "2.0",
+                    "reg_date": 1028088000000,
+                    "platforms.app_version": "2.0",
                     "users_count": 30
                 },
                 {
-                    "date": 1030766400000,
-                    "app_version": "2.0",
+                    "reg_date": 1030766400000,
+                    "platforms.app_version": "2.0",
                     "users_count": 14
                 }
             ]
@@ -124,19 +124,19 @@
             "data": [
                 {
                     "date": 1025409600000,
-                    "platform": "iPad",
+                    "platforms.device_platform": "iPad",
                     "total_revenue": 100,
                     "users_count": 21
                 },
                 {
                     "date": 1028088000000,
-                    "platform": "iPhone",
+                    "platforms.device_platform": "iPhone",
                     "total_revenue": 200,
                     "users_count": 31
                 },
                 {
                     "date": 1030766400000,
-                    "platform": "iPad",
+                    "platforms.device_platform": "iPad",
                     "total_revenue": 300,
                     "users_count": 89
                 }
@@ -148,22 +148,22 @@
             },
             "data": [
                 {
-                    "gender": "f",
+                    "profile.gender": "female",
                     "source": "fb",
                     "users_count": 1000
                 },
                 {
-                    "gender": "f",
+                    "profile.gender": "female",
                     "source": "or",
                     "users_count": 400
                 },
                 {
-                    "gender": "m",
+                    "profile.gender": "male",
                     "source": "fb",
                     "users_count": 654
                 },
                 {
-                    "gender": "m",
+                    "profile.gender": "male",
                     "source": "or",
                     "users_count": 2560
                 }
@@ -175,11 +175,11 @@
             },
             "data": [
                 {
-                    "gender": "m",
+                    "profile.gender": "male",
                     "users_count": 1000
                 },
                 {
-                    "gender": "f",
+                    "profile.gender": "female",
                     "users_count": 400
                 }
             ]

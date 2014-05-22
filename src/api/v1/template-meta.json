@@ -5,7 +5,6 @@
             "$oid": "536b8979682cfa5294504719"
         },
         "app_id": "53280f81c8f25a47fe2e234e",
-        "title": "Dashboard",
         "rows": [
             {
                 "height": "200px",
@@ -14,69 +13,69 @@
                         "_id": {
                             "$oid": "536b86d0682cfa5294504712"
                         },
-                        "widgetType": "bar",
-                        "title": "Platforms",
-                        "rows": [],
                         "cols": [
                             {
-                                "dimension": {
-                                    "field": "platform"
-                                },
                                 "aggregation": {
                                     "type": "category"
+                                },
+                                "dimension": {
+                                    "field": "platforms.device_platform"
                                 }
                             }
                         ],
+                        "filterBy": "p",
                         "measures": [
                             "users_count"
                         ],
-                        "filterBy": "p",
+                        "rows": [ ],
+                        "title": "Platforms",
+                        "widgetType": "bar",
                         "width": 4
                     },
                     {
                         "_id": {
                             "$oid": "536b87af682cfa5294504713"
                         },
-                        "widgetType": "row",
-                        "title": "Countries",
-                        "rows": [
-                            {
-                                "dimension": {
-                                    "field": "country"
-                                },
-                                "aggregation": {
-                                    "type": "category"
-                                }
-                            }
-                        ],
-                        "cols": [],
+                        "cols": [ ],
+                        "filterBy": "c",
                         "measures": [
                             "users_count"
                         ],
-                        "filterBy": "c",
+                        "rows": [
+                            {
+                                "aggregation": {
+                                    "type": "category"
+                                },
+                                "dimension": {
+                                    "field": "profile.country"
+                                }
+                            }
+                        ],
+                        "title": "Countries",
+                        "widgetType": "row",
                         "width": 4
                     },
                     {
                         "_id": {
                             "$oid": "536b8809682cfa5294504714"
                         },
-                        "widgetType": "pie",
-                        "title": "Gender",
-                        "rows": [
-                            {
-                                "dimension": {
-                                    "field": "gender"
-                                },
-                                "aggregation": {
-                                    "type": "category"
-                                }
-                            }
-                        ],
-                        "cols": [],
+                        "cols": [ ],
+                        "filterBy": "g",
                         "measures": [
                             "users_count"
                         ],
-                        "filterBy": "g",
+                        "rows": [
+                            {
+                                "aggregation": {
+                                    "type": "category"
+                                },
+                                "dimension": {
+                                    "field": "profile.gender"
+                                }
+                            }
+                        ],
+                        "title": "Gender",
+                        "widgetType": "pie",
                         "width": 4
                     }
                 ]
@@ -88,64 +87,64 @@
                         "_id": {
                             "$oid": "536b884f682cfa5294504715"
                         },
-                        "widgetType": "area",
-                        "title": "Revenue",
-                        "rows": [
-                            {
-                                "dimension": {
-                                    "field": "platform"
-                                },
-                                "aggregation": {
-                                    "type": "category"
-                                }
-                            }
-                        ],
                         "cols": [
                             {
+                                "aggregation": {
+                                    "date_type": "Day",
+                                    "type": "date"
+                                },
                                 "dimension": {
                                     "field": "date"
-                                },
-                                "aggregation": {
-                                    "type": "date",
-                                    "date_type": "Day"
                                 }
                             }
                         ],
+                        "filterBy": "p",
                         "measures": [
                             "total_revenue"
                         ],
-                        "filterBy": "p",
+                        "rows": [
+                            {
+                                "aggregation": {
+                                    "type": "category"
+                                },
+                                "dimension": {
+                                    "field": "platforms.device_platform"
+                                }
+                            }
+                        ],
+                        "title": "Revenue",
+                        "widgetType": "area",
                         "width": 6
                     },
                     {
                         "_id": {
                             "$oid": "536b8880682cfa5294504716"
                         },
-                        "widgetType": "row",
-                        "title": "Sources",
-                        "rows": [
-                            {
-                                "dimension": {
-                                    "field": "gender"
-                                },
-                                "aggregation": {
-                                    "type": "category"
-                                }
-                            },
-                            {
-                                "dimension": {
-                                    "field": "source"
-                                },
-                                "aggregation": {
-                                    "type": "category"
-                                }
-                            }
-                        ],
-                        "cols": [],
+                        "cols": [ ],
+                        "filterBy": "s",
                         "measures": [
                             "users_count"
                         ],
-                        "filterBy": "s",
+                        "rows": [
+                            {
+                                "aggregation": {
+                                    "type": "category"
+                                },
+                                "dimension": {
+                                    "field": "profile.gender"
+                                }
+                            },
+                            {
+                                "aggregation": {
+                                    "type": "category"
+                                },
+                                "dimension": {
+                                    "field": "source"
+                                }
+                            }
+                        ],
+                        "title": "Sources",
+                        "widgetType": "row",
                         "width": 6
                     }
                 ]
@@ -157,71 +156,75 @@
                         "_id": {
                             "$oid": "536b88b5682cfa5294504717"
                         },
-                        "widgetType": "line",
-                        "title": "Registrations",
-                        "rows": [
-                            {
-                                "dimension": {
-                                    "field": "app_version"
-                                },
-                                "aggregation": {
-                                    "type": "category"
-                                }
-                            }
-                        ],
                         "cols": [
                             {
-                                "dimension": {
-                                    "field": "date"
-                                },
                                 "aggregation": {
-                                    "type": "date",
-                                    "date_type": "Day"
+                                    "date_type": "Day",
+                                    "type": "date"
+                                },
+                                "dimension": {
+                                    "field": "reg_date"
                                 }
                             }
                         ],
+                        "filterBy": "r",
                         "measures": [
                             "users_count"
                         ],
-                        "filterBy": "r",
+                        "rows": [
+                            {
+                                "aggregation": {
+                                    "type": "category"
+                                },
+                                "dimension": {
+                                    "field": "platforms.app_version"
+                                }
+                            }
+                        ],
+                        "title": "Registrations",
+                        "widgetType": "line",
                         "width": 7
                     },
                     {
                         "_id": {
                             "$oid": "536b88e8682cfa5294504718"
                         },
-                        "widgetType": "pivot",
-                        "title": "KPIs",
-                        "rows": [
-                            {
-                                "dimension": {
-                                    "field": "date"
-                                },
-                                "aggregation": {
-                                    "type": "date",
-                                    "date_type": "Day"
-                                }
-                            }
-                        ],
                         "cols": [
                             {
-                                "dimension": {
-                                    "field": "platform"
-                                },
                                 "aggregation": {
                                     "type": "category"
+                                },
+                                "dimension": {
+                                    "field": "platforms.device_platform"
                                 }
                             }
                         ],
+                        "filterBy": "r",
                         "measures": [
                             "total_revenue",
                             "users_count"
                         ],
-                        "filterBy": "r",
+                        "rows": [
+                            {
+                                "aggregation": {
+                                    "date_type": "Day",
+                                    "type": "date"
+                                },
+                                "dimension": {
+                                    "field": "date"
+                                }
+                            }
+                        ],
+                        "title": "KPIs",
+                        "widgetType": "pivot",
                         "width": 5
                     }
                 ]
             }
-        ]
+        ],
+        "title": "Dashboard",
+        "trigger": false
+
+
     }
 }

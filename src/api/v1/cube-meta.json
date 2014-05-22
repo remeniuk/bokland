@@ -2,39 +2,295 @@
     "status": 200,
     "data": {
         "dimensions": [
-            {"id": "platform", "name": "Platform", "type": "string"},
-            {"id": "gender", "name": "Gender", "type": "string", "dictionary": { "m": "Male", "f": "Female" } },
-            {"id": "country", "name": "Country", "type": "string", "dictionary": { "ru": "Russia", "us": "USA", "uk": "United Kingdom", "cn": "China" } },
-            {"id": "lang", "name": "Language", "type": "string" },
-            {"id": "source", "name": "Source", "type": "string", "dictionary": { "fb": "Facebook", "or": "Organic", "vk": "Vkontakte", "ok": "Odnoklassniki" } },
-            {"id": "app_version", "name": "App version", "type": "string"},
-            {"id": "os_version", "name": "OS version", "type": "string"},
-            {"id": "age", "name": "Age", "type": "number"},
-            {"id": "date", "name": "Date", "type": "date", "format": "%x"}
+            {
+                "id": "date",
+                "name": "Date",
+                "type": "date",
+                "format": "%x"
+            },
+            {
+                "id": "reg_date",
+                "name": "Reg date",
+                "type": "date",
+                "format": "%x"
+            },
+            {
+                "id": "last_update_date",
+                "name": "Last update date",
+                "type": "date",
+                "format": "%x"
+            },
+            {
+                "id": "creds.mode",
+                "name": "Mode",
+                "type": "category"
+            },
+            {
+                "id": "platforms.device_platform",
+                "name": "Device platform",
+                "type": "category"
+            },
+            {
+                "id": "platforms.app_version",
+                "name": "App version",
+                "type": "category"
+            },
+            {
+                "id": "platforms.os_version",
+                "name": "Os version",
+                "type": "category"
+            },
+            {
+                "id": "platforms.device_brand",
+                "name": "Device brand",
+                "type": "category"
+            },
+            {
+                "id": "platforms.device_model",
+                "name": "Device model",
+                "type": "category"
+            },
+            {
+                "id": "profile.email",
+                "name": "Email",
+                "type": "category"
+            },
+            {
+                "id": "profile.gender",
+                "name": "Gender",
+                "type": "category"
+            },
+            {
+                "id": "profile.country",
+                "name": "Country",
+                "type": "category"
+            },
+            {
+                "id": "profile.lang",
+                "name": "Lang",
+                "type": "category"
+            },
+            {
+                "id": "profile.birthday",
+                "name": "Birthday",
+                "type": "date",
+                "format": "%x"
+            },
+            {
+                "id": "source",
+                "name": "Source",
+                "type": "category"
+            },
+            {
+                "id": "quantile",
+                "name": "Quantile",
+                "type": "number"
+            },
+            {
+                "id": "stats.logins.count",
+                "name": "Logins count",
+                "type": "number"
+            },
+            {
+                "id": "stats.logins.first",
+                "name": "Logins first",
+                "type": "date",
+                "format": "%x"
+            },
+            {
+                "id": "stats.logins.last",
+                "name": "Logins last",
+                "type": "date",
+                "format": "%x"
+            },
+            {
+                "id": "stats.logins.last_country",
+                "name": "Logins last country",
+                "type": "category"
+            },
+            {
+                "id": "stats.purchases.last",
+                "name": "Purchases last",
+                "type": "date",
+                "format": "%x"
+            },
+            {
+                "id": "stats.purchases.first",
+                "name": "Purchases first",
+                "type": "date",
+                "format": "%x"
+            },
+            {
+                "id": "stats.purchases.count",
+                "name": "Purchases count",
+                "type": "number"
+            },
+            {
+                "id": "stats.purchases.amount",
+                "name": "Purchases amount",
+                "type": "number"
+            },
+            {
+                "id": "orig_app",
+                "name": "Orig app",
+                "type": "category"
+            },
+            {
+                "id": "reg_apps",
+                "name": "Reg apps",
+                "type": "category"
+            },
+            {
+                "id": "attributes.rated_2-0",
+                "name": "Rated  -",
+                "type": "number"
+            },
+            {
+                "id": "attributes.runs_2-0",
+                "name": "Runs  -",
+                "type": "number"
+            },
+            {
+                "id": "attributes.inspire_likes",
+                "name": "Inspire likes",
+                "type": "number"
+            },
+            {
+                "id": "attributes.inspire_photos",
+                "name": "Inspire photos",
+                "type": "number"
+            },
+            {
+                "id": "attributes.runs",
+                "name": "Runs",
+                "type": "number"
+            },
+            {
+                "id": "attributes.preview_watched_count",
+                "name": "Preview watched count",
+                "type": "number"
+            },
+            {
+                "id": "attributes.videos_watched",
+                "name": "Videos watched",
+                "type": "category"
+            },
+            {
+                "id": "attributes.video_purchased",
+                "name": "Video purchased",
+                "type": "category"
+            },
+            {
+                "id": "attributes.free_video_watched_count",
+                "name": "Free video watched count",
+                "type": "number"
+            },
+            {
+                "id": "attributes.subscription_date",
+                "name": "Subscription date",
+                "type": "date",
+                "format": "%x"
+            },
+            {
+                "id": "attributes.inspire_comments",
+                "name": "Inspire comments",
+                "type": "number"
+            },
+            {
+                "id": "attributes.preview_liked",
+                "name": "Preview liked",
+                "type": "category"
+            },
+            {
+                "id": "attributes.preview_watched",
+                "name": "Preview watched",
+                "type": "category"
+            },
+            {
+                "id": "attributes.subscription_id",
+                "name": "Subscription id",
+                "type": "category"
+            },
+            {
+                "id": "attributes.offers_seen",
+                "name": "Offers seen",
+                "type": "category"
+            },
+            {
+                "id": "attributes.video_watched_count",
+                "name": "Video watched count",
+                "type": "number"
+            }
         ],
         "measures": [
             {
                 "category": "Engagement",
                 "items": [
-                    {"id": "active_users", "name": "Active Users"},
-                    {"id": "users_count", "name": "Users Count"},
-                    {"id": "active_payed_users", "name": "Active Payed Users"},
-                    {"id": "sessions_count", "name": "Sessions Count"},
-                    {"id": "average_session_length", "name": "Average Session Length"},
-                    {"id": "sessions_per_users", "name": "Sessions Per Users"}
+                    {
+                        "id": "active_users",
+                        "name": "Active users"
+                    },
+                    {
+                        "id": "users_count",
+                        "name": "Users count"
+                    },
+                    {
+                        "id": "active_payed_users",
+                        "name": "Active payed users"
+                    },
+                    {
+                        "id": "sessions_count",
+                        "name": "Sessions count"
+                    },
+                    {
+                        "id": "average_session_length",
+                        "name": "Average session length"
+                    },
+                    {
+                        "id": "sessions_per_users",
+                        "name": "Sessions per users"
+                    }
                 ]
             },
             {
                 "category": "Monetization",
                 "items": [
-                    {"id": "active_paying_users", "name": "Active Paying Users"},
-                    {"id": "total_revenue", "name": "Revenue", "format": "$"},
-                    {"id": "purchase_count", "name": "Purchases Count"},
-                    {"id": "payers_percent", "name": "Payers %"},
-                    {"id": "purchases_per_users", "name": "Purchases Per User"},
-                    {"id": "revenue_per_payer", "name": "Revenue Per Payer", "format": "$"},
-                    {"id": "revenue_per_user", "name": "Revenue Per User", "format": "$"},
-                    {"id": "revenue_per_transaction", "name": "Revenue Per Transaction", "format": "$"}
+                    {
+                        "id": "active_paying_users",
+                        "name": "Active paying users"
+                    },
+                    {
+                        "id": "total_revenue",
+                        "name": "Total revenue",
+                        "format": "$"
+                    },
+                    {
+                        "id": "purchase_count",
+                        "name": "Purchase count"
+                    },
+                    {
+                        "id": "payers_percent",
+                        "name": "Payers percent"
+                    },
+                    {
+                        "id": "purchases_per_users",
+                        "name": "Purchases per users"
+                    },
+                    {
+                        "id": "revenue_per_payer",
+                        "name": "Revenue per payer",
+                        "format": "$"
+                    },
+                    {
+                        "id": "revenue_per_user",
+                        "name": "Revenue per user",
+                        "format": "$"
+                    },
+                    {
+                        "id": "revenue_per_transaction",
+                        "name": "Revenue per transaction",
+                        "format": "$"
+                    }
                 ]
             }
         ]

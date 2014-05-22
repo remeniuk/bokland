@@ -32,7 +32,7 @@
             {
                 "name": "Category",
                 "type": "category",
-                "forDataTypes": ["string"]
+                "forDataTypes": ["category"]
             }
         ],
 
