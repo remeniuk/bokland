@@ -36,6 +36,7 @@ define(function (require) {
             _this.cube = options.cube;
             _this.collection = options.collection;
             _this.builderView = options.builderView;
+            _this.state = options.state;
 
             _this.listenTo(_this.rowModel, 'addWidget', _this._onWidgetAdded);
         },
@@ -66,7 +67,8 @@ define(function (require) {
                 widgetBuilderView: _this.builderView,
                 cube: _this.cube,
                 rowNum: _this.rowNum,
-                rowModel: _this.rowModel
+                rowModel: _this.rowModel,
+                state: _this.state
             });
 
             _this.$el.children('.row').append(cellElement.$el);

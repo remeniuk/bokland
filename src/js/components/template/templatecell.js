@@ -25,6 +25,7 @@ define(function (require) {
         initialize: function (options) {
             var _this = this;
 
+            _this.state = options.state;
             _this.widget = options.widget;
             _this.widgetModel = options.widgetModel;
             _this.height = options.height;
@@ -105,7 +106,7 @@ define(function (require) {
                     _this.widgetModel.trigger('redrawWidget');
                 });
 
-                widgetData.fetch();
+                widgetData.fetch({data: _this.state.serialize()});
             }
         },
 

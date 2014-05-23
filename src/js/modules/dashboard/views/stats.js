@@ -164,7 +164,8 @@ define(function (require) {
                 rowNum: rowInd,
                 rowMeta: _this.metaModel.get('rows')[rowInd],
                 collection: _this.collection,
-                builderView: _this.widgetBilderView
+                builderView: _this.widgetBilderView,
+                state: _this.state
             });
 
             _this.$el.find('[data-region="rows"]').append(rowElement.$el);
