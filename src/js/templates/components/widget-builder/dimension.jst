@@ -4,61 +4,64 @@
        selectedDim = allowedDims[0];
        dims = !_.isEmpty(dims) ? dims : [{'dimension': { 'field' : selectedDim.id}, 'aggregation': { 'type': (selectedDim.type === 'category' ? 'category' : 'histogram') }}];
   _.each(dims, function(userDim, index) { %>
-  <div class="form-group dim-row">
+  <div class="control-group dim-row">
     <% if(index === 0) { %>
-    <label for="widget-<%= type %>-<%= index %>" class="col-sm-2 control-label"><%= label %></label>
+    <label for="widget-<%= type %>-<%= index %>" class="control-label"><%= label %></label>
     <% } else { %>
-    <div class="col-sm-2"></div>
+    <div class="control-label"></div>
     <% } %>
 
-    <div class="col-sm-3">
-        <select class="form-control dimensions widget-<%= type %>" data-dim-type="<%= type %>" data-index="<%= index %>" id="widget-<%= type %>-<%= index %>">
-            <% _.each(allowedDims, function(dim) { %>
-            <option value="<%= dim.id %>" <% if(userDim.dimension && userDim.dimension.field === dim.id) { selectedDim = dim; %>
-            selected
-            <% } %>><%= dim.name %></option>
-            <% }); %>
-        </select>
-    </div>
+    <% selectedDim = allowedDims[0]; %>
+    <div class="controls form-group shift-left">
+        <div class="col-sm-3">
+            <select class="form-control dimensions widget-<%= type %>" data-dim-type="<%= type %>" data-index="<%= index %>" id="widget-<%= type %>-<%= index %>">
+                <% _.each(allowedDims, function(dim) { %>
+                <option value="<%= dim.id %>" <% if(userDim.dimension && userDim.dimension.field === dim.id) { selectedDim = dim; %>
+                selected
+                <% } %>><%= dim.name %></option>
+                <% }); %>
+            </select>
+        </div>
 
-    <% var typeAggs    = _.filter(aggregations, function (agg) { return _.contains(agg.forDataTypes, selectedDim.type); }),
-           selectedAgg = typeAggs[0]; %>
-    <div class="col-sm-3">
-        <select class="form-control dim-agg-type">
-            <% _.each(typeAggs, function(agg) { %>
-            <option value="<%= agg.type%>" <% if(userDim.aggregation && userDim.aggregation.type === agg.type) { selectedAgg = agg; %>
-            selected
-            <% } %>><%= agg.name %></option>
-            <% }); %>
-        </select>
-    </div>
-    <% if(selectedAgg && selectedAgg.params) { %>
-    <div class="col-sm-2">
-        <% if(selectedAgg.params[selectedDim.type].type === "discrete") { %>
-        <input type="text" class="form-control dim-agg-param dim-agg-value" name="dim-agg-param" value="<%= userDim.aggregation ? userDim.aggregation.value : 10 %>">
-        <% } else if(selectedAgg.params[selectedDim.type].type === "enum") { %>
-          <select class="form-control dim-agg-param">
-            <% _.each(selectedAgg.params[selectedDim.type].options, function(aggParam) { %>
-            <option value="<%= aggParam %>" <% if(userDim.aggregation && userDim.aggregation.date_type === aggParam) { %>
-            selected
-            <% } %>><%= aggParam %></option>
-            <% }); %>
-          </select>
+        <% var typeAggs    = _.filter(aggregations, function (agg) { return _.contains(agg.forDataTypes, selectedDim.type); }),
+               selectedAgg = typeAggs[0]; %>
+        <div class="col-sm-3">
+            <select class="form-control dim-agg-type">
+                <% _.each(typeAggs, function(agg) { %>
+                <option value="<%= agg.type%>" <% if(userDim.aggregation && userDim.aggregation.type === agg.type) { selectedAgg = agg; %>
+                selected
+                <% } %>><%= agg.name %></option>
+                <% }); %>
+            </select>
+        </div>
+        <% if(selectedAgg && selectedAgg.params) { %>
+        <div class="col-sm-2">
+            <% if(selectedAgg.params[selectedDim.type].type === "discrete") { %>
+            <input type="text" class="form-control dim-agg-param dim-agg-value" name="dim-agg-param" value="<%= userDim.aggregation ? userDim.aggregation.value : 10 %>">
+            <% } else if(selectedAgg.params[selectedDim.type].type === "enum") { %>
+              <select class="form-control dim-agg-param">
+                <% _.each(selectedAgg.params[selectedDim.type].options, function(aggParam) { %>
+                <option value="<%= aggParam %>" <% if(userDim.aggregation && userDim.aggregation.date_type === aggParam) { %>
+                selected
+                <% } %>><%= aggParam %></option>
+                <% }); %>
+              </select>
+            <% } %>
+        </div>
+        <% } %>
+        <% if(vizRules[type].max > 1) { %>
+          <div class="col-sm-2">
+            <% if(dims.length < vizRules[type].max) { %>
+            <button placeholder="Add dimension" class="btn btn-default btn-add-dim">
+                <span class="glyphicon glyphicon-plus"></span></button>
+            <% }
+
+               if(index > 0) { %>
+            <button placeholder="Remove dimension" class="btn btn-default btn-remove-dim">
+                <span class="glyphicon glyphicon-minus"></span></button>
+            <% } %>
+          </div>
         <% } %>
     </div>
-    <% } %>
-    <% if(vizRules[type].max > 1) { %>
-      <div class="col-sm-2">
-        <% if(dims.length < vizRules[type].max) { %>
-        <button placeholder="Add dimension" class="btn btn-default btn-add-dim">
-            <span class="glyphicon glyphicon-plus"></span></button>
-        <% }
-
-           if(index > 0) { %>
-        <button placeholder="Remove dimension" class="btn btn-default btn-remove-dim">
-            <span class="glyphicon glyphicon-minus"></span></button>
-        <% } %>
-      </div>
-    <% } %>
   </div>
 <% }); %>
