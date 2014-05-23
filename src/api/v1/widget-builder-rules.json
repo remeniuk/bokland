@@ -17,7 +17,7 @@
         "aggregations": [
             {
                 "name": "Histogram",
-                "type": "histogram",
+                "type": "date",
                 "forDataTypes": ["date", "number"],
                 "params": {
                     "date": {

@@ -2,7 +2,7 @@
          _.filter(cubeMeta.dimensions, function (dim) { return _.contains(vizRules[type].allowedTypes, dim.type); }) :
          cubeMeta.dimensions),
        selectedDim = allowedDims[0];
-       dims = !_.isEmpty(dims) ? dims : [{'dimension': { 'field' : selectedDim.id}, 'aggregation': { 'type': (selectedDim.type === 'category' ? 'category' : 'histogram') }}];
+       dims = !_.isEmpty(dims) ? dims : [{'dimension': { 'field' : selectedDim.id}, 'aggregation': { 'type': (selectedDim.type === 'category' ? 'category' : 'date') }}];
   _.each(dims, function(userDim, index) { %>
   <div class="control-group dim-row">
     <% if(index === 0) { %>
