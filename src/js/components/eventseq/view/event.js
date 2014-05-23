@@ -13,6 +13,7 @@ define(function (require) {
     // code
     var View = BaseView.extend({
         template: templates['components/eventseq/event'],
+        addEventChevronTemplate: templates['components/eventseq/addeventchevron'],
         eventChevronTemplate: templates['components/eventseq/eventchevron'],
 
         tagName: 'li',
@@ -28,6 +29,7 @@ define(function (require) {
         initialize: function (options) {
             var _this = this;
             _this.model = options.model;
+            _this.isNew = options.isNew;
 
             _this.listenTo(_this.model, 'submit', _this.redraw);
             _this.listenTo(_this.model, 'remove', function () {
@@ -45,7 +47,8 @@ define(function (require) {
             _this.bindUI();
 
             _this.eventDialog = new EventDialog({
-                model: _this.model
+                model: _this.model,
+                addNew: _this.isNew? true : false
             });
 
             _this.region('edit-event-dialog').show(_this.eventDialog);
@@ -58,8 +61,13 @@ define(function (require) {
         redraw: function () {
             var _this = this;
 
-            _this.$el.find('[data-region="event-chevron"]')
-                .html(_this.eventChevronTemplate(_this.model.toJSON()));
+            if(!_this.isNew) {
+                _this.$el.find('[data-region="event-chevron"]')
+                    .html(_this.eventChevronTemplate(_this.model.toJSON()));
+            } else {
+                _this.$el.find('[data-region="event-chevron"]')
+                    .html(_this.addEventChevronTemplate());
+            }
         },
 
         _openEditDialog: function () {

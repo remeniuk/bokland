@@ -16,6 +16,8 @@ define(function (require) {
         elementsUI: {
             'submit': '#submit',
             'remove': '#remove',
+            'eventFormGroup': '#event-form-group',
+            'operationFormGroup': '#operation-form-group',
             'addEventDialogModal': '.add-event-dialog-modal-sm',
             'selectedOperation': '#operation',
             'selectedEvent': '#event',
@@ -35,6 +37,7 @@ define(function (require) {
             var _this = this;
 
             _this.model = options.model;
+            _this.addNew = options.addNew;
         },
 
         render: function () {
@@ -44,9 +47,13 @@ define(function (require) {
 
             _this.bindUI();
 
-            _this._populate();
+            if(_this.addNew) {
+                _this.ui.$remove.hide();
+            } else {
+                _this.ui.$remove.show();
+            }
 
-            _this.redraw();
+            _this._populate();
 
             return _this;
         },
@@ -54,11 +61,13 @@ define(function (require) {
         open: function() {
           var _this = this;
 
+           _this.redraw();
           _this.ui.$addEventDialogModal.modal();
         },
 
         _submitEvent: function (ev) {
             var _this = this;
+            var valid = true;
 
             var eventId = _this.ui.$selectedEvent.val(),
                 eventName = _this.ui.$selectedEvent.find('option:selected').text(),
@@ -68,7 +77,13 @@ define(function (require) {
                 upperBound = _this.ui.$paramUpperBound.val(),
                 param = _this.ui.$paramEquals.val();
 
+            valid = valid && eventId !== '-1';
+
             _this.model.set('id', eventId);
+            if(eventId === '-1'){
+                _this.ui.$eventFormGroup.addClass('has-error');
+            }
+
             _this.model.set('name', eventName);
             if(itemId !== '-1') {
                 _this.model.set('item_id', itemId);
@@ -89,6 +104,27 @@ define(function (require) {
                     operationObj.value = param;
                 }
 
+                var unsigned = /^[0-9]\d*$/;
+
+                var operationValid = true;
+
+                operationValid = operationValid && ((lowerBound && lowerBound.match(unsigned)) ||
+                    (upperBound && upperBound.match(unsigned)) ||
+                    (param && param.match(unsigned)));
+
+                if(operation === 'btw' && lowerBound && lowerBound.match(unsigned) && upperBound &&
+                    upperBound.match(unsigned)){
+                    operationValid = operationValid && (parseInt(upperBound) > parseInt(lowerBound));
+                } else {
+                    operationValid = operationValid && operation !== 'btw';
+                }
+
+                if(!operationValid){
+                    _this.ui.$operationFormGroup.addClass('has-error');
+                }
+
+                valid = valid && operationValid;
+
                 _this.model.set('parameter', operationObj);
             } else {
                 _this.model.unset('parameter');
@@ -96,9 +132,18 @@ define(function (require) {
 
             console.log('Submitting event: ' + JSON.stringify(_this.model.toJSON()));
 
-            _this.model.trigger('submit');
+            if(valid) {
+                if(!_this.addNew) {
+                    _this.model.trigger('submit');
+                } else {
+                    _this.model.trigger('create');
+                }
 
-            // TODO: add validation
+                _this.ui.$eventFormGroup.removeClass('has-error');
+                _this.ui.$operationFormGroup.removeClass('has-error');
+
+                _this.ui.$addEventDialogModal.modal('hide');
+            }
 
             ev.preventDefault();
         },
@@ -132,7 +177,8 @@ define(function (require) {
         redraw: function() {
             var _this = this;
 
-            _this.ui.$selectedEvent.val(_this.model.get('id'));
+            var eventId = _this.model.get('id');
+            _this.ui.$selectedEvent.val(eventId ? eventId : '-1');
 
             var itemId = _this.model.get('item_id');
             _this.ui.$selectedItem.val(itemId ? itemId : '-1');
@@ -145,6 +191,11 @@ define(function (require) {
                 _this.ui.$paramLowerBound.val(parameter.from);
                 _this.ui.$paramUpperBound.val(parameter.to);
                 _this.ui.$paramEquals.val(parameter.value);
+            } else {
+                _this.ui.$selectedOperation.val('-1');
+                _this.ui.$paramLowerBound.addClass('hidden').val('');
+                _this.ui.$paramUpperBound.addClass('hidden').val('');
+                _this.ui.$paramEquals.addClass('hidden').val('');
             }
         },
 

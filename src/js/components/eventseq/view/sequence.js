@@ -7,6 +7,7 @@ define(function (require) {
         _ = require('underscore'),
         bootstrap = require('bootstrap'),
         BaseView = require('libs/view'),
+        EventModel = require('components/eventseq/model/event'),
         EventsModel = require('components/eventseq/model/events'),
         EventView = require('components/eventseq/view/event'),
         templates = require('templates/templates');
@@ -21,6 +22,9 @@ define(function (require) {
 
         initialize: function (options) {
             var _this = this;
+
+            _this.newEvent = new EventModel({});
+            _this.listenTo(_this.newEvent, 'create', _this._addEvent);
         },
 
         render: function () {
@@ -28,41 +32,7 @@ define(function (require) {
 
             // TODO: load sequence of events from server
 
-            _this.events = new EventsModel([{
-                'id': '1',
-                'name': 'Event #1',
-                'item_id': '1',
-                'parameter': {
-                    'type': 'gt',
-                    'from': 1
-                }
-            },{
-                'id': '2',
-                'name': 'Event #2',
-                'item_id': '1',
-                'parameter': {
-                    'type': 'lt',
-                    'to': 2
-                }
-            },{
-                'id': '3',
-                'name': 'Event #3',
-                'parameter': {
-                    'type': 'btw',
-                    'from': 1,
-                    'to': 2
-                }
-            },{
-                'id': '4',
-                'name': 'Event #4',
-                'parameter': {
-                    'type': 'eq',
-                    'value': 1
-                }
-            },{
-                'id': '5',
-                'name': 'Event #5'
-            }]);
+            _this.events = new EventsModel([]);
 
             _this.$el.html(_this.template({}));
 
@@ -83,6 +53,31 @@ define(function (require) {
                 _this.$el.find('.sequence').append(eventView.el);
                 eventView.render();
             });
+
+            var newEventView = new EventView({
+                model: _this.newEvent,
+                isNew: true
+            });
+            _this.$el.find('.sequence').append(newEventView.el);
+            newEventView.render();
+
+            return _this;
+        },
+
+        _addEvent: function() {
+            var _this = this;
+
+            var _newEvent = _this.newEvent.clone();
+
+            _this.events.add(_newEvent);
+
+            var eventView = new EventView({
+                model: _newEvent
+            });
+            _this.$el.find('.sequence').append(eventView.el);
+            eventView.render();
+
+            _this.newEvent.clear();
 
             return _this;
         }
