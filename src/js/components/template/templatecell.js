@@ -105,7 +105,7 @@ define(function (require) {
                     _this.widgetModel.trigger('redrawWidget');
                 });
 
-                widgetData.fetch({data: {id: widgetId}});
+                widgetData.fetch();
             }
         },
 
@@ -114,7 +114,9 @@ define(function (require) {
 
             _this.dashboardMetaModel.get('rows')[_this.rowNum] = _this.rowModel.toJSON();
             if(!config.stubs) {
-                _this.dashboardMetaModel.save();
+                _this.dashboardMetaModel.save(null, {success: function(model,response){
+                    model.set('id', (response || {data:{}}).data._id);
+                }});
             }
         }
     });

@@ -34,6 +34,7 @@ define(function (require) {
         },
 
         events: {
+            'change @ui.dashboardTitle' : '_changeDashboardTitle',
             'change @ui.selectDashboard' : '_changeDashboard',
             'click @ui.saveDashboard' : '_saveDashboard',
             'click @ui.createDashboard' : '_createDashboard',
@@ -171,6 +172,13 @@ define(function (require) {
             rowElement.render();
         },
 
+        _changeDashboardTitle: function() {
+            var _this = this,
+                title = _this.ui.$dashboardTitle.val();
+
+            _this.ui.$selectDashboard.find('[value='+_this.metaModel.get('id')+']').text(title);
+        },
+
         _cubeLoaded: function() {
             var _this = this;
 
@@ -189,7 +197,8 @@ define(function (require) {
             _this.metaModel.save(null, {
                 success: function(model, response){
                     if(response.data) {
-                        _this.state.set({did: response.data.id}, {silent:true});
+                        _this.state.set({did: response.data._id}, {silent:true});
+                        model.set('id', response.data._id);
                     }
                     _this.listenToOnce(_this.metaModel, 'sync', _this.redraw);
                     _this.listenToOnce(_this.dashboards, 'sync', _this._loadDashboard);
@@ -201,7 +210,9 @@ define(function (require) {
             var _this = this;
             _this.metaModel.set('title', _this.ui.$dashboardTitle.val());
             if(!config.stubs) {
-                _this.metaModel.save();
+                _this.metaModel.save(null, {success: function(model,response){
+                    model.set('id', (response || {data:{}}).data._id);
+                }});
             }
         },
 

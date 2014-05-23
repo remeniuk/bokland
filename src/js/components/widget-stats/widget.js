@@ -146,7 +146,9 @@ define(function (require) {
 
             _this.dashboardMetaModel.set('rows', rows);
             if(!config.stubs) {
-                _this.dashboardMetaModel.save();
+                _this.dashboardMetaModel.save(null, {success: function(model,response){
+                    model.set('id', (response || {data:{}}).data._id);
+                }});
             }
 
             _this.$el.closest('.template-cell').remove();
