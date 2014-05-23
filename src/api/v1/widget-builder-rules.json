@@ -22,7 +22,7 @@
                 "params": {
                     "date": {
                         "type": "enum",
-                        "options": ["year", "quarter", "month", "week", "day"]
+                        "options": ["Year", "Quarter", "Month", "Week", "Day"]
                     },
                     "number": {
                         "type": "discrete"
