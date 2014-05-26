@@ -135,7 +135,7 @@ define(function (require) {
                     newWidgetModel.trigger('redrawWidget');
                 });
 
-                widgetData.fetch();
+                widgetData.fetch({data: _this.state.serialize()});
             }
         },
 
