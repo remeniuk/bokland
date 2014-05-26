@@ -27,6 +27,8 @@ define(function (require) {
             'click @ui.removeRow': '_removeRow'
         },
 
+        cells: [],
+
         initialize: function (options) {
             var _this = this;
 
@@ -71,11 +73,23 @@ define(function (require) {
                 state: _this.state
             });
 
+            _this.cells.push(cellElement);
+
             _this.$el.children('.row').append(cellElement.$el);
 
             cellElement.render();
 
             return widgetModel;
+        },
+
+        clearCells: function(){
+            var _this = this;
+
+            _.each(_this.cells, function(cell, i){
+                cell.clear();
+                cell.dispose();
+            });
+            _this.cells.length = 0;
         },
 
         _addWidget: function () {

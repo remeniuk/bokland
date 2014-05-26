@@ -42,6 +42,7 @@ define(function (require) {
         },
 
         widgetBilderView: null,
+        rows: [],
 
         initialize: function (options) {
             var _this = this;
@@ -155,6 +156,12 @@ define(function (require) {
 
             _this.$el.find('[data-region="rows"]').empty();
 
+            _.each(_this.rows, function(row, i){
+                row.clearCells();
+                row.dispose();
+            });
+            _this.rows.length = 0;
+
             _.each(_this.metaModel.get('rows'), function (row, i) {
                 _this._addRow(i);
             });
@@ -173,6 +180,8 @@ define(function (require) {
                 builderView: _this.widgetBilderView,
                 state: _this.state
             });
+
+            _this.rows.push(rowElement);
 
             _this.$el.find('[data-region="rows"]').append(rowElement.$el);
 
@@ -231,6 +240,7 @@ define(function (require) {
 
             var onSuccess = function(){
                 _this.state.set('did', selectedDashboardId);
+                _this.redraw();
             };
 
             _this._loadMeta(onSuccess);

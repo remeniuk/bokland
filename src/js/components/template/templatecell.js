@@ -45,12 +45,22 @@ define(function (require) {
 
             if(_this.activeView) {
                 _this.activeView.stopListening();
-                _this.activeView.remove();
+                _this.activeView.dispose();
             }
             _this.activeView = _this._widgetFactory(_this.widget);
             _this.region('widget').show(_this.activeView);
 
             return _this;
+        },
+
+        clear: function(){
+            var _this = this;
+
+            if(_this.activeView) {
+                _this.activeView.stopListening();
+                _this.activeView.dispose();
+            }
+            _this.clearRegions();
         },
 
         _widgetFactory: function (widget) {
