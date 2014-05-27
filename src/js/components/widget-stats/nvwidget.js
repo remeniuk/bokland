@@ -21,13 +21,13 @@ define(function (require) {
         $brown = '#A05000',
         $teal = '#4ab0ce',
         $gray = '#666',
-        $white = '#fff',
+        $white = '#eee',
         $textColor = $gray;
 
     // code
     var __super__ = WidgetView.prototype;
     var View = WidgetView.extend({
-        COLORS: [$red, $orange, $green, $blue, $teal, $redDark],
+        COLORS: [$blue, $orange, $green, $teal, $red, $lime, $white, $redDark],
 
         initialize: function (options) {
             var _this = this;
