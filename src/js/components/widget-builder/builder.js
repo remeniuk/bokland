@@ -128,7 +128,7 @@ define(function (require) {
                 type = _this.ui.$widgettype.find(':selected').val(),
                 measures = (_this.ui.$widgetmeasures.val() || []).slice(0,1);
 
-            _this.widgetModel.set({ widgetType: type, rows: [{ dimension: { field: '' } }], cols: [{ dimension: { field: '' } }], measures: measures });
+            _this.widgetModel.set({ widgetType: type, measures: measures });
 
             _this.redraw();
         },
