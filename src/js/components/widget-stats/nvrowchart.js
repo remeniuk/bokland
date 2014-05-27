@@ -15,18 +15,21 @@ define(function (require) {
         parseData: function (data) {
             var _this = this;
 
-            var rowName = _this.widgetModel.get('rows')[0].dimension.field;
+            var row = _this.widgetModel.get('rows')[0];
+            var rowAgg = row.aggregation;
+            var rowName = row.dimension.field;
             var seriesName = _this.widgetModel.get('rows')[1] ? _this.widgetModel.get('rows')[1].dimension.field : undefined;
+            var seriesAgg = (_this.widgetModel.get('rows')[1] || {}).aggregation;
 
             var measureName = _this.widgetModel.get('measures')[0];
 
             function parseSeries(series, key) {
                 return {
-                    key: seriesName ? _this.cube.dimensionValueLabel(seriesName, key) : undefined,
+                    key: seriesName ? _this.cube.dimensionValueLabel(seriesName, key, seriesAgg) : undefined,
                     values: _.map(series, function (d) {
                         return {
                             value: d[measureName],
-                            label: _this.cube.dimensionValueLabel(rowName, d[rowName])
+                            label: _this.cube.dimensionValueLabel(rowName, d[rowName], rowAgg)
                         };
                     })
                 };

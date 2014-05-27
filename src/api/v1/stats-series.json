@@ -17,6 +17,14 @@
                 {
                     "platforms.device_platform": "Android",
                     "users_count": 3019
+                },
+                {
+                    "platforms.device_platform": "Windows Phone",
+                    "users_count": 719
+                },
+                {
+                    "platforms.device_platform": "Blackberry",
+                    "users_count": 306
                 }
             ]
         },
@@ -54,12 +62,12 @@
                     "total_revenue": 23.041422681023
                 },
                 {
-                    "date": 1028088000000,
+                    "date": 1128088000000,
                     "platforms.device_platform": "iPad",
                     "total_revenue": 19.854291255832
                 },
                 {
-                    "date": 1030766400000,
+                    "date": 1230766400000,
                     "platforms.device_platform": "iPad",
                     "total_revenue": 21.02286281168
                 },
@@ -69,12 +77,12 @@
                     "total_revenue": 7.9356392949025
                 },
                 {
-                    "date": 1028088000000,
+                    "date": 1128088000000,
                     "platforms.device_platform": "iPhone",
                     "total_revenue": 7.4514668527298
                 },
                 {
-                    "date": 1030766400000,
+                    "date": 1230766400000,
                     "platforms.device_platform": "iPhone",
                     "total_revenue": 7.9085410566608
                 }

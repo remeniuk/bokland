@@ -30,30 +30,7 @@
                         "rows": [ ],
                         "title": "Platforms",
                         "widgetType": "bar",
-                        "width": 4
-                    },
-                    {
-                        "_id": {
-                            "$oid": "536b87af682cfa5294504713"
-                        },
-                        "cols": [ ],
-                        "filterBy": "c",
-                        "measures": [
-                            "users_count"
-                        ],
-                        "rows": [
-                            {
-                                "aggregation": {
-                                    "type": "category"
-                                },
-                                "dimension": {
-                                    "field": "profile.country"
-                                }
-                            }
-                        ],
-                        "title": "Countries",
-                        "widgetType": "row",
-                        "width": 4
+                        "width": 8
                     },
                     {
                         "_id": {
@@ -77,6 +54,29 @@
                         "title": "Gender",
                         "widgetType": "pie",
                         "width": 4
+                    },
+                    {
+                        "_id": {
+                            "$oid": "536b87af682cfa5294504713"
+                        },
+                        "cols": [ ],
+                        "filterBy": "c",
+                        "measures": [
+                            "users_count"
+                        ],
+                        "rows": [
+                            {
+                                "aggregation": {
+                                    "type": "category"
+                                },
+                                "dimension": {
+                                    "field": "profile.country"
+                                }
+                            }
+                        ],
+                        "title": "Countries",
+                        "widgetType": "row",
+                        "width": 12
                     }
                 ]
             },
@@ -90,7 +90,7 @@
                         "cols": [
                             {
                                 "aggregation": {
-                                    "date_type": "Day",
+                                    "date_type": "Year",
                                     "type": "date"
                                 },
                                 "dimension": {
@@ -207,7 +207,7 @@
                         "rows": [
                             {
                                 "aggregation": {
-                                    "date_type": "Day",
+                                    "date_type": "Month",
                                     "type": "date"
                                 },
                                 "dimension": {

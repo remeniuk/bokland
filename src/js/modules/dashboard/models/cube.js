@@ -41,7 +41,7 @@ define(function (require) {
             return this.dimension(field).name;
         },
 
-        dimensionValueLabel: function (field, key) {
+        dimensionValueLabel: function (field, key, agg) {
             var _this = this;
 
             var dimension = _this.dimension(field);
@@ -49,12 +49,40 @@ define(function (require) {
             if(dimension.dictionary && dimension.dictionary[key]){
                 return dimension.dictionary[key];
             } else {
-                if(dimension.type === 'date'){
-                    return d3.time.format('%x')(new Date(parseInt(key)));
-                } else {
-                    return key;
+                switch(dimension.type){
+                    case 'date':
+                        var format = _this.aggFormat(agg);
+                        return d3.time.format(format)(new Date(parseInt(key)));
+
+                    case 'number':
+                        if (dimension.format === '$') {
+                            return '$' + d3.format(',.2f')(key);
+                        } else {
+                            return dimension.format ? d3.format(format)(key) : key;
+                        }
+                    default:
+                        return dimension.format ? d3.format(format)(key) : key;
                 }
             }
+        },
+
+        aggFormat: function(aggregation) {
+            if(aggregation && aggregation.type === 'date') {
+                switch (aggregation.date_type) {
+                    case 'Year':
+                        return '%Y';
+                    case 'Quarter':
+                        return '%m/%Y';
+                    case 'Month':
+                        return '%Y/%m';
+                    case 'Week':
+                        return 'Week %W';
+                    case 'Day':
+                        return '%x';
+                    default:
+                        return '%x';
+                }
+            } else return "";
         }
     });
 
