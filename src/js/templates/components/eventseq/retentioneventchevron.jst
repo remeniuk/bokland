@@ -1,0 +1,17 @@
+<a href="#">
+    <div class="event-name"><%= name %></div>
+    <div class="event-param">
+        <% if(typeof parameter !== "undefined") { if(parameter.type === "gt") { %>
+        > Day #<%= parameter.from %>
+        <% } else if(parameter.type === "lt") { %>
+        < Day #<%= parameter.to %>
+        <% } else if(parameter.type === "eq") { %>
+        Day #<%= parameter.from %>
+        <% } else if(parameter.type === "btw") { %>
+        Day #<%= parameter.from %> to Day #<%= parameter.to %>
+        <% }} else { %>
+        Any Day
+        <% } %>
+    </div>
+    <div class="event-item">&nbsp;</div>
+</a>

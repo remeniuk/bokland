@@ -8,8 +8,8 @@ define(function (require) {
         bootstrap = require('bootstrap'),
         BaseView = require('libs/view'),
         EventModel = require('components/eventseq/model/event'),
-        EventsModel = require('components/eventseq/model/events'),
         EventView = require('components/eventseq/view/event'),
+        config    = require('config/api'),
         templates = require('templates/templates');
 
     // code
@@ -23,22 +23,21 @@ define(function (require) {
         initialize: function (options) {
             var _this = this;
 
+            _this.dictionary = options.dictionaryModel;
+            _this.filterMetaModel = options.filterMetaModel;
+
             _this.newEvent = new EventModel({});
+
             _this.listenTo(_this.newEvent, 'create', _this._addEvent);
+            _this.listenTo(_this.filterMetaModel, 'sync', _this.redraw);
         },
 
         render: function () {
             var _this = this;
 
-            // TODO: load sequence of events from server
-
-            _this.events = new EventsModel([]);
-
             _this.$el.html(_this.template({}));
 
             _this.bindUI();
-
-            _this.redraw();
 
             return _this;
         },
@@ -46,20 +45,22 @@ define(function (require) {
         redraw: function () {
             var _this = this;
 
-            _this.events.each(function(event){
-                var eventView = new EventView({
-                    model: event
-                });
-                _this.$el.find('.sequence').append(eventView.el);
-                eventView.render();
-            });
-
             var newEventView = new EventView({
                 model: _this.newEvent,
+                dictionary: _this.dictionary,
                 isNew: true
             });
             _this.$el.find('.sequence').append(newEventView.el);
             newEventView.render();
+
+            _.each(_this.filterMetaModel.get('data').sequence, function(event){
+                var eventView = new EventView({
+                    model: new EventModel(event),
+                    dictionary: _this.dictionary
+                });
+                _this.$el.find('.sequence').append(eventView.el);
+                eventView.render();
+            });
 
             return _this;
         },
@@ -69,10 +70,11 @@ define(function (require) {
 
             var _newEvent = _this.newEvent.clone();
 
-            _this.events.add(_newEvent);
+            _this.filterMetaModel.get('data').sequence.push(_newEvent.toJSON());
 
             var eventView = new EventView({
-                model: _newEvent
+                model: _newEvent,
+                dictionary: _this.dictionary
             });
             _this.$el.find('.sequence').append(eventView.el);
             eventView.render();

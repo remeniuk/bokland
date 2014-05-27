@@ -6,13 +6,15 @@ define(function(require) {
     var $               = require('jquery'),
         _               = require('underscore'),
         Backbone        = require('backbone'),
-        DashboardRouter = require('./dashboard');
+        DashboardRouter = require('./dashboard'),
+        FunnelRouter = require('./funnel');
 
 
     // code
     return {
         // routers
         dashboard: new DashboardRouter(),
+        funnel: new FunnelRouter(),
 
         // manage history functions
         navigate: function(fragment, options) {

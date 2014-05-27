@@ -1,8 +1,7 @@
 <a href="#">
     <div class="event-name"><%= name %></div>
-    <div class="event-item">Item: <% if(typeof item_name !== "undefined") { %> <%= item_name %> <% } else { %> Any <% } %></div>
     <div class="event-param">
-        Parameter: <% if(typeof parameter !== "undefined") { if(parameter.type === "gt") { %>
+        <% if(typeof parameter !== "undefined") { if(parameter.type === "gt") { %>
         > <%= parameter.from %>
         <% } else if(parameter.type === "lt") { %>
         < <%= parameter.to %>
@@ -11,7 +10,8 @@
         <% } else if(parameter.type === "btw") { %>
         <%= parameter.from %> to <%= parameter.to %>
         <% }} else { %>
-        Any
+        Any Date
         <% } %>
     </div>
+    <div class="event-item">&nbsp;</div>
 </a>

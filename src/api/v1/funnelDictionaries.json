@@ -1,0 +1,50 @@
+{"events": [
+    {
+        "id": 0,
+        "name": "login",
+        "paramType": "seconds_since_epoch"
+    },
+    {
+        "id": 1,
+        "name": "purchase",
+        "paramType": "string",
+        "paramValues": [
+            {
+                "id": 1,
+                "name": "video"
+            },
+            {
+                "id": 2,
+                "name": "subscription"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "paramType": "int",
+        "name": "promo"
+    },
+    {
+        "id": 3,
+        "paramType": "int",
+        "name": "upgrade"
+    },
+    {
+        "id": 4,
+        "name": "retention",
+        "paramType": "seconds_since_registration"
+    }
+], "settings": [
+    {
+        "id": "1",
+        "name": "some"
+    },
+    {
+        "id": "2",
+        "name": "any"
+    },
+    {
+        "id": "3",
+        "name": "global"
+    }
+]}

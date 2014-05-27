@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="title" width="100%">
+        <h1><input type="text" data-region="title"/></h1>
+        <div class="controls">
+            <button data-action="save-funnel" placeholder="Save" class="btn btn-default">
+                <span class="glyphicon glyphicon-floppy-disk"></span> Save
+            </button>
+            <button data-action="refresh-funnel" placeholder="Save" class="btn btn-default">
+                <span class="glyphicon glyphicon-refresh"></span> Refresh
+            </button>
+            <button data-action="export-funnel" placeholder="Export" class="btn btn-default" data-toggle="modal" data-target=".bs-export-modal-lg">
+                <span class="glyphicon glyphicon-export"></span> Export
+            </button>
+            <button data-action="create-segment" placeholder="Create Segment" class="btn btn-default" data-toggle="modal" data-target=".bs-create-segment-modal-lg">
+                <span class="glyphicon glyphicon-plus"></span> Create Segment
+            </button>
+            <button data-action="go-back" placeholder="Back" class="btn btn-default">
+                Back
+            </button>
+        </div>
+    </div>
+
+    <div class="row controls">
+        <div class="col-md-10">
+            <div data-region="filter"></div>
+        </div>
+        <div class="col-md-2" style="float: right">
+            <select data-action="select-cohort" class="form-control">
+                <option value="-1">All Time</option>
+                <option value="day">Day</option>
+                <option value="week">Week</option>
+                <option value="month">Month</option>
+                <option value="quarter">Quarter</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div data-region="sequence-builder"></div>
+
+    <div data-region="funnel"></div>
+
+    <div class="modal fade bs-export-modal-lg" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div data-region="export" class="modal-content" align="left"></div>
+        </div>
+    </div>
+
+    <div class="modal fade bs-create-segment-modal-lg" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div data-region="create-segment" class="modal-content" align="left"></div>
+        </div>
+    </div>
+</div>

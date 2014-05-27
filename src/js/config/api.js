@@ -8,15 +8,18 @@ define(function(require) {
     var config = {
         'dev-stub': {
             stubs: true,
-            server: 'http://localhost:8888/api/v1/'
+            server: 'http://localhost:8888/api/v1/',
+            funnelServer: 'http://localhost:8888/api/v1/'
         },
         'dev-server': {
             stubs: false,
-            server: 'http://localhost:45000/api/v1/'
+            server: 'http://localhost:45000/api/v1/',
+            funnelServer: 'http://localhost:45000/'
         },
         'prod': {
             stubs: false,
-            server: 'http://example.com/api/v1/'
+            server: 'http://example.com/api/v1/',
+            funnelServer: 'http://example.com'
         }
     };
 

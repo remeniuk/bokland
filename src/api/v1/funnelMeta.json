@@ -1,0 +1,43 @@
+{
+    "status": 200,
+    "data": {
+        "id": "5376118e0cf2e40df1bc9888",
+        "name": "test_name",
+        "app_id": "538468e8e4b0b88bb57ca415",
+        "cohort": "day",
+        "sequence": [
+            {
+                "event": {
+                    "eventId": 0,
+                    "settingId": 1,
+                    "paramLow": 1402559016,
+                    "paramHigh": 1402559016,
+                    "include": true
+                }
+            },
+            {
+                "event": {
+                    "eventId": 1,
+                    "include": true,
+                    "paramLow": 1,
+                    "paramHigh": 1
+                }
+            },
+            {
+                "event": {
+                    "eventId": 2,
+                    "include": true,
+                    "paramHigh": 2
+                }
+            },
+            {
+                "event": {
+                    "eventId": 4,
+                    "include": true,
+                    "paramLow": 172800,
+                    "paramHigh": 172800
+                }
+            }
+        ]
+    }
+}

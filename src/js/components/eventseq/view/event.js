@@ -8,6 +8,7 @@ define(function (require) {
         bootstrap = require('bootstrap'),
         BaseView = require('libs/view'),
         EventDialog = require('components/eventseq/view/addevent'),
+        time = require('helpers/time'),
         templates = require('templates/templates');
 
     // code
@@ -15,6 +16,8 @@ define(function (require) {
         template: templates['components/eventseq/event'],
         addEventChevronTemplate: templates['components/eventseq/addeventchevron'],
         eventChevronTemplate: templates['components/eventseq/eventchevron'],
+        loginEventChevronTemplate: templates['components/eventseq/logineventchevron'],
+        retentionEventChevronTemplate: templates['components/eventseq/retentioneventchevron'],
 
         tagName: 'li',
 
@@ -29,6 +32,7 @@ define(function (require) {
         initialize: function (options) {
             var _this = this;
             _this.model = options.model;
+            _this.dictionary = options.dictionary;
             _this.isNew = options.isNew;
 
             _this.listenTo(_this.model, 'submit', _this.redraw);
@@ -48,7 +52,8 @@ define(function (require) {
 
             _this.eventDialog = new EventDialog({
                 model: _this.model,
-                addNew: _this.isNew? true : false
+                dictionary: _this.dictionary,
+                addNew: _this.isNew ? true : false
             });
 
             _this.region('edit-event-dialog').show(_this.eventDialog);
@@ -61,9 +66,36 @@ define(function (require) {
         redraw: function () {
             var _this = this;
 
-            if(!_this.isNew) {
-                _this.$el.find('[data-region="event-chevron"]')
-                    .html(_this.eventChevronTemplate(_this.model.toJSON()));
+            if (!_this.isNew) {
+                var event = _.clone(_this.model.toJSON());
+
+                var eventMeta = _this._findEvent(event.id);
+                var chevronTemplate = _this.eventChevronTemplate;
+
+                switch(eventMeta.paramType) {
+                    case 'string':
+                        event.parameter = _.clone(event.parameter);
+                        event.parameter.from = _this._parameterName(event.parameter.from, eventMeta.paramValues);
+                        break;
+
+                    case 'seconds_since_registration':
+                        event.parameter = _.clone(event.parameter);
+                        event.parameter.from = event.parameter.from / (24 * 60 * 60);
+                        event.parameter.to = event.parameter.to / (24 * 60 * 60);
+
+                        chevronTemplate = _this.retentionEventChevronTemplate;
+                        break;
+
+                    case 'seconds_since_epoch':
+                        event.parameter = _.clone(event.parameter);
+                        event.parameter.from = time.param(new Date(event.parameter.from * 1000));
+                        event.parameter.to = time.param(new Date(event.parameter.to * 1000));
+
+                        chevronTemplate = _this.loginEventChevronTemplate;
+                        break;
+                }
+
+                _this.$el.find('[data-region="event-chevron"]').html(chevronTemplate(event));
             } else {
                 _this.$el.find('[data-region="event-chevron"]')
                     .html(_this.addEventChevronTemplate());
@@ -74,6 +106,21 @@ define(function (require) {
             var _this = this;
 
             _this.eventDialog.open();
+        },
+
+        // todo extract to library
+        _findEvent: function (eventId) {
+            var _this = this;
+
+            return _.find(_this.dictionary.get('events'), function (event) {
+                return event.id == eventId;
+            });
+        },
+
+        _parameterName: function (paramId, mapping) {
+            return _.find(mapping, function (tuple) {
+                return tuple.id == paramId;
+            }).name;
         }
     });
 
