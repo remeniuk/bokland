@@ -10,10 +10,17 @@ define(function (require) {
         EventModel = require('components/eventseq/model/event'),
         EventsModel = require('components/eventseq/model/events'),
         EventView = require('components/eventseq/view/event'),
+        config    = require('config/api'),
         templates = require('templates/templates');
 
     // code
     var View = BaseView.extend({
+        dictionaryUrl: function() {
+            return config.funnelServer + (config.stubs ?
+                'funnelDictionaries.json' :
+                'reports/funnelDictionaries');
+        },
+
         template: templates['components/eventseq/sequence'],
 
         elementsUI: {
@@ -30,15 +37,21 @@ define(function (require) {
         render: function () {
             var _this = this;
 
-            // TODO: load sequence of events from server
-
             _this.events = new EventsModel([]);
+            _this.listenTo(_this.events, 'sync', _this.redraw);
 
             _this.$el.html(_this.template({}));
 
             _this.bindUI();
 
-            _this.redraw();
+            $.ajax({
+                url: _this.dictionaryUrl(),
+                success: function(dictionary){
+                    _this.dictionary = dictionary;
+                    _this.events.dictionary = dictionary;
+                    _this.events.fetch();
+                }
+            });
 
             return _this;
         },
@@ -46,20 +59,22 @@ define(function (require) {
         redraw: function () {
             var _this = this;
 
-            _this.events.each(function(event){
-                var eventView = new EventView({
-                    model: event
-                });
-                _this.$el.find('.sequence').append(eventView.el);
-                eventView.render();
-            });
-
             var newEventView = new EventView({
                 model: _this.newEvent,
+                dictionary: _this.dictionary,
                 isNew: true
             });
             _this.$el.find('.sequence').append(newEventView.el);
             newEventView.render();
+
+            _this.events.each(function(event){
+                var eventView = new EventView({
+                    model: event,
+                    dictionary: _this.dictionary
+                });
+                _this.$el.find('.sequence').append(eventView.el);
+                eventView.render();
+            });
 
             return _this;
         },
@@ -72,7 +87,8 @@ define(function (require) {
             _this.events.add(_newEvent);
 
             var eventView = new EventView({
-                model: _newEvent
+                model: _newEvent,
+                dictionary: _this.dictionary
             });
             _this.$el.find('.sequence').append(eventView.el);
             eventView.render();

@@ -37,6 +37,7 @@ define(function (require) {
             var _this = this;
 
             _this.model = options.model;
+            _this.dictionary = options.dictionary;
             _this.addNew = options.addNew;
         },
 
@@ -53,7 +54,7 @@ define(function (require) {
                 _this.ui.$remove.show();
             }
 
-            _this._populate();
+            _this._populate(_this.dictionary);
 
             return _this;
         },
@@ -72,6 +73,7 @@ define(function (require) {
             var eventId = _this.ui.$selectedEvent.val(),
                 eventName = _this.ui.$selectedEvent.find('option:selected').text(),
                 itemId = _this.ui.$selectedItem.val(),
+                itemName = _this.ui.$selectedItem.find('option:selected').text(),
                 operation = _this.ui.$selectedOperation.val(),
                 lowerBound = _this.ui.$paramLowerBound.val(),
                 upperBound = _this.ui.$paramUpperBound.val(),
@@ -87,8 +89,10 @@ define(function (require) {
             _this.model.set('name', eventName);
             if(itemId !== '-1') {
                 _this.model.set('item_id', itemId);
+                _this.model.set('item_name', itemName);
             } else {
                 _this.model.unset('item_id');
+                _this.model.unset('item_name');
             }
             if(operation !== '-1') {
                 var operationObj = {};
@@ -154,22 +158,14 @@ define(function (require) {
             _this.model.trigger('remove');
         },
 
-        _populate: function() {
+        _populate: function(dictionary) {
             var _this = this;
 
-            // TODO: load types of events end items from server
-
-            var events = [ {id: '1', name: 'Event #1'}, {id: '2', name: 'Event #2'}, {id: '3', name: 'Event #3'},
-                {id: '4', name: 'Event #4'}, {id: '5', name: 'Event #5'} ];
-
-            var items = [ {id: '1', name: 'Item #1'}, {id: '2', name: 'Item #2'}, {id: '3', name: 'Item #3'},
-                {id: '4', name: 'Item #4'}, {id: '5', name: 'Item #5'} ];
-
-            _.each(items, function(item){
+            _.each(dictionary.settings, function(item){
                 _this.ui.$selectedItem.append('<option value="' + item.id + '">' + item.name + '</option>');
             });
 
-            _.each(events, function(event){
+            _.each(dictionary.events, function(event){
                 _this.ui.$selectedEvent.append('<option value="' + event.id + '">' + event.name + '</option>');
             });
         },

@@ -1,0 +1,220 @@
+{"segments": [
+    {
+        "id": "53281bccc8f25a47fe2e2430",
+        "name": "all"
+    },
+    {
+        "id": "5342eeb2c8f2bc81e2af6fb1",
+        "name": "login_mode_user"
+    },
+    {
+        "id": "5368c449c8f23932ea295e0a",
+        "name": "qa_review"
+    },
+    {
+        "id": "536a27ecc8f2c8502f157a76",
+        "name": "paying"
+    },
+    {
+        "id": "53707c32c8f2b0aa067c3c25",
+        "name": "non paying1"
+    },
+    {
+        "id": "53707b01c8f2b0aa067c3a88",
+        "name": "non paying"
+    },
+    {
+        "id": "537227f5c8f2b0aa067c58a3",
+        "name": "BY"
+    },
+    {
+        "id": "53732e47c8f2fb1d7147870e",
+        "name": "paying Users"
+    },
+    {
+        "id": "5373f90dc8f2fb1d71478dfc",
+        "name": "test"
+    }
+], "events": [
+    {
+        "id": 0,
+        "name": "login"
+    },
+    {
+        "id": 1,
+        "name": "purchase"
+    },
+    {
+        "id": 2,
+        "name": "promo"
+    },
+    {
+        "id": 3,
+        "name": "upgrade"
+    },
+    {
+        "id": 100,
+        "name": "preview_watched"
+    },
+    {
+        "id": 101,
+        "name": "video_watched"
+    },
+    {
+        "id": 102,
+        "name": "free_video_watched"
+    },
+    {
+        "id": 103,
+        "name": "start_purchase"
+    },
+    {
+        "id": 104,
+        "name": "page_viewed"
+    }
+], "settings": [
+    {
+        "id": "1",
+        "name": "some"
+    },
+    {
+        "id": "2",
+        "name": "any"
+    },
+    {
+        "id": "3",
+        "name": "global"
+    },
+    {
+        "id": "4",
+        "name": "com.plussports.yogafreemium.autorenew_f1_7days"
+    },
+    {
+        "id": "5",
+        "name": "com.plussports.yogafreemium.autorenew_f1_1month"
+    },
+    {
+        "id": "6",
+        "name": "com.plussports.yogafreemium.autorenew_f1_6month"
+    },
+    {
+        "id": "7",
+        "name": "com.plussports.yogafreemium.autorenew_f1_12month"
+    },
+    {
+        "id": "8",
+        "name": "com.plussports.yogafreemium.autorenew_f2_1month"
+    },
+    {
+        "id": "9",
+        "name": "com.plussports.yogafreemium.autorenew_f2_6month"
+    },
+    {
+        "id": "10",
+        "name": "com.plussports.yogafreemium.autorenew_f2_12month"
+    },
+    {
+        "id": "11",
+        "name": "com.plussports.yogafreemium.autorenew_f2_7days"
+    },
+    {
+        "id": "12",
+        "name": "subscription_page_1month_sale"
+    },
+    {
+        "id": "13",
+        "name": "subscription_page_1month"
+    },
+    {
+        "id": "14",
+        "name": "subscription_page_6month_12month_sale"
+    },
+    {
+        "id": "15",
+        "name": "com.plussports.yogafreemium.video_099"
+    },
+    {
+        "id": "16",
+        "name": "com.plussports.yogafreemium.video_199"
+    },
+    {
+        "id": "17",
+        "name": "com.plussports.yogafreemium.video_299"
+    },
+    {
+        "id": "18",
+        "name": "com.plussports.yogafreemium.video_399"
+    },
+    {
+        "id": "19",
+        "name": "com.plussports.yogafreemium.video_499"
+    },
+    {
+        "id": "20",
+        "name": "com.plussports.yogafreemium.video_599"
+    },
+    {
+        "id": "23",
+        "name": "com.plussports.yogafreemium.video_699"
+    },
+    {
+        "id": "24",
+        "name": "com.plussports.yogafreemium.video_799"
+    },
+    {
+        "id": "21",
+        "name": "com.plussports.yogafreemium.video_899"
+    },
+    {
+        "id": "22",
+        "name": "com.plussports.yogafreemium.video_999"
+    },
+    {
+        "id": "25",
+        "name": "com.plussports.yogafreemium.video_1099"
+    },
+    {
+        "id": "26",
+        "name": "com.plussports.yogafreemium.video_1199"
+    },
+    {
+        "id": "27",
+        "name": "com.plussports.yogafreemium.video_1299"
+    },
+    {
+        "id": "28",
+        "name": "com.plussports.yogafreemium.video_1399"
+    },
+    {
+        "id": "29",
+        "name": "com.plussports.yogafreemium.video_1499"
+    },
+    {
+        "id": "30",
+        "name": "com.plussports.yogafreemium.video_1599"
+    },
+    {
+        "id": "31",
+        "name": "com.plussports.yogafreemium.video_1699"
+    },
+    {
+        "id": "32",
+        "name": "com.plussports.yogafreemium.video_1799"
+    },
+    {
+        "id": "33",
+        "name": "com.plussports.yogafreemium.video_1899"
+    },
+    {
+        "id": "34",
+        "name": "com.plussports.yogafreemium.video_1999"
+    },
+    {
+        "id": "35",
+        "name": "home_page"
+    },
+    {
+        "id": "36",
+        "name": "Placeholders test"
+    }
+]}

@@ -1,0 +1,19 @@
+{"id": "5376118e0cf2e40df1bc9888", "name": "test_name", "app_id": "538468e8e4b0b88bb57ca415", "sequence": [
+    {
+        "event": {
+            "eventId": 0,
+            "settingId": 1,
+            "paramLow": 1,
+            "paramHigh": 100,
+            "include": true
+        },
+        "userCount": 0
+    },
+    {
+        "event": {
+            "eventId": 1,
+            "include": true
+        },
+        "userCount": 0
+    }
+], "segmentId": "segment_id"}

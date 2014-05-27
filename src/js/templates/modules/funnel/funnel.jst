@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="title" width="100%">
+        <h1><input type="text" data-region="title"/></h1>
+        <div class="controls">
+            <select data-action="select-segment" class="form-control">
+            </select>
+            <button data-action="save-funnel" placeholder="Save" class="btn btn-default">
+                <span class="glyphicon glyphicon-floppy-disk"></span> Save
+            </button>
+            <button data-action="create-segment" placeholder="Create Segment" class="btn btn-default" data-toggle="modal" data-target=".bs-create-segment-modal-lg">
+                <span class="glyphicon glyphicon-export"></span> Create Segment
+            </button>
+            <button data-action="go-back" placeholder="Back" class="btn btn-default">
+                Back
+            </button>
+        </div>
+    </div>
+
+    <div data-region="filter"></div>
+
+    <div data-region="sequence-builder"></div>
+
+    <div data-region="funnel"></div>
+
+    <div class="modal fade bs-create-segment-modal-lg" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div data-region="create-segment" class="modal-content" align="left"></div>
+        </div>
+    </div>
+</div>

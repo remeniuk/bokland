@@ -29,6 +29,7 @@ define(function (require) {
         initialize: function (options) {
             var _this = this;
             _this.model = options.model;
+            _this.dictionary = options.dictionary;
             _this.isNew = options.isNew;
 
             _this.listenTo(_this.model, 'submit', _this.redraw);
@@ -48,6 +49,7 @@ define(function (require) {
 
             _this.eventDialog = new EventDialog({
                 model: _this.model,
+                dictionary: _this.dictionary,
                 addNew: _this.isNew? true : false
             });
 
