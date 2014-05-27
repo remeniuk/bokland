@@ -50,7 +50,7 @@ define(function (require) {
                 return dimension.dictionary[key];
             } else {
                 if(dimension.type === 'date'){
-                    return d3.time.format('%x')(new Date(key));
+                    return d3.time.format('%x')(new Date(parseInt(key)));
                 } else {
                     return key;
                 }
