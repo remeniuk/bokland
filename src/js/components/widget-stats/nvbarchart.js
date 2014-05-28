@@ -40,6 +40,7 @@ define(function (require) {
                 .y(function (d) {
                     return d.value;
                 })
+                .margin({bottom: 60, left: 80})
                 .staggerLabels(true)
                 .tooltips(false)
                 .showValues(true)
