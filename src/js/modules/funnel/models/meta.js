@@ -3,17 +3,17 @@ define(function (require) {
     'use strict';
 
     // imports
-    var _ = require('underscore'),
-        config = require('config/api'),
-        EventModel = require('components/eventseq/model/event'),
-        Backbone = require('backbone');
+    var _         = require('underscore'),
+        config    = require('config/api'),
+        BaseModel = require('libs/model');
+
 
     // code
-    var Model = Backbone.Collection.extend({
-        url: function () {
-            return config.funnelServer + (config.stubs ?
-                'funnelEvents.json' :
-                'reports/funnel/' + this.get('id') + '/events');
+    var Model = BaseModel.extend({
+        url: function() {
+            return config.server + (config.stubs ?
+                'funnelMeta.json' :
+                '');
         },
 
         parse: function (response) {
@@ -25,7 +25,7 @@ define(function (require) {
                 }).name;
             };
 
-            var events = _.map(response.sequence, function (eventUserCount) {
+            response.data.sequence = _.map(response.data.sequence, function (eventUserCount) {
                 var unparsedEvent = eventUserCount.event;
 
                 var paramType = (unparsedEvent.paramLow >= 0 && unparsedEvent.paramHigh >= 0 &&
@@ -36,7 +36,7 @@ define(function (require) {
 
                 var event = {
                     'id': unparsedEvent.eventId,
-                    'name': findById(_this.dictionary.events, unparsedEvent.eventId)
+                    'name': findById(_this.dictionary.get('events'), unparsedEvent.eventId)
                 };
                 if (paramType) {
                     event.parameter = {
@@ -47,15 +47,13 @@ define(function (require) {
                 }
                 if (unparsedEvent.settingId) {
                     event.item_id = unparsedEvent.settingId;
-                    event.item_name = findById(_this.dictionary.settings, unparsedEvent.settingId);
+                    event.item_name = findById(_this.dictionary.get('settings'), unparsedEvent.settingId);
                 }
                 return event;
             });
 
-            return events;
-        },
-
-        model: EventModel
+            return response;
+        }
     });
 
     return Model;

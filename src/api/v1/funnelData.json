@@ -1,0 +1,31 @@
+{
+    "status": 200,
+    "data": {
+        "entries": [
+            {
+                "cohort": "2013-01-01",
+                "event": "Login",
+                "users": 3212,
+                "percent": 100
+            },
+            {
+                "cohort": "2013-01-01",
+                "event": "Purchase",
+                "users": 3212,
+                "percent": 30
+            },
+            {
+                "cohort": "2013-01-02",
+                "event": "Login",
+                "users": 1231,
+                "percent": 100
+            },
+            {
+                "cohort": "2013-01-02",
+                "event": "Purchase",
+                "users": 1231,
+                "percent": 30
+            }
+        ]
+    }
+}

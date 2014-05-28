@@ -161,11 +161,11 @@ define(function (require) {
         _populate: function(dictionary) {
             var _this = this;
 
-            _.each(dictionary.settings, function(item){
+            _.each(dictionary.get('settings'), function(item){
                 _this.ui.$selectedItem.append('<option value="' + item.id + '">' + item.name + '</option>');
             });
 
-            _.each(dictionary.events, function(event){
+            _.each(dictionary.get('events'), function(event){
                 _this.ui.$selectedEvent.append('<option value="' + event.id + '">' + event.name + '</option>');
             });
         },
@@ -174,10 +174,10 @@ define(function (require) {
             var _this = this;
 
             var eventId = _this.model.get('id');
-            _this.ui.$selectedEvent.val(eventId ? eventId : '-1');
+            _this.ui.$selectedEvent.val(eventId >= 0 ? eventId : '-1');
 
             var itemId = _this.model.get('item_id');
-            _this.ui.$selectedItem.val(itemId ? itemId : '-1');
+            _this.ui.$selectedItem.val(itemId  >= 0 ? itemId : '-1');
 
             var parameter = _this.model.get('parameter');
             if(parameter){

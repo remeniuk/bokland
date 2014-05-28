@@ -1,15 +1,21 @@
 /* global define */
-define(function(require) {
+define(function (require) {
     'use strict';
 
     // imports
-    var $                  = require('jquery'),
-        time               = require('helpers/time'),
-        BaseView           = require('libs/view'),
-        SequenceBuilder    = require('components/eventseq/view/sequence'),
-        FilterWidget        = require('components/filter/filterwidget'),
-        RouterManager      = require('../dashboard/routers/manager'),
-        templates           = require('templates/templates');
+    var $ = require('jquery'),
+        time = require('helpers/time'),
+        BaseView = require('libs/view'),
+        SequenceBuilder = require('components/eventseq/view/sequence'),
+        DictionaryModel = require('./models/dictionary'),
+        FilterMetaModel = require('./models/meta'),
+        FilterDataModel = require('./models/data'),
+        ExportDialog = require('./views/exportdialog'),
+        SegmentDialog = require('./views/segmentdialog'),
+        FunnelWidget = require('components/widget-stats/funnel'),
+        FilterWidget = require('components/filter/filterwidget'),
+        RouterManager = require('../dashboard/routers/manager'),
+        templates = require('templates/templates');
 
 
     // code
@@ -17,7 +23,8 @@ define(function(require) {
         template: templates['modules/funnel/funnel'],
 
         elementsUI: {
-            'dashboardTitle': '[data-region=title]'
+            'dashboardTitle': '[data-region=title]',
+            'cohort': '[data-region=select-cohort]'
         },
 
         initialize: function (options) {
@@ -34,16 +41,35 @@ define(function(require) {
                 ch: {}  // segments
             });
             /* jshint camelcase:true */
+
+            _this.dictionaryModel = new DictionaryModel();
+
+            _this.filterMetaModel = new FilterMetaModel();
+            _this.filterMetaModel.dictionary = _this.dictionaryModel;
+
+            _this.filterDataModel = new FilterDataModel();
+            _this.filterDataModel.dictionary = _this.dictionaryModel;
+
+            _this.listenTo(_this.dictionaryModel, 'sync', function() {
+                _this.filterMetaModel.fetch();
+                _this.filterDataModel.fetch();
+            });
+            _this.listenTo(_this.filterMetaModel, 'sync', _this.redraw);
+            _this.listenTo(_this.filterDataModel, 'sync', function () {
+            });
         },
 
-
-        render: function() {
+        render: function () {
             var _this = this;
 
             _this.$el.html(_this.template({}));
             _this.bindUI();
 
-            var builder = new SequenceBuilder({});
+            var builder = new SequenceBuilder({
+                dictionaryModel: _this.dictionaryModel,
+                filterMetaModel: _this.filterMetaModel,
+                state: _this.state
+            });
             _this.region('sequence-builder').show(builder);
 
             var filterWidget = new FilterWidget({
@@ -51,13 +77,27 @@ define(function(require) {
             });
             _this.region('filter').show(filterWidget);
 
-            _this.redraw();
+            var funnelWidget = new FunnelWidget({
+                dictionaryModel: _this.dictionaryModel,
+                filterDataModel: _this.filterDataModel,
+                state: _this.state
+            });
+            _this.region('funnel').show(funnelWidget);
+
+            var exportDialog = new ExportDialog();
+            _this.region('export').show(exportDialog);
+
+            var segmentDialog = new SegmentDialog();
+            _this.region('create-segment').show(segmentDialog);
+
+            _this.dictionaryModel.fetch();
         },
 
-        redraw: function() {
+        redraw: function () {
             var _this = this;
 
-            _this.ui.$dashboardTitle.val('Funnel');
+            _this.ui.$dashboardTitle.val(_this.filterMetaModel.get('data').name);
+            _this.ui.$cohort.val(_this.filterMetaModel.get('data').cohort);
         }
     });
 
@@ -69,14 +109,14 @@ define(function(require) {
             _this.listenTo(RouterManager.funnel, 'route:dashboard', _this.routing);
         },
 
-        render: function() {
+        render: function () {
             var _this = this;
 
             var view = new FunnelView({});
             _this.region('funnel').show(view);
         },
 
-        routing: function(params) {
+        routing: function (params) {
             var _this = this,
                 state = _this.state;
 
@@ -87,7 +127,7 @@ define(function(require) {
             return _this;
         },
 
-        navigate: function() {
+        navigate: function () {
             var _this = this,
                 state = _this.state;
 
