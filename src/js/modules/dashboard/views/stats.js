@@ -119,12 +119,14 @@ define(function (require) {
             ev.preventDefault();
 
             _this.ui.$selectDashboard.find('[value='+_this.metaModel.get('id')+']').remove();
+            _this.metaModel.sync('delete', _this.metaModel);
+
             if(!_this.ui.$selectDashboard.find('option:first').val()){
                 _this._createDashboard();
             } else {
                 _this._changeDashboard();
             }
-            _this.metaModel.sync('delete', _this.metaModel);
+
         },
 
         render: function () {
