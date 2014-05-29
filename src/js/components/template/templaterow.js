@@ -121,14 +121,14 @@ define(function (require) {
             var _this = this,
                 rowMetaModel = _this.dashboardMetaModel.get('rows');
 
-            rowMetaModel.splice(_this.rowNum, 1);
+            if(confirm("Do you really want to remove the whole row?")) {
+                rowMetaModel.splice(_this.rowNum, 1);
 
-            _this.dashboardMetaModel.set('rows', rowMetaModel);
-            if(!config.stubs) {
-                _this.dashboardMetaModel.save();
+                _this.dashboardMetaModel.set('rows', rowMetaModel);
+                _this._refreshMetaModel();
+
+                this.remove();
             }
-
-            this.remove();
         },
 
         _onRowUpdated: function() {

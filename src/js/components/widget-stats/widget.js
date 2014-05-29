@@ -136,22 +136,24 @@ define(function (require) {
         removeWidget: function () {
             var _this = this;
 
-            var rows = _.map(_this.dashboardMetaModel.get('rows'), function(row) {
-                var rowClone = _.clone(row);
-                rowClone.widgets = _.filter(rowClone.widgets, function(widget) {
-                    return widget.id !== _this.name;
+            if(confirm("Do you really want to remove this widget?")) {
+                var rows = _.map(_this.dashboardMetaModel.get('rows'), function (row) {
+                    var rowClone = _.clone(row);
+                    rowClone.widgets = _.filter(rowClone.widgets, function (widget) {
+                        return widget.id !== _this.name;
+                    });
+                    return rowClone;
                 });
-                return rowClone;
-            });
 
-            _this.dashboardMetaModel.set('rows', rows);
-            if(!config.stubs) {
-                _this.dashboardMetaModel.save(null, {success: function(model,response){
-                    model.set('id', (response || {data:{}}).data._id);
-                }});
+                _this.dashboardMetaModel.set('rows', rows);
+                if (!config.stubs) {
+                    _this.dashboardMetaModel.save(null, {success: function (model, response) {
+                        model.set('id', (response || {data: {}}).data._id);
+                    }});
+                }
+
+                _this.$el.closest('.template-cell').remove();
             }
-
-            _this.$el.closest('.template-cell').remove();
         },
 
         _resize: function (e) {
