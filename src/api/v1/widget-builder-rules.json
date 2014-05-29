@@ -18,12 +18,19 @@
             {
                 "name": "Histogram",
                 "type": "date",
-                "forDataTypes": ["date", "number"],
+                "forDataTypes": ["date"],
                 "params": {
                     "date": {
                         "type": "enum",
                         "options": ["Year", "Quarter", "Month", "Week", "Day"]
-                    },
+                    }
+                }
+            },
+            {
+                "name": "Ranges",
+                "type": "number",
+                "forDataTypes": ["number"],
+                "params": {
                     "number": {
                         "type": "discrete"
                     }
