@@ -44,7 +44,6 @@ define(function (require) {
             'click @ui.save': '_saveWidget'
         },
 
-        addNewWidgetMode: false,
         rules: null,
 
         initialize: function (options) {

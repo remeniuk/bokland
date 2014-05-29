@@ -30,7 +30,8 @@ define(function (require) {
             'selectDashboard': '[data-action=select-dashboard]',
             'saveDashboard': '[data-action=save-dashboard]',
             'createDashboard': '[data-action=create-dashboard]',
-            'removeDashboard': '[data-action=remove-dashboard]'
+            'removeDashboard': '[data-action=remove-dashboard]',
+            'addRowButton': '.btn-show-add-row-dialog'
         },
 
         events: {
@@ -38,7 +39,8 @@ define(function (require) {
             'change @ui.selectDashboard' : '_changeDashboard',
             'click @ui.saveDashboard' : '_saveDashboard',
             'click @ui.createDashboard' : '_createDashboard',
-            'click @ui.removeDashboard' : '_removeDashboard'
+            'click @ui.removeDashboard' : '_removeDashboard',
+            'click @ui.addRowButton' : '_showAddRowDialog'
         },
 
         widgetBilderView: null,
@@ -136,10 +138,10 @@ define(function (require) {
             });
             _this.region('filter').show(filterWidget);
 
-            var addRowDialog = new AddRowDialog({
+            _this.addRowDialog = new AddRowDialog({
                 model: _this.metaModel
             });
-            _this.region('add-row').show(addRowDialog);
+            _this.region('add-row').show(_this.addRowDialog);
 
             var exportDialog = new ExportDialog({
                 state: _this.state
@@ -178,6 +180,7 @@ define(function (require) {
                 rowMeta: _this.metaModel.get('rows')[rowInd],
                 collection: _this.collection,
                 builderView: _this.widgetBilderView,
+                editRowView: _this.addRowDialog,
                 state: _this.state
             });
 
@@ -245,7 +248,17 @@ define(function (require) {
 
             _this._loadMeta(onSuccess);
 
+        },
+
+        _showAddRowDialog: function () {
+            var _this = this;
+
+            if(_this.addRowDialog) {
+                _this.addRowDialog.reinit({
+                });
+            }
         }
+
     });
 
     return View;

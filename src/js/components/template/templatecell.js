@@ -20,8 +20,6 @@ define(function (require) {
     var View = BaseView.extend({
         template: templates['components/template/cell'],
 
-        activeView: null,
-
         initialize: function (options) {
             var _this = this;
 

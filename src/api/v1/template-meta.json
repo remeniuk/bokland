@@ -7,7 +7,7 @@
         "app_id": "53280f81c8f25a47fe2e234e",
         "rows": [
             {
-                "height": "200px",
+                "height": "200",
                 "widgets": [
                     {
                         "_id": {
@@ -81,7 +81,7 @@
                 ]
             },
             {
-                "height": "300px",
+                "height": "300",
                 "widgets": [
                     {
                         "_id": {
@@ -150,7 +150,7 @@
                 ]
             },
             {
-                "height": "300px",
+                "height": "300",
                 "widgets": [
                     {
                         "_id": {

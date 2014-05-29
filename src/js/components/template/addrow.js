@@ -24,13 +24,20 @@ define(function (require) {
 
         initialize: function (options) {
             var _this = this;
+        },
 
+        reinit: function (options) {
+            var _this = this;
+            _this.rowModel = options.rowModel;
+            _this.render();
         },
 
         render: function () {
-            var _this = this;
+            var _this = this,
+                type = _this.rowModel ? 'Save' : 'Add',
+                height = _this.rowModel ? _this.rowModel.get('height') : 200;
 
-            _this.$el.html(_this.template({}));
+            _this.$el.html(_this.template({type: type, height: height}));
 
             _this.bindUI();
 
@@ -49,13 +56,16 @@ define(function (require) {
                 return false;
             }
 
-            var rows = _this.model.get('rows');
-            rows.push({
-               height: height
-            });
-            _this.model.set('rows', rows);
+            if(_this.rowModel){
+                _this.rowModel.set({height: height});
+                _this.rowModel.trigger('rowUpdated')
+            } else {
+                var rows = _this.model.get('rows');
+                rows.push({height: height});
+                _this.model.set('rows', rows);
 
-            this.model.trigger('rowadded');
+                this.model.trigger('rowadded');
+            }
         }
 
     });
