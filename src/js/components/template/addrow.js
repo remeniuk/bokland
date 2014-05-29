@@ -15,7 +15,7 @@ define(function (require) {
 
         elementsUI: {
             'heightInput': '#row-height',
-            'button': 'input'
+            'button': 'input.btn'
         },
 
         events: {
@@ -38,13 +38,20 @@ define(function (require) {
         },
 
         _addRow: function (ev) {
-            var _this = this;
+            var _this = this,
+                height = _this.ui.$heightInput.val();
 
             ev.preventDefault();
 
+            _this.$el.find('.form-group').removeClass('has-error');
+            if(!height.match(/\d{3}/i)){
+                _this.ui.$heightInput.closest('.form-group').addClass('has-error');
+                return false;
+            }
+
             var rows = _this.model.get('rows');
             rows.push({
-               height: _this.ui.$heightInput.val()
+               height: height
             });
             _this.model.set('rows', rows);
 
