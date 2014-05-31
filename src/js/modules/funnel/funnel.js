@@ -24,7 +24,19 @@ define(function (require) {
 
         elementsUI: {
             'dashboardTitle': '[data-region=title]',
-            'cohort': '[data-region=select-cohort]'
+            'cohortSelect': '[data-action=select-cohort]',
+            'saveFunnelBtn': '[data-action=save-funnel]',
+            'refreshFunnelBtn': '[data-action=refresh-funnel]',
+            'exportFunnelBtn': '[data-action=export-funnel]',
+            'createSegmentBtn': '[data-action=create-segment]',
+            'goBackBtn': '[data-action=go-back]'
+        },
+
+        events: {
+            'change @ui.cohortSelect': '_saveFunnel',
+            'click @ui.saveFunnelBtn': '_saveFunnel',
+            'click @ui.refreshFunnelBtn': '_refreshFunnel',
+            'click @ui.goBackBtn': '_goBack'
         },
 
         initialize: function (options) {
@@ -32,13 +44,9 @@ define(function (require) {
 
             /* jshint camelcase:false */
             _this.state.init({
-                did: '', // dashboard id
+                fid: '', // dashboard id
                 app_id: {}, // app id
-                date: {},  // date
-                p: {},  // platform
-                s: {},  // source
-                c: {},  // countries
-                ch: {}  // segments
+                date: {}  // date
             });
             /* jshint camelcase:true */
 
@@ -50,9 +58,8 @@ define(function (require) {
             _this.filterDataModel = new FilterDataModel();
             _this.filterDataModel.dictionary = _this.dictionaryModel;
 
-            _this.listenTo(_this.dictionaryModel, 'sync', function() {
+            _this.listenTo(_this.dictionaryModel, 'sync', function () {
                 _this.filterMetaModel.fetch();
-                _this.filterDataModel.fetch();
             });
             _this.listenTo(_this.filterMetaModel, 'sync', _this.redraw);
             _this.listenTo(_this.filterDataModel, 'sync', function () {
@@ -97,7 +104,29 @@ define(function (require) {
             var _this = this;
 
             _this.ui.$dashboardTitle.val(_this.filterMetaModel.get('data').name);
-            _this.ui.$cohort.val(_this.filterMetaModel.get('data').cohort);
+            _this.ui.$cohortSelect.val(_this.filterMetaModel.get('data').cohort);
+
+            _this.filterDataModel.fetch();
+        },
+
+        _saveFunnel: function () {
+            var _this = this;
+
+            _this.filterMetaModel.get('data').name = _this.ui.$dashboardTitle.val();
+            _this.filterMetaModel.get('data').cohort = _this.ui.$cohortSelect.val();
+
+            _this.filterMetaModel.save();
+        },
+
+        _refreshFunnel: function () {
+            var _this = this;
+
+            _this.filterDataModel.fetch();
+        },
+
+        _goBack: function () {
+            var _this = this;
+
         }
     });
 
@@ -106,7 +135,7 @@ define(function (require) {
             var _this = this;
 
             _this.listenTo(_this.state, 'change', _this.navigate);
-            _this.listenTo(RouterManager.funnel, 'route:dashboard', _this.routing);
+            _this.listenTo(RouterManager.funnel, 'route:funnel', _this.routing);
         },
 
         render: function () {

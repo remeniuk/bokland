@@ -10,7 +10,7 @@ define(function(require) {
     // code
     var Router = BaseRouter.extend({
         routes: {
-            '~*params': 'funnel'
+            '(:id/)~*params': 'funnel'
         }
     });
 

@@ -24,6 +24,7 @@ define(function (require) {
         initialize: function (options) {
             var _this = this;
 
+            _this.filterMetaModel = options.filterMetaModel;
         },
 
         render: function () {
@@ -38,6 +39,8 @@ define(function (require) {
 
         _export: function (ev) {
             var _this = this;
+
+
 
             ev.preventDefault();
         }
