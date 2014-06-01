@@ -79,7 +79,8 @@ define(function (require) {
             console.log('Rendering criterion');
 
             var criterionOptions = {
-                state: _this.state.ref(_this.criterionModel.get('id')),
+                fieldName: _this.criterionModel.get('id'),
+                state: _this.state,
                 values: _this.criterionModel.get('values')
             };
 

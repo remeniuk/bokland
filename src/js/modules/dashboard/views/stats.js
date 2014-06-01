@@ -3,20 +3,20 @@ define(function (require) {
     'use strict';
 
     // imports
-    var $                   = require('jquery'),
-        _                   = require('underscore'),
-        config              = require('config/api'),
-        bootstrap           = require('bootstrap'),
-        BaseView            = require('libs/view'),
-        FilterWidget        = require('components/filter/filterwidget'),
-        AllDashboardsModel  = require('modules/dashboard/models/dashboards'),
-        TemplateMetaModel   = require('modules/dashboard/models/templatemeta'),
-        TemplateRow         = require('components/template/templaterow'),
-        AddRowDialog        = require('components/template/addrow'),
-        ExportDialog        = require('components/template/export'),
-        CubeModel           = require('../models/cube'),
-        WidgetBuilder       = require('components/widget-builder/builder'),
-        templates           = require('templates/templates');
+    var $ = require('jquery'),
+        _ = require('underscore'),
+        config = require('config/api'),
+        bootstrap = require('bootstrap'),
+        BaseView = require('libs/view'),
+        FilterWidget = require('components/filter/filterwidget'),
+        AllDashboardsModel = require('modules/dashboard/models/dashboards'),
+        TemplateMetaModel = require('modules/dashboard/models/templatemeta'),
+        TemplateRow = require('components/template/templaterow'),
+        AddRowDialog = require('components/template/addrow'),
+        ExportDialog = require('components/template/export'),
+        CubeModel = require('../models/cube'),
+        WidgetBuilder = require('components/widget-builder/builder'),
+        templates = require('templates/templates');
 
 
     // code
@@ -34,11 +34,11 @@ define(function (require) {
         },
 
         events: {
-            'change @ui.dashboardTitle' : '_changeDashboardTitle',
-            'change @ui.selectDashboard' : '_changeDashboard',
-            'click @ui.saveDashboard' : '_saveDashboard',
-            'click @ui.createDashboard' : '_createDashboard',
-            'click @ui.removeDashboard' : '_removeDashboard'
+            'change @ui.dashboardTitle': '_changeDashboardTitle',
+            'change @ui.selectDashboard': '_changeDashboard',
+            'click @ui.saveDashboard': '_saveDashboard',
+            'click @ui.createDashboard': '_createDashboard',
+            'click @ui.removeDashboard': '_removeDashboard'
         },
 
         widgetBilderView: null,
@@ -49,13 +49,9 @@ define(function (require) {
 
             /* jshint camelcase:false */
             _this.state.init({
-                did: '', // dashboard id
-                app_id: {}, // app id
-                date: {},  // date
-                p: {},  // platform
-                s: {},  // source
-                c: {},  // countries
-                ch: {}  // segments
+                query: '',
+                did: '',
+                app_id: ''
             });
             /* jshint camelcase:true */
 
@@ -73,32 +69,32 @@ define(function (require) {
             _this.cube.fetch();
         },
 
-        _loadDashboard: function() {
+        _loadDashboard: function () {
             var _this = this,
                 dashboards = _this.dashboards.get('dashboards'),
                 defaultDashboard = dashboards[0],
                 selectedDashboardId = _this.state.get('did');
 
-            if(!defaultDashboard){
+            if (!defaultDashboard) {
                 _this._createDashboard();
             } else {
                 _this.metaModel.set('id', selectedDashboardId ? selectedDashboardId : defaultDashboard.id);
 
                 _this.ui.$selectDashboard.find('option').remove();
-                _.each(dashboards, function(dash){
-                    if(dash) {
+                _.each(dashboards, function (dash) {
+                    if (dash) {
                         _this.ui.$selectDashboard.append('<option value="' + dash.id + '"' + (selectedDashboardId === dash.id ? 'selected' : '') + '>' + dash.title + '</option>');
                     }
 
                 });
 
-                var onSuccess = function() {
-                    if(selectedDashboardId) {
-                        _this.state.set('app_id._', [_this.metaModel.get('app_id')]);
+                var onSuccess = function () {
+                    if (selectedDashboardId) {
+                        _this.state.set('app_id', _this.metaModel.get('app_id'));
                         _this.state.trigger('change');
                     } else {
                         _this.state.set({did: defaultDashboard.id}, {silent: true});
-                        _this.state.set('app_id._', [_this.metaModel.get('app_id')]);
+                        _this.state.set('app_id', _this.metaModel.get('app_id'));
                     }
                 };
 
@@ -106,18 +102,18 @@ define(function (require) {
             }
         },
 
-        _loadMeta: function(success) {
+        _loadMeta: function (success) {
             var _this = this;
 
             _this.metaModel.fetch({success: success});
         },
 
-        _removeDashboard: function(ev) {
+        _removeDashboard: function (ev) {
             var _this = this;
             ev.preventDefault();
 
-            _this.ui.$selectDashboard.find('[value='+_this.metaModel.get('id')+']').remove();
-            if(!_this.ui.$selectDashboard.find('option:first').val()){
+            _this.ui.$selectDashboard.find('[value=' + _this.metaModel.get('id') + ']').remove();
+            if (!_this.ui.$selectDashboard.find('option:first').val()) {
                 _this._createDashboard();
             } else {
                 _this._changeDashboard();
@@ -156,7 +152,7 @@ define(function (require) {
 
             _this.$el.find('[data-region="rows"]').empty();
 
-            _.each(_this.rows, function(row, i){
+            _.each(_this.rows, function (row, i) {
                 row.clearCells();
                 row.dispose();
             });
@@ -188,14 +184,14 @@ define(function (require) {
             rowElement.render();
         },
 
-        _changeDashboardTitle: function() {
+        _changeDashboardTitle: function () {
             var _this = this,
                 title = _this.ui.$dashboardTitle.val();
 
-            _this.ui.$selectDashboard.find('[value='+_this.metaModel.get('id')+']').text(title);
+            _this.ui.$selectDashboard.find('[value=' + _this.metaModel.get('id') + ']').text(title);
         },
 
-        _cubeLoaded: function() {
+        _cubeLoaded: function () {
             var _this = this;
 
             _this.widgetBilderView = new WidgetBuilder({
@@ -204,16 +200,16 @@ define(function (require) {
             _this.region('widget-builder').show(_this.widgetBilderView);
         },
 
-        _createDashboard: function() {
+        _createDashboard: function () {
             var _this = this;
 
             /* jshint camelcase:false */
             _this.metaModel = new TemplateMetaModel({title: 'New dashboard', app_id: 'new'});
             /* jshint camelcase:true */
             _this.metaModel.save(null, {
-                success: function(model, response){
-                    if(response.data) {
-                        _this.state.set({did: response.data._id}, {silent:true});
+                success: function (model, response) {
+                    if (response.data) {
+                        _this.state.set({did: response.data._id}, {silent: true});
                         model.set('id', response.data._id);
                     }
                     _this.listenToOnce(_this.metaModel, 'sync', _this.redraw);
@@ -222,23 +218,23 @@ define(function (require) {
                 }});
         },
 
-        _saveDashboard: function() {
+        _saveDashboard: function () {
             var _this = this;
             _this.metaModel.set('title', _this.ui.$dashboardTitle.val());
-            if(!config.stubs) {
-                _this.metaModel.save(null, {success: function(model,response){
-                    model.set('id', (response || {data:{}}).data._id);
+            if (!config.stubs) {
+                _this.metaModel.save(null, {success: function (model, response) {
+                    model.set('id', (response || {data: {}}).data._id);
                 }});
             }
         },
 
-        _changeDashboard: function() {
+        _changeDashboard: function () {
             var _this = this,
                 selectedDashboardId = _this.ui.$selectDashboard.find(':selected').val();
 
             _this.metaModel.set('id', selectedDashboardId);
 
-            var onSuccess = function(){
+            var onSuccess = function () {
                 _this.state.set('did', selectedDashboardId);
                 _this.redraw();
             };
