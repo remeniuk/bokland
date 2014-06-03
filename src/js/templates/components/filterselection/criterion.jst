@@ -1,7 +1,9 @@
-<span criterion-id="<%= id %>" class="filter-pane-criterion label label-default"><%= name %>:
-    <% if(type === 'category'){ %>
-        <%= values.join(', ') %>
+<span criterion-id="<%= id %>" criterion-operation="<%= operationId %>" criterion-value="<%= value %>" class="filter-pane-criterion label label-default">
+    <% if(operation == 'span' || operation == 'ids' || operation == 'null'
+    || operation == 'not_null' || operation == 'quantile' ){ %>
+        <%= operation %>
     <% } else { %>
-        <%= values.join(' - ') %>
-    <% } %> <a href="#"><span class="glyphicon glyphicon-remove-sign"></span></a>
+        <%= name %> <%= operation %> <%= value %>
+    <% } %>
+    <a href="#"><span class="glyphicon glyphicon-remove-sign"></span></a>
 </span>
