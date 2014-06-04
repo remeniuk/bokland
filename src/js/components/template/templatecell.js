@@ -71,7 +71,7 @@ define(function (require) {
                 rowModel: _this.rowModel,
                 widgetModel: _this.widgetModel,
                 name: _this.widgetModel.get('_id').$oid,
-                state: _this.state.ref(widget.filterBy),
+                state: _this.state,
                 title: widget.title,
                 height: _this.height
             };
@@ -102,17 +102,17 @@ define(function (require) {
                 _this._refreshMetaModel();
 
                 _this.listenToOnce(widgetData, 'sync', function() {
-                    if(!config.stubs) {
-                        _this.collection.add(widgetData, {merge: true, trigger: false});
-                    }
-
-                    _this.widget = _this.widgetModel.toJSON();
-
-                    _this.clearRegions();
-                    _this.render();
-
                     _this.widgetModel.trigger('redrawWidget');
                 });
+
+                if(!config.stubs) {
+                    _this.collection.add(widgetData, {merge: true, trigger: false});
+                }
+
+                _this.widget = _this.widgetModel.toJSON();
+
+                _this.clearRegions();
+                _this.render();
 
                 widgetData.fetch({data: _this.state.serialize()});
             }

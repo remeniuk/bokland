@@ -50,15 +50,12 @@ define(function (require) {
 
             _this._data = null;
 
-            _this.state.init({
-                _: [],
-                opt: {}
-            });
+            _this.state = options.state;
 
             _this.listenTo(_this.collection, 'sync', function () {
                 var collection = _this.collection,
                     data = collection.get(_this.name),
-                    filter = _this.state.get('_');
+                    filter = _this.state.get('query');
 
                 if (data) {
                     _this._data = data.get('data');
@@ -68,7 +65,7 @@ define(function (require) {
 
             _this.listenTo(_this.state, 'change', function () {
                 if (_this._data) {
-                    var filter = _this.state.get('_');
+                    var filter = _this.state.get('query');
                     _this.redraw(_this._data, filter);
                 }
             });
@@ -76,7 +73,7 @@ define(function (require) {
             _this.listenTo(_this.widgetModel, 'redrawWidget', function () {
                 var collection = _this.collection,
                     data = collection.get(_this.name),
-                    filter = _this.state.get('_');
+                    filter = _this.state.get('query');
 
                 if (data) {
                     console.log('redrawing widget ' + _this.widgetModel.get('id'));
