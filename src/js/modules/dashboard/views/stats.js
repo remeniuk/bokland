@@ -52,8 +52,7 @@ define(function (require) {
             /* jshint camelcase:false */
             _this.state.init({
                 query: '',
-                did: '',
-                app_id: ''
+                did: ''
             });
             /* jshint camelcase:true */
 
@@ -92,11 +91,9 @@ define(function (require) {
 
                 var onSuccess = function () {
                     if (selectedDashboardId) {
-                        _this.state.set('app_id', _this.metaModel.get('app_id'));
                         _this.state.trigger('change');
                     } else {
-                        _this.state.set({did: defaultDashboard.id}, {silent: true});
-                        _this.state.set('app_id', _this.metaModel.get('app_id'));
+                        _this.state.set({did: defaultDashboard.id});
                     }
                 };
 
