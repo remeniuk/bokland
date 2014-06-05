@@ -112,6 +112,7 @@ define(function (require) {
 
             if(_this.editRowView) {
                 _this.editRowView.reinit({
+                    rowNum: _this.rowNum,
                     rowModel: _this.rowModel
                 });
             }

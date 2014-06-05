@@ -3,10 +3,11 @@ define(function (require) {
     'use strict';
 
     // imports
-    var $ = require('jquery'),
-        _ = require('underscore'),
+    var $         = require('jquery'),
+        _         = require('underscore'),
+        config    = require('config/api'),
         bootstrap = require('bootstrap'),
-        BaseView = require('libs/view'),
+        BaseView  = require('libs/view'),
         templates = require('templates/templates');
 
     // code
@@ -28,6 +29,7 @@ define(function (require) {
 
         reinit: function (options) {
             var _this = this;
+            _this.rowNum = options.rowNum;
             _this.rowModel = options.rowModel;
             _this.render();
         },
@@ -51,14 +53,15 @@ define(function (require) {
             ev.preventDefault();
 
             _this.$el.find('.form-group').removeClass('has-error');
-            if(!height.match(/\d{3}/i)){
+            if (!height.match(/\d{3}/i)) {
                 _this.ui.$heightInput.closest('.form-group').addClass('has-error');
                 return false;
             }
 
-            if(_this.rowModel){
+            if (_this.rowModel) {
                 _this.rowModel.set({height: height});
-                _this.rowModel.trigger('rowUpdated')
+                _this.model.get('rows')[_this.rowNum] = _this.rowModel.toJSON();
+                _this.rowModel.trigger('rowUpdated');
             } else {
                 var rows = _this.model.get('rows');
                 rows.push({height: height});
