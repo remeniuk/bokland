@@ -44,9 +44,8 @@ define(function (require) {
 
             /* jshint camelcase:false */
             _this.state.init({
-                fid: '', // dashboard id
-                app_id: {}, // app id
-                date: {}  // date
+                query: '',
+                fid: ''
             });
             /* jshint camelcase:true */
 
@@ -141,7 +140,9 @@ define(function (require) {
         render: function () {
             var _this = this;
 
-            var view = new FunnelView({});
+            var view = new FunnelView({
+                state: _this.state
+            });
             _this.region('funnel').show(view);
         },
 
@@ -177,7 +178,13 @@ define(function (require) {
 
     if (!RouterManager.start()) {
         var range = time.period(new Date(), 'last-day-7');
-        funnel.state.set('date._', [range]);
+
+        var query = {'and': [
+            {'date': {'gt': time.param(range[0])}},
+            {'date': {'lt': time.param(range[1])}}
+        ]};
+
+        funnel.state.set('query', JSON.stringify(query));
     }
 
     return funnel;
