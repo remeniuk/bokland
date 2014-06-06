@@ -24,14 +24,20 @@ define(function (require) {
             var measureName = _this.widgetModel.get('measures')[0];
 
             function parseSeries(series, key) {
+                var values = _.map(series, function (d) {
+                    return {
+                        value: d[measureName],
+                        label: _this.cube.dimensionValueLabel(rowName, d[rowName], rowAgg)
+                    };
+                });
+
+                values = _.sortBy(values, function(d){
+                    return d.label;
+                });
+
                 return {
                     key: seriesName ? _this.cube.dimensionValueLabel(seriesName, key, seriesAgg) : undefined,
-                    values: _.map(series, function (d) {
-                        return {
-                            value: d[measureName],
-                            label: _this.cube.dimensionValueLabel(rowName, d[rowName], rowAgg)
-                        };
-                    })
+                    values: values
                 };
             }
 

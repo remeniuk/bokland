@@ -214,11 +214,11 @@
             "data": [
                 {
                     "profile.gender": "male",
-                    "users_count": 1000
+                    "users_count": 100
                 },
                 {
                     "profile.gender": "female",
-                    "users_count": 400
+                    "users_count": 980
                 }
             ]
         }

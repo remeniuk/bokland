@@ -20,14 +20,20 @@ define(function (require) {
             var rowName = row.dimension.field;
             var measureName = _this.widgetModel.get('measures')[0];
 
+            var values = _.map(data, function (d) {
+                return {
+                    value: d[measureName],
+                    label: _this.cube.dimensionValueLabel(rowName, d[rowName], rowAgg)
+                };
+            });
+
+            values = _.sortBy(values, function(d){
+                return d.label;
+            });
+
             return [
                 {
-                    values: _.map(data, function (d) {
-                        return {
-                            value: d[measureName],
-                            label: _this.cube.dimensionValueLabel(rowName, d[rowName], rowAgg)
-                        };
-                    })
+                    values: values
                 }
             ];
         },

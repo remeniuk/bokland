@@ -19,13 +19,18 @@ define(function (require) {
             var rowAgg = row.aggregation;
             var rowName = row.dimension.field;
             var measureName = _this.widgetModel.get('measures')[0];
-
-            return _.map(data, function (d) {
+            var values = _.map(data, function (d) {
                 return {
                     value: d[measureName],
                     label: _this.cube.dimensionValueLabel(rowName, d[rowName], rowAgg)
                 };
             });
+
+            values = _.sortBy(values, function(d){
+                return -d.value;
+            });
+
+            return values;
         },
 
         createChart: function () {
