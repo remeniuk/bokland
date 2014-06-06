@@ -65,6 +65,7 @@ define(function (require) {
 
             _this.listenToOnce(_this.metaModel, 'sync', _this.redraw);
             _this.listenTo(_this.metaModel, 'rowadded', _this._addRow);
+            _this.listenTo(_this.collection, 'sync', _this._refresh);
 
             _this.dashboards.fetch();
             _this.cube.fetch();
@@ -162,6 +163,10 @@ define(function (require) {
             _.each(_this.metaModel.get('rows'), function (row, i) {
                 _this._addRow(i);
             });
+        },
+
+        _refresh: function(){
+            setTimeout(function(){ $('body').hide().show(); }, 500);
         },
 
         _addRow: function (rowNum) {
