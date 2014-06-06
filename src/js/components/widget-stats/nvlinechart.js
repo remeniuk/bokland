@@ -20,6 +20,7 @@ define(function (require) {
             var seriesAgg = (_this.widgetModel.get('rows')[0] || {}).aggregation;
 
             var measureName = _this.widgetModel.get('measures')[0];
+            var dataIndex = 0;
 
             function parseSeries(series, key) {
                 var dimension = _this.cube.dimension(colName);
@@ -31,6 +32,7 @@ define(function (require) {
                 }
 
                 return {
+                    area: dataIndex++ % 2,
                     key: seriesName ? _this.cube.dimensionValueLabel(seriesName, key, seriesAgg) : undefined,
                     values: _.map(series, function (d) {
                         return {

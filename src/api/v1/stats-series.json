@@ -122,6 +122,36 @@
                     "reg_date": 1030766400000,
                     "platforms.app_version": "2.0",
                     "users_count": 14
+                },
+                {
+                    "reg_date": 1025409600000,
+                    "platforms.app_version": "3.0",
+                    "users_count": 6
+                },
+                {
+                    "reg_date": 1028088000000,
+                    "platforms.app_version": "3.0",
+                    "users_count": 10
+                },
+                {
+                    "reg_date": 1030766400000,
+                    "platforms.app_version": "3.0",
+                    "users_count": 24
+                },
+                {
+                    "reg_date": 1025409600000,
+                    "platforms.app_version": "4.0",
+                    "users_count": 0
+                },
+                {
+                    "reg_date": 1028088000000,
+                    "platforms.app_version": "4.0",
+                    "users_count": 2
+                },
+                {
+                    "reg_date": 1030766400000,
+                    "platforms.app_version": "4.0",
+                    "users_count": 44
                 }
             ]
         },
