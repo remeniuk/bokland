@@ -2,12 +2,16 @@
     <div class="row-controllers">
         <ul>
             <li>
-                <button data-action="add-widget" data-toggle="modal" data-target="#widget-builder" placeholder="Add Widget" class="btn btn-success">
-                    <span class="glyphicon glyphicon-stats"></span></button>
+                <button data-action="add-widget" data-toggle="modal" data-target="#widget-builder" title="Add Widget" class="btn btn-success">
+                    <span class="glyphicon glyphicon-plus"></span></button>
             </li>
             <li>
-                <button data-action="remove-row" placeholder="Remove Row" class="btn btn-danger"><span
-                        class="glyphicon glyphicon-remove-circle"></span></button>
+                <button data-action="edit-row" title="Edit Row" class="btn btn-warning" data-toggle="modal" data-target=".bs-add-row-modal-lg"><span
+                        class="glyphicon glyphicon-edit"></span></button>
+            </li>
+            <li>
+                <button data-action="remove-row" title="Remove Row" class="btn btn-danger"><span
+                        class="glyphicon glyphicon-remove"></span></button>
             </li>
         </ul>
     </div>

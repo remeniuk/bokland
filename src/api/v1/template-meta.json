@@ -7,7 +7,7 @@
         "app_id": "53280f81c8f25a47fe2e234e",
         "rows": [
             {
-                "height": "200px",
+                "height": "200",
                 "widgets": [
                     {
                         "_id": {
@@ -30,30 +30,7 @@
                         "rows": [ ],
                         "title": "Platforms",
                         "widgetType": "bar",
-                        "width": 4
-                    },
-                    {
-                        "_id": {
-                            "$oid": "536b87af682cfa5294504713"
-                        },
-                        "cols": [ ],
-                        "filterBy": "c",
-                        "measures": [
-                            "users_count"
-                        ],
-                        "rows": [
-                            {
-                                "aggregation": {
-                                    "type": "category"
-                                },
-                                "dimension": {
-                                    "field": "profile.country"
-                                }
-                            }
-                        ],
-                        "title": "Countries",
-                        "widgetType": "row",
-                        "width": 4
+                        "width": 8
                     },
                     {
                         "_id": {
@@ -77,11 +54,34 @@
                         "title": "Gender",
                         "widgetType": "pie",
                         "width": 4
+                    },
+                    {
+                        "_id": {
+                            "$oid": "536b87af682cfa5294504713"
+                        },
+                        "cols": [ ],
+                        "filterBy": "c",
+                        "measures": [
+                            "users_count"
+                        ],
+                        "rows": [
+                            {
+                                "aggregation": {
+                                    "type": "category"
+                                },
+                                "dimension": {
+                                    "field": "profile.country"
+                                }
+                            }
+                        ],
+                        "title": "Countries",
+                        "widgetType": "row",
+                        "width": 12
                     }
                 ]
             },
             {
-                "height": "300px",
+                "height": "300",
                 "widgets": [
                     {
                         "_id": {
@@ -90,7 +90,7 @@
                         "cols": [
                             {
                                 "aggregation": {
-                                    "date_type": "Day",
+                                    "date_type": "Year",
                                     "type": "date"
                                 },
                                 "dimension": {
@@ -150,7 +150,7 @@
                 ]
             },
             {
-                "height": "300px",
+                "height": "300",
                 "widgets": [
                     {
                         "_id": {
@@ -207,7 +207,7 @@
                         "rows": [
                             {
                                 "aggregation": {
-                                    "date_type": "Day",
+                                    "date_type": "Month",
                                     "type": "date"
                                 },
                                 "dimension": {

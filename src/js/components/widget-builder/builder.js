@@ -44,7 +44,6 @@ define(function (require) {
             'click @ui.save': '_saveWidget'
         },
 
-        addNewWidgetMode: false,
         rules: null,
 
         initialize: function (options) {
@@ -128,7 +127,7 @@ define(function (require) {
                 type = _this.ui.$widgettype.find(':selected').val(),
                 measures = (_this.ui.$widgetmeasures.val() || []).slice(0,1);
 
-            _this.widgetModel.set({ widgetType: type, rows: [{ dimension: { field: '' } }], cols: [{ dimension: { field: '' } }], measures: measures });
+            _this.widgetModel.set({ widgetType: type, measures: measures });
 
             _this.redraw();
         },
@@ -137,9 +136,13 @@ define(function (require) {
             var _this = this,
                 measures = _this.ui.$widgetmeasures.val();
 
-            _this.widgetModel.set('measures', measures);
+            if(measures) {
+                _this.widgetModel.set('measures', measures);
 
-            _this.redraw();
+                _this.redraw();
+            } else {
+                _this.ui.$widgetmeasures.closest('.control-group').addClass('has-error');
+            }
         },
 
         _changeDimension: function(e){
@@ -185,13 +188,18 @@ define(function (require) {
                 title = _this.ui.$widgettitle.val(),
                 hasErrors = false;
 
+            _this.$el.find('.control-group').removeClass('has-error');
             if(!selectedMeasures) {
-                _this.ui.$widgetmeasures.closest('.form-group').addClass('has-error');
+                _this.ui.$widgetmeasures.closest('.control-group').addClass('has-error');
                 hasErrors = true;
             }
             if(!title) {
-                _this.ui.$widgettitle.closest('.form-group').addClass('has-error');
+                _this.ui.$widgettitle.closest('.control-group').addClass('has-error');
                 hasErrors = true;
+            }
+
+            if(hasErrors) {
+                return false;
             }
 
             _this.widgetModel.set({
@@ -213,13 +221,6 @@ define(function (require) {
                             _this.widgetModel.set('_id', { '$oid': id });
                         }
                     });
-            }
-
-            if(hasErrors) {
-                return false;
-            }
-            else {
-                _this.$el.find('.form-group').removeClass('has-error');
             }
         },
 

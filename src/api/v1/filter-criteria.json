@@ -5,7 +5,7 @@
             "category": "General",
             "items": [
                 {
-                    "id": "d",
+                    "id": "date",
                     "type": "date",
                     "name": "Event Date"
                 }

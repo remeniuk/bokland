@@ -17,6 +17,7 @@ define(function (require) {
 
             var colName = _this.widgetModel.get('cols')[0].dimension.field;
             var seriesName = _this.widgetModel.get('rows')[0] ? _this.widgetModel.get('rows')[0].dimension.field : undefined;
+            var seriesAgg = (_this.widgetModel.get('rows')[0] || {}).aggregation;
 
             var measureName = _this.widgetModel.get('measures')[0];
 
@@ -30,7 +31,7 @@ define(function (require) {
                 }
 
                 return {
-                    key: seriesName ? _this.cube.dimensionValueLabel(seriesName, key) : undefined,
+                    key: seriesName ? _this.cube.dimensionValueLabel(seriesName, key, seriesAgg) : undefined,
                     values: _.map(series, function (d) {
                         return {
                             x: d[colName],
@@ -53,9 +54,18 @@ define(function (require) {
         },
 
         createChart: function () {
-            return nv.models.lineChart()
-                .color(this.COLORS)
-                .useInteractiveGuideline(true);
+            var _this = this,
+                colAgg = _this.widgetModel.get('cols')[0].aggregation,
+                dateFormat = _this.cube.aggFormat(colAgg),
+                chart = nv.models.lineChart()
+                    .color(this.COLORS)
+                    .useInteractiveGuideline(true);
+
+            chart.xAxis.tickFormat(function(d) {
+                return d3.time.format(dateFormat)(new Date(d));
+            });
+
+            return chart;
         }
 
     });

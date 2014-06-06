@@ -20,8 +20,6 @@ define(function (require) {
     var View = BaseView.extend({
         template: templates['components/template/cell'],
 
-        activeView: null,
-
         initialize: function (options) {
             var _this = this;
 
@@ -45,12 +43,22 @@ define(function (require) {
 
             if(_this.activeView) {
                 _this.activeView.stopListening();
-                _this.activeView.remove();
+                _this.activeView.dispose();
             }
             _this.activeView = _this._widgetFactory(_this.widget);
             _this.region('widget').show(_this.activeView);
 
             return _this;
+        },
+
+        clear: function(){
+            var _this = this;
+
+            if(_this.activeView) {
+                _this.activeView.stopListening();
+                _this.activeView.dispose();
+            }
+            _this.clearRegions();
         },
 
         _widgetFactory: function (widget) {
@@ -63,7 +71,7 @@ define(function (require) {
                 rowModel: _this.rowModel,
                 widgetModel: _this.widgetModel,
                 name: _this.widgetModel.get('_id').$oid,
-                state: _this.state.ref(widget.filterBy),
+                state: _this.state,
                 title: widget.title,
                 height: _this.height
             };
@@ -94,17 +102,17 @@ define(function (require) {
                 _this._refreshMetaModel();
 
                 _this.listenToOnce(widgetData, 'sync', function() {
-                    if(!config.stubs) {
-                        _this.collection.add(widgetData, {merge: true, trigger: false});
-                    }
-
-                    _this.widget = _this.widgetModel.toJSON();
-
-                    _this.clearRegions();
-                    _this.render();
-
                     _this.widgetModel.trigger('redrawWidget');
                 });
+
+                if(!config.stubs) {
+                    _this.collection.add(widgetData, {merge: true, trigger: false});
+                }
+
+                _this.widget = _this.widgetModel.toJSON();
+
+                _this.clearRegions();
+                _this.render();
 
                 widgetData.fetch({data: _this.state.serialize()});
             }

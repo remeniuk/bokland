@@ -15,13 +15,15 @@ define(function (require) {
         parseData: function (data) {
             var _this = this;
 
-            var rowName = _this.widgetModel.get('rows')[0].dimension.field;
+            var row = _this.widgetModel.get('rows')[0];
+            var rowAgg = row.aggregation;
+            var rowName = row.dimension.field;
             var measureName = _this.widgetModel.get('measures')[0];
 
             return _.map(data, function (d) {
                 return {
                     value: d[measureName],
-                    label: _this.cube.dimensionValueLabel(rowName, d[rowName])
+                    label: _this.cube.dimensionValueLabel(rowName, d[rowName], rowAgg)
                 };
             });
         },
@@ -30,6 +32,7 @@ define(function (require) {
             return nv.models.pieChart()
                 .x(function(d) { return d.label; })
                 .y(function(d) { return d.value; })
+                .labelType("percent")
                 .color(this.COLORS)
                 .showLabels(true);
         }

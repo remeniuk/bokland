@@ -46,8 +46,8 @@ define(function (require) {
         redraw: function (action) {
             var _this = this;
 
-            var formatValue = function(value){
-                if(_.isDate(value)){
+            var formatValue = function (value) {
+                if (_.isDate(value)) {
                     return time.param(value);
                 } else {
                     return value;
@@ -56,21 +56,82 @@ define(function (require) {
 
             if (_this.filterMetaLoaded) {
                 _this.ui.$pane.empty();
-                _.each(_.filter(_this.state.attributes, function(attr){
-                        return !_.contains(_this.ignoredKeys, attr);
-                    }), function (value, key) {
-                    var criterionMeta = _this._findCriterionMeta(key);
-                    var values = _.map(_.flatten(value._), formatValue);
 
-                    if(criterionMeta && values.length > 0){
-                        _this.ui.$pane.append(_this.criterionTemplate({
-                            id: key,
-                            name: criterionMeta.name,
-                            type: criterionMeta.type,
-                            values: values
-                        }));
-                    }
-                });
+                var queryString = _this.state.get('query')
+                var query;
+
+                try {
+                    query = JSON.parse(queryString);
+                } catch (e) {
+                    console.log(e);
+                }
+
+                var parseCriterion = function (object) {
+                    var tuple = _.chain(object).pairs(object).first().value();
+                    var valueTuple = _.chain(tuple[1]).pairs(object).first().value();
+                    return {
+                        'key': tuple[0],
+                        'operation': valueTuple[0],
+                        'value': valueTuple[1]
+                    };
+                };
+
+                var operationLabel = function (operation) {
+                    var mapping = {
+                        'gt': '>',
+                        'lt': '<',
+                        'gte': '>=',
+                        'lte': '<=',
+                        'eql': '=',
+                        'ne': '!=',
+                        'contains': '~=',
+                        'not_contains': '!~=',
+                        'null': 'is empty',
+                        'not_null': 'is not empty'
+                    };
+
+                    return mapping[operation] ? mapping[operation] : operation;
+                };
+
+                if (query) {
+                    var renderFilterCriteria = function (criteria) {
+                        _.each(criteria, function (criterion) {
+                            var parsedCriterion = parseCriterion(criterion);
+                            switch (parsedCriterion.key) {
+                                case 'and':
+                                    break;
+                                case 'or':
+                                    break;
+                                default:
+                                    var criterionMeta = _this._findCriterionMeta(parsedCriterion.key);
+                                    var value = formatValue(parsedCriterion.value);
+                                    if (criterionMeta) {
+                                        _this.ui.$pane.append(_this.criterionTemplate({
+                                            id: parsedCriterion.key,
+                                            name: criterionMeta.name,
+                                            type: criterionMeta.type,
+                                            operationId: parsedCriterion.operation,
+                                            operation: operationLabel(parsedCriterion.operation),
+                                            value: value
+                                        }));
+                                    }
+                                    break;
+                            }
+                        });
+                    };
+                    _.each(query, function (value, key) {
+                        switch (key) {
+                            case 'and':
+                                renderFilterCriteria(value);
+                                break;
+                            case 'or':
+                                break;
+                            default:
+                                renderFilterCriteria([value]);
+                                break;
+                        }
+                    });
+                }
             }
 
             return _this;
@@ -97,13 +158,20 @@ define(function (require) {
             });
         },
 
-        _removeCriterion: function(ev) {
+        _removeCriterion: function (ev) {
             var _this = this;
 
-            var subjectCriterion = {};
-            subjectCriterion[$(ev.currentTarget).parent().attr('criterion-id')] = undefined;
+            var criterionId =  $(ev.currentTarget).parent().attr('criterion-id'),
+                criterionOperaton =  $(ev.currentTarget).parent().attr('criterion-operation'),
+                criterionValue =  $(ev.currentTarget).parent().attr('criterion-value');
 
-            _this.state.set(subjectCriterion, {unset: true});
+            var query = JSON.parse(_.clone(_this.state.get('query')));
+            query.and = _.filter(query.and, function(criterion){
+                return !(criterion[criterionId] &&
+                    criterion[criterionId][criterionOperaton] == criterionValue);
+            });
+
+            _this.state.set('query', JSON.stringify(query));
 
             ev.preventDefault();
         }

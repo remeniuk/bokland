@@ -1,20 +1,20 @@
 /* global define */
-define(function(require) {
+define(function (require) {
     'use strict';
 
     // imports
-    var $                  = require('jquery'),
-        time               = require('helpers/time'),
-        BaseView           = require('libs/view'),
-        RouterManager      = require('./routers/manager'),
-        SeriesCollection   = require('./collections/series'),
+    var $ = require('jquery'),
+        time = require('helpers/time'),
+        BaseView = require('libs/view'),
+        RouterManager = require('./routers/manager'),
+        SeriesCollection = require('./collections/series'),
         DashboardStatsView = require('./views/stats'),
-        LoaderComponent    = require('components/loader/loader');
+        LoaderComponent = require('components/loader/loader');
 
 
     // code
     var DashboardView = BaseView.extend({
-        initialize: function() {
+        initialize: function () {
             var _this = this;
 
             _this.collection = new SeriesCollection([], {
@@ -25,7 +25,7 @@ define(function(require) {
             _this.listenTo(RouterManager.dashboard, 'route:dashboard', _this.routing);
         },
 
-        render: function() {
+        render: function () {
             var _this = this,
                 view;
 
@@ -38,7 +38,7 @@ define(function(require) {
             return _this;
         },
 
-        routing: function(params) {
+        routing: function (params) {
             var _this = this,
                 state = _this.state;
 
@@ -49,7 +49,7 @@ define(function(require) {
             return _this;
         },
 
-        navigate: function() {
+        navigate: function () {
             var _this = this,
                 state = _this.state;
 
@@ -76,7 +76,13 @@ define(function(require) {
     // start routing
     if (!RouterManager.start()) {
         var range = time.period(new Date(), 'last-day-7');
-        dashboard.state.set('date._', [range]);
+
+        var query = {'and': [
+            {'date': {'gt': time.param(range[0])}},
+            {'date': {'lt': time.param(range[1])}}
+        ]};
+
+        dashboard.state.set('query', JSON.stringify(query));
     }
 
     return dashboard;

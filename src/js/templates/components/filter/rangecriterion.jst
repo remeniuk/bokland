@@ -1,2 +1,11 @@
-<input data-region="criterion-from" class="form-control" type="number" placeholder="From..."/>
-<input data-region="criterion-to" class="form-control" type="number" placeholder="To..."/>
+<select class="form-control criterion-operation" data-region="criterion-operation">
+    <option value="eql">=</option>
+    <option value="ne">!=</option>
+    <option value="gt">></option>
+    <option value="lt"><</option>
+    <option value="gte">>=</option>
+    <option value="lte"><=</option>
+    <option value="null">empty</option>
+    <option value="not_null">not empty</option>
+</select>
+<input data-region="criterion-value" class="form-control" type="number"/>

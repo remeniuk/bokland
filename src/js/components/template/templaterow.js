@@ -19,11 +19,13 @@ define(function (require) {
 
         elementsUI: {
             'addWidget': '[data-action="add-widget"]',
+            'editRow': '[data-action="edit-row"]',
             'removeRow': '[data-action="remove-row"]'
         },
 
         events: {
             'click @ui.addWidget': '_addWidget',
+            'click @ui.editRow': '_editRow',
             'click @ui.removeRow': '_removeRow'
         },
 
@@ -36,9 +38,13 @@ define(function (require) {
             _this.cube = options.cube;
             _this.collection = options.collection;
             _this.builderView = options.builderView;
+            _this.editRowView = options.editRowView;
             _this.state = options.state;
+            _this.cells = [];
+
 
             _this.listenTo(_this.rowModel, 'addWidget', _this._onWidgetAdded);
+            _this.listenTo(_this.rowModel, 'rowUpdated', _this._onRowUpdated);
         },
 
         render: function () {
@@ -71,11 +77,23 @@ define(function (require) {
                 state: _this.state
             });
 
+            _this.cells.push(cellElement);
+
             _this.$el.children('.row').append(cellElement.$el);
 
             cellElement.render();
 
             return widgetModel;
+        },
+
+        clearCells: function(){
+            var _this = this;
+
+            _.each(_this.cells, function(cell){
+                cell.clear();
+                cell.dispose();
+            });
+            _this.cells.length = 0;
         },
 
         _addWidget: function () {
@@ -89,18 +107,45 @@ define(function (require) {
             }
         },
 
+        _editRow: function () {
+            var _this = this;
+
+            if(_this.editRowView) {
+                _this.editRowView.reinit({
+                    rowNum: _this.rowNum,
+                    rowModel: _this.rowModel
+                });
+            }
+        },
+
         _removeRow: function () {
             var _this = this,
                 rowMetaModel = _this.dashboardMetaModel.get('rows');
 
-            rowMetaModel.splice(_this.rowNum, 1);
+            if(confirm("Do you really want to remove the whole row?")) {
+                rowMetaModel.splice(_this.rowNum, 1);
 
-            _this.dashboardMetaModel.set('rows', rowMetaModel);
-            if(!config.stubs) {
-                _this.dashboardMetaModel.save();
+                _this.dashboardMetaModel.set('rows', rowMetaModel);
+                _this._refreshMetaModel();
+
+                this.remove();
             }
+        },
 
-            this.remove();
+        _onRowUpdated: function() {
+            var _this = this;
+
+            _this.clearCells();
+
+            _this.$el.html(_this.template({}));
+            _this.bindUI();
+
+            _.each(_this.rowModel.get('widgets'), function(widget){
+                var widgetModel = _this.addCell(widget);
+                widgetModel.trigger('redrawWidget');
+            });
+
+            _this._refreshMetaModel();
         },
 
         _onWidgetAdded: function(widgetMeta) {
@@ -113,6 +158,7 @@ define(function (require) {
 
                 widgets.push(widgetMeta);
                 _this.rowModel.set('widgets', widgets);
+                _this.dashboardMetaModel.get('rows')[_this.rowNum] = _this.rowModel.toJSON();
                 _this._refreshMetaModel();
 
                 _this.listenToOnce(widgetData, 'sync', function(){
@@ -121,14 +167,13 @@ define(function (require) {
                     newWidgetModel.trigger('redrawWidget');
                 });
 
-                widgetData.fetch();
+                widgetData.fetch({data: _this.state.serialize()});
             }
         },
 
         _refreshMetaModel: function() {
             var _this = this;
 
-            _this.dashboardMetaModel.get('rows')[_this.rowNum] = _this.rowModel.toJSON();
             if(!config.stubs) {
                 _this.dashboardMetaModel.save(null, {success: function(model,response){
                     model.set('id', (response || {data:{}}).data._id);

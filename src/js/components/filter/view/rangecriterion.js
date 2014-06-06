@@ -12,18 +12,28 @@ define(function(require) {
     var View = BaseCriterion.extend({
         template: templates['components/filter/rangecriterion'],
 
-        redraw: function(action) {
-            var _this = this;
+        changeOperation: function () {
+            var _this = this, defaultValue;
 
-            _this.ui.$from.val(_this.values.from);
-            _this.ui.$to.val(_this.values.to);
+            _this.ui.$criterionValue.removeClass('hidden');
 
-            return _this;
-        },
+            switch(_this.ui.$criterionOperation.val()){
+                case 'gt':
+                case 'gte':
+                    defaultValue = _this.values.from;
+                    break;
+                case 'lt':
+                case 'lte':
+                    defaultValue = _this.values.to;
+                    break;
+                case 'null':
+                case 'not_null':
+                    _this.ui.$criterionValue.addClass('hidden');
+                default:
+                    break;
+            }
 
-        fillState: function () {
-            var _this = this;
-            _this.state.set('_', [[_this.ui.$from.val(), _this.ui.$to.val()]]);
+            _this.ui.$criterionValue.val(defaultValue);
         }
     });
 

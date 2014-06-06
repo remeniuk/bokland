@@ -21,13 +21,13 @@ define(function (require) {
         $brown = '#A05000',
         $teal = '#4ab0ce',
         $gray = '#666',
-        $white = '#fff',
+        $white = '#eee',
         $textColor = $gray;
 
     // code
     var __super__ = WidgetView.prototype;
     var View = WidgetView.extend({
-        COLORS: [$red, $orange, $green, $blue, $teal, $redDark],
+        COLORS: [$blue, $orange, $green, $teal, $red, $lime, $white, $redDark],
 
         initialize: function (options) {
             var _this = this;
@@ -49,22 +49,23 @@ define(function (require) {
                 $(chartRegionSelector).html('<svg style="height:' + _this.options.height + '"></svg>');
 
                 function formatAxis(axisName, axisType) {
-                    if (chart[axisName] && _this.widgetModel.get(axisType)[0]) {
+                    var axis = _this.widgetModel.get(axisType)[0];
+                    if (chart[axisName] && axis) {
                         chart[axisName].showMaxMin(false);
 
                         var dimension;
 
                         if(_.contains(['rows', 'cols'], axisType)) {
-                            var dimensionName = _this.widgetModel.get(axisType)[0].dimension.field;
+                            var dimensionName = axis.dimension.field;
                             dimension = _this.cube.dimension(dimensionName);
                         } else if(axisType === 'measures') {
-                            var measureName = _this.widgetModel.get(axisType)[0];
+                            var measureName = axis;
                             dimension = _this.cube.measure(measureName);
                             dimension.type = 'number';
                         }
 
                         chart[axisName].axisLabel(dimension.name);
-                        chart[axisName].tickFormat(_this._formatterFactory(dimension.type, dimension.format));
+                        //chart[axisName].tickFormat(_this._formatterFactory(dimension.type, aggFormat || dimension.format));
                     }
                 }
 
