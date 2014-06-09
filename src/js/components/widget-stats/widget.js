@@ -64,10 +64,7 @@ define(function (require) {
             });
 
             _this.listenTo(_this.state, 'change', function () {
-                if (_this._data) {
-                    var filter = _this.state.get('query');
-                    _this.redraw(_this._data, filter);
-                }
+                _this.render();
             });
 
             _this.listenTo(_this.widgetModel, 'redrawWidget', function () {
