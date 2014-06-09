@@ -11,7 +11,7 @@ define(function(require) {
     var Model = BaseModel.extend({
         defaults: {
             widgets: [],
-            height: '200px'
+            height: '200'
         }
     });
 

@@ -64,7 +64,7 @@ define(function (require) {
                 _this.rowModel.trigger('rowUpdated');
             } else {
                 var rows = _this.model.get('rows');
-                rows.push({height: height});
+                rows.push({height: height, widgets: []});
                 _this.model.set('rows', rows);
 
                 this.model.trigger('rowadded');

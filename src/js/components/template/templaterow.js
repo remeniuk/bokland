@@ -33,7 +33,7 @@ define(function (require) {
             var _this = this;
 
             _this.rowNum = options.rowNum;
-            _this.rowModel = _.isUndefined(options.rowMeta) ? new RowModel() : new RowModel(options.rowMeta);
+            _this.rowModel = options.rowMeta ? new RowModel(options.rowMeta) : new RowModel({widgets: []});
             _this.dashboardMetaModel = options.metaModel;
             _this.cube = options.cube;
             _this.collection = options.collection;
@@ -119,16 +119,12 @@ define(function (require) {
         },
 
         _removeRow: function () {
-            var _this = this,
-                rowMetaModel = _this.dashboardMetaModel.get('rows');
+            var _this = this;
 
             if (confirm('Do you really want to remove the whole row?')) {
-                rowMetaModel.splice(_this.rowNum, 1);
-
-                _this.dashboardMetaModel.set('rows', rowMetaModel);
-                _this._refreshMetaModel();
-
-                this.remove();
+                _this.dashboardMetaModel.trigger('rowremoved', _this.rowNum);
+                _this.clearCells();
+                _this.dispose();
             }
         },
 

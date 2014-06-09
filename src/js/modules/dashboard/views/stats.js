@@ -65,6 +65,7 @@ define(function (require) {
 
             _this.listenToOnce(_this.metaModel, 'sync', _this.redraw);
             _this.listenTo(_this.metaModel, 'rowadded', _this._addRow);
+            _this.listenTo(_this.metaModel, 'rowremoved', _this._removeRow);
             _this.listenTo(_this.collection, 'sync', _this._refresh);
 
             _this.dashboards.fetch();
@@ -189,6 +190,17 @@ define(function (require) {
             _this.$el.find('[data-region="rows"]').append(rowElement.$el);
 
             rowElement.render();
+        },
+
+        _removeRow: function(rowNum) {
+            var _this = this,
+                rowMetaModel = _this.metaModel.get('rows');
+
+            rowMetaModel.splice(rowNum, 1);
+            _this.rows.splice(rowNum, 1);
+
+            _this.metaModel.set('rows', rowMetaModel);
+            _this._saveDashboard();
         },
 
         _changeDashboardTitle: function () {
