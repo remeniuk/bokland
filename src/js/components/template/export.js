@@ -57,7 +57,7 @@ define(function (require) {
             var _this = this;
 
             var cubesOptions = _.map(_this.cubesModel.get('cubes'), function(cube) {
-                return '<option id="' + cube.id + '">' + cube.name + '</option>';
+                return '<option value="' + cube.id + '">' + cube.name + '</option>';
             });
 
             _this.ui.$collection.empty().append(cubesOptions.join(''));
