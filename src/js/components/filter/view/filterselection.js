@@ -57,8 +57,8 @@ define(function (require) {
             if (_this.filterMetaLoaded) {
                 _this.ui.$pane.empty();
 
-                var queryString = _this.state.get('query')
-                var query;
+                var queryString = _this.state.get('query'),
+                    query;
 
                 try {
                     query = JSON.parse(queryString);
@@ -167,8 +167,11 @@ define(function (require) {
 
             var query = JSON.parse(_.clone(_this.state.get('query')));
             query.and = _.filter(query.and, function(criterion){
+                /* jshint eqeqeq:false */
+                // fixme: is it really need to use '==' instead '==='?
                 return !(criterion[criterionId] &&
                     criterion[criterionId][criterionOperaton] == criterionValue);
+                /* jshint eqeqeq:true */
             });
 
             _this.state.set('query', JSON.stringify(query));

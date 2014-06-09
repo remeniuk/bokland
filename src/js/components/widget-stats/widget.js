@@ -133,7 +133,7 @@ define(function (require) {
         removeWidget: function () {
             var _this = this;
 
-            if(confirm("Do you really want to remove this widget?")) {
+            if (confirm('Do you really want to remove this widget?')) {
                 var rows = _.map(_this.dashboardMetaModel.get('rows'), function (row) {
                     var rowClone = _.clone(row);
                     rowClone.widgets = _.filter(rowClone.widgets, function (widget) {
@@ -171,7 +171,7 @@ define(function (require) {
                             return '$' + d3.format(',.2f')(d);
                         };
                     } else {
-                        return format? d3.format(format) : function(d){ return d; };
+                        return format ? d3.format(format) : function(d){ return d; };
                     }
             }
         }

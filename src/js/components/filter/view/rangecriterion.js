@@ -17,7 +17,7 @@ define(function(require) {
 
             _this.ui.$criterionValue.removeClass('hidden');
 
-            switch(_this.ui.$criterionOperation.val()){
+            switch (_this.ui.$criterionOperation.val()) {
                 case 'gt':
                 case 'gte':
                     defaultValue = _this.values.from;
@@ -29,6 +29,7 @@ define(function(require) {
                 case 'null':
                 case 'not_null':
                     _this.ui.$criterionValue.addClass('hidden');
+                    break;
                 default:
                     break;
             }

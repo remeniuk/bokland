@@ -57,9 +57,9 @@ define(function (require) {
                     case 'number':
                         if (dimension.format === '$') {
                             return '$' + d3.format(',.2f')(key);
-                        } else {
-                            return dimension.format ? d3.format(format)(key) : key;
                         }
+                        return dimension.format ? d3.format(format)(key) : key;
+
                     default:
                         return dimension.format ? d3.format(format)(key) : key;
                 }
@@ -67,7 +67,8 @@ define(function (require) {
         },
 
         aggFormat: function(aggregation) {
-            if(aggregation && aggregation.type === 'date') {
+            if (aggregation && aggregation.type === 'date') {
+                /* jshint camelcase:false */
                 switch (aggregation.date_type) {
                     case 'Year':
                         return '%Y';
@@ -82,7 +83,9 @@ define(function (require) {
                     default:
                         return '%x';
                 }
-            } else return "";
+                /* jshint camelcase:true*/
+            }
+            return '';
         }
     });
 

@@ -37,7 +37,7 @@ define(function (require) {
             return nv.models.pieChart()
                 .x(function(d) { return d.label; })
                 .y(function(d) { return d.value; })
-                .labelType("percent")
+                .labelType('percent')
                 .color(this.COLORS)
                 .showLabels(true);
         }

@@ -122,7 +122,7 @@ define(function (require) {
             var _this = this,
                 rowMetaModel = _this.dashboardMetaModel.get('rows');
 
-            if(confirm("Do you really want to remove the whole row?")) {
+            if (confirm('Do you really want to remove the whole row?')) {
                 rowMetaModel.splice(_this.rowNum, 1);
 
                 _this.dashboardMetaModel.set('rows', rowMetaModel);
