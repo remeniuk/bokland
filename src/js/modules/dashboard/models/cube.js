@@ -49,20 +49,26 @@ define(function (require) {
             if(dimension.dictionary && dimension.dictionary[key]){
                 return dimension.dictionary[key];
             } else {
-                switch(dimension.type){
-                    case 'date':
-                        var format = _this.aggFormat(agg);
-                        return d3.time.format(format)(new Date(parseInt(key)));
+                return _this.formatDimension(dimension, key, agg);
+            }
+        },
 
-                    case 'number':
-                        if (dimension.format === '$') {
-                            return '$' + d3.format(',.2f')(key);
-                        }
-                        return dimension.format ? d3.format(format)(key) : key;
+        formatDimension: function (dimension, key, agg) {
+            var _this = this;
 
-                    default:
-                        return dimension.format ? d3.format(format)(key) : key;
-                }
+            switch(dimension.type){
+                case 'date':
+                    var format = _this.aggFormat(agg);
+                    return d3.time.format(format)(new Date(parseInt(key)));
+
+                case 'number':
+                    if (dimension.format === '$') {
+                        return '$' + d3.format(',.2f')(key);
+                    }
+                    return dimension.format ? d3.format(format)(key) : key;
+
+                default:
+                    return dimension.format ? d3.format(format)(key) : key;
             }
         },
 

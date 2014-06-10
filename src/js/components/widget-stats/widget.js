@@ -162,14 +162,16 @@ define(function (require) {
                     return function (d) {
                         return d3.time.format(format)(new Date(d));
                     };
-                default:
+                case 'number':
                     if(format === '$') {
                         return function (d){
                             return '$' + d3.format(',.2f')(d);
                         };
                     } else {
-                        return format ? d3.format(format) : function(d){ return d; };
+                        return format ? d3.format(format) : d3.format(',.2f');
                     }
+                default:
+                    return format ? d3.format(format) : function(d){ return d; };
             }
         }
     });

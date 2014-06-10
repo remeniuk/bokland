@@ -65,19 +65,19 @@ define(function (require) {
                         }
 
                         chart[axisName].axisLabel(dimension.name);
-                        //chart[axisName].tickFormat(_this._formatterFactory(dimension.type, aggFormat || dimension.format));
+                        if(axisType === 'measures') {
+                            chart[axisName].tickFormat(_this._formatterFactory(dimension.type, dimension.format));
+                        }
                     }
                 }
 
-                if(_.contains(['bar', 'line', 'area'], _this.widgetModel.get('widgetType'))){
+                if(_.contains(['bar', 'line', 'area', 'row'], _this.widgetModel.get('widgetType'))){
                     formatAxis('yAxis', 'measures');
                 } else {
                     formatAxis('yAxis', 'rows');
                 }
 
-                if(_.contains(['row'], _this.widgetModel.get('widgetType'))){
-                    formatAxis('xAxis', 'measures');
-                } else {
+                if(!_.contains(['row'], _this.widgetModel.get('widgetType'))){
                     formatAxis('xAxis', 'cols');
                 }
 
