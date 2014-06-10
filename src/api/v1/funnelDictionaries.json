@@ -5,7 +5,17 @@
     },
     {
         "id": 1,
-        "name": "purchase"
+        "name": "purchase",
+        "parameters": [
+            {
+                "id": 1,
+                "name": "video"
+            },
+            {
+                "id": 2,
+                "name": "subscription"
+            }
+        ]
     },
     {
         "id": 2,

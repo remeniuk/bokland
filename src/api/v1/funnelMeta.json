@@ -18,7 +18,9 @@
             {
                 "event": {
                     "eventId": 1,
-                    "include": true
+                    "include": true,
+                    "paramLow": 1,
+                    "paramHigh": 1
                 }
             }
         ]
