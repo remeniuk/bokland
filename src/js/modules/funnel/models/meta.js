@@ -13,7 +13,7 @@ define(function (require) {
         url: function () {
             return config.server + (config.stubs ?
                 'funnelMeta.json' :
-                'meta/funnels');
+                'meta/funnels/' + this.get('id'));
         },
 
         parse: function (response) {
@@ -25,9 +25,7 @@ define(function (require) {
                 }).name;
             };
 
-            response.data.sequence = _.map(response.data.sequence, function (eventUserCount) {
-                var unparsedEvent = eventUserCount.event;
-
+            response.data.sequence = _.map(response.data.sequence, function (unparsedEvent) {
                 var paramType = (unparsedEvent.paramLow >= 0 && unparsedEvent.paramHigh >= 0 &&
                     unparsedEvent.paramLow == unparsedEvent.paramHigh) ? 'eq' :
                     (unparsedEvent.paramLow >= 0 && unparsedEvent.paramHigh >= 0 ? 'btw' :
@@ -58,23 +56,35 @@ define(function (require) {
 
         save: function(key, val, options) {
             var _this = this;
-            var funnelModel = this.toJSON().data;
+            var funnelModel = _.clone(this.toJSON().data);
 
             funnelModel.sequence = _.map(funnelModel.sequence, function(event){
-                return {
-                    eventId: event.id,
-                    settingId: event.item_id,
-                    paramLow: event.parameter ? event.parameter.from : event.parameter,
-                    paramHigh: event.parameter ? event.parameter.to : event.parameter,
+                var marshalledEvent = {
+                    eventId: parseInt(event.id),
                     include: true
                 };
+
+                if(event.parameter && event.parameter.from) {
+                  marshalledEvent.paramLow = parseInt(event.parameter.from);
+                }
+
+                if(event.parameter && event.parameter.to) {
+                  marshalledEvent.paramHigh = parseInt(event.parameter.to);
+                }
+
+                return marshalledEvent;
             });
 
             var ServerModel = Backbone.Model.extend({
                 url: _this.url
             });
 
-            new ServerModel(funnelModel).save();
+            var serverModel = new ServerModel(funnelModel)
+            _this.listenTo(serverModel, 'sync', function () {
+              _this.trigger('updated');
+            });
+
+            serverModel.save();
         }
     });
 

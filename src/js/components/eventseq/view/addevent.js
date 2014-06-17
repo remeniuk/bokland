@@ -156,9 +156,9 @@ define(function (require) {
 
             if (valid) {
                 if (!_this.addNew) {
-                    _this.model.trigger('submit');
+                    _this.model.trigger('submit', _this.model);
                 } else {
-                    _this.model.trigger('create');
+                    _this.model.trigger('create', _this.model);
                 }
 
                 _this.ui.$eventFormGroup.removeClass('has-error');
@@ -173,7 +173,7 @@ define(function (require) {
         _removeEvent: function (ev) {
             var _this = this;
 
-            _this.model.trigger('remove');
+            _this.model.trigger('remove', _this.model);
         },
 
         _populate: function (dictionary) {

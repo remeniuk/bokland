@@ -14,7 +14,7 @@ define(function(require) {
         url: function() {
             return config.server + (config.stubs ?
                 'funnelData.json' :
-                'data/funnels');
+                'data/funnels/' + this.get('id'));
         }
     });
 

@@ -41,27 +41,37 @@ define(function (require) {
         initialize: function (options) {
             var _this = this;
 
+            function getParameterByName(name) {
+              name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+              var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+              return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
+
+            var funnelId = getParameterByName('fid');
+
             /* jshint camelcase:false */
             _this.state.init({
                 query: '',
-                fid: ''
+                fid: funnelId
             });
             /* jshint camelcase:true */
 
             _this.dictionaryModel = new DictionaryModel();
 
             _this.funnelMetaModel = new FunnelMetaModel();
+            _this.funnelMetaModel.set('id', funnelId);
             _this.funnelMetaModel.dictionary = _this.dictionaryModel;
 
             _this.funnelDataModel = new FunnelDataModel();
+            _this.funnelDataModel.set('id', funnelId);
             _this.funnelDataModel.dictionary = _this.dictionaryModel;
 
             _this.listenTo(_this.dictionaryModel, 'sync', function () {
                 _this.funnelMetaModel.fetch();
             });
             _this.listenTo(_this.funnelMetaModel, 'sync', _this.redraw);
-            _this.listenTo(_this.funnelDataModel, 'sync', function () {
-            });
+            _this.listenTo(_this.funnelMetaModel, 'updated', _this.redraw);
         },
 
         render: function () {
