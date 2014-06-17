@@ -13,7 +13,7 @@ define(function (require) {
         url: function () {
             return config.server + (config.stubs ?
                 'funnelMeta.json' :
-                '');
+                'meta/funnels');
         },
 
         parse: function (response) {
@@ -54,6 +54,27 @@ define(function (require) {
             });
 
             return response;
+        },
+
+        save: function(key, val, options) {
+            var _this = this;
+            var funnelModel = this.toJSON().data;
+
+            funnelModel.sequence = _.map(funnelModel.sequence, function(event){
+                return {
+                    eventId: event.id,
+                    settingId: event.item_id,
+                    paramLow: event.parameter ? event.parameter.from : event.parameter,
+                    paramHigh: event.parameter ? event.parameter.to : event.parameter,
+                    include: true
+                };
+            });
+
+            var ServerModel = Backbone.Model.extend({
+                url: _this.url
+            });
+
+            new ServerModel(funnelModel).save();
         }
     });
 

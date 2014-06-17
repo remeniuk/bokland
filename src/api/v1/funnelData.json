@@ -3,28 +3,172 @@
     "data": {
         "entries": [
             {
-                "cohort": "2013-01-01",
-                "event": "Login",
-                "users": 3212,
-                "percent": 100
+                "cohort": "2014-06-06",
+                "event": "login",
+                "users": 171950,
+                "percent": 0
             },
             {
-                "cohort": "2013-01-01",
-                "event": "Purchase",
-                "users": 3212,
-                "percent": 30
+                "cohort": "2014-06-07",
+                "event": "login",
+                "users": 76629,
+                "percent": 0
             },
             {
-                "cohort": "2013-01-02",
-                "event": "Login",
-                "users": 1231,
-                "percent": 100
+                "cohort": "2014-06-09",
+                "event": "login",
+                "users": 125352,
+                "percent": 0
             },
             {
-                "cohort": "2013-01-02",
-                "event": "Purchase",
-                "users": 1231,
-                "percent": 30
+                "cohort": "2014-06-10",
+                "event": "login",
+                "users": 201532,
+                "percent": 0
+            },
+            {
+                "cohort": "2014-06-11",
+                "event": "login",
+                "users": 105236,
+                "percent": 0
+            },
+            {
+                "cohort": "2014-06-12",
+                "event": "login",
+                "users": 10361,
+                "percent": 0
+            },
+            {
+                "cohort": "2014-06-13",
+                "event": "login",
+                "users": 6935,
+                "percent": 0
+            },
+            {
+                "cohort": "2014-06-06",
+                "event": "purchase",
+                "users": 171950,
+                "percent": 0
+            },
+            {
+                "cohort": "2014-06-07",
+                "event": "purchase",
+                "users": 76629,
+                "percent": 0
+            },
+            {
+                "cohort": "2014-06-09",
+                "event": "purchase",
+                "users": 125352,
+                "percent": 0
+            },
+            {
+                "cohort": "2014-06-10",
+                "event": "purchase",
+                "users": 201532,
+                "percent": 0
+            },
+            {
+                "cohort": "2014-06-11",
+                "event": "purchase",
+                "users": 105236,
+                "percent": 0
+            },
+            {
+                "cohort": "2014-06-12",
+                "event": "purchase",
+                "users": 10361,
+                "percent": 0
+            },
+            {
+                "cohort": "2014-06-13",
+                "event": "purchase",
+                "users": 6935,
+                "percent": 0
+            },
+            {
+                "cohort": "2014-06-06",
+                "event": "promo",
+                "users": 171950,
+                "percent": 0
+            },
+            {
+                "cohort": "2014-06-07",
+                "event": "promo",
+                "users": 76629,
+                "percent": 0
+            },
+            {
+                "cohort": "2014-06-09",
+                "event": "promo",
+                "users": 125352,
+                "percent": 0
+            },
+            {
+                "cohort": "2014-06-10",
+                "event": "promo",
+                "users": 201532,
+                "percent": 0
+            },
+            {
+                "cohort": "2014-06-11",
+                "event": "promo",
+                "users": 105236,
+                "percent": 0
+            },
+            {
+                "cohort": "2014-06-12",
+                "event": "promo",
+                "users": 10361,
+                "percent": 0
+            },
+            {
+                "cohort": "2014-06-13",
+                "event": "promo",
+                "users": 6935,
+                "percent": 0
+            },
+            {
+                "cohort": "2014-06-06",
+                "event": "retention",
+                "users": 171950,
+                "percent": 0
+            },
+            {
+                "cohort": "2014-06-07",
+                "event": "retention",
+                "users": 76629,
+                "percent": 0
+            },
+            {
+                "cohort": "2014-06-09",
+                "event": "retention",
+                "users": 125352,
+                "percent": 0
+            },
+            {
+                "cohort": "2014-06-10",
+                "event": "retention",
+                "users": 201532,
+                "percent": 0
+            },
+            {
+                "cohort": "2014-06-11",
+                "event": "retention",
+                "users": 105236,
+                "percent": 0
+            },
+            {
+                "cohort": "2014-06-12",
+                "event": "retention",
+                "users": 10361,
+                "percent": 0
+            },
+            {
+                "cohort": "2014-06-13",
+                "event": "retention",
+                "users": 6935,
+                "percent": 0
             }
         ]
     }

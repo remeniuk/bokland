@@ -74,22 +74,28 @@ define(function (require) {
 
                 switch(eventMeta.paramType) {
                     case 'string':
-                        event.parameter = _.clone(event.parameter);
-                        event.parameter.from = _this._parameterName(event.parameter.from, eventMeta.paramValues);
+                        if(event.parameter) {
+                            event.parameter = _.clone(event.parameter);
+                            event.parameter.from = _this._parameterName(event.parameter.from, eventMeta.paramValues);
+                        }
                         break;
 
                     case 'seconds_since_registration':
-                        event.parameter = _.clone(event.parameter);
-                        event.parameter.from = event.parameter.from / (24 * 60 * 60);
-                        event.parameter.to = event.parameter.to / (24 * 60 * 60);
+                        if(event.parameter) {
+                            event.parameter = _.clone(event.parameter);
+                            event.parameter.from = event.parameter.from / (24 * 60 * 60);
+                            event.parameter.to = event.parameter.to / (24 * 60 * 60);
+                        }
 
                         chevronTemplate = _this.retentionEventChevronTemplate;
                         break;
 
                     case 'seconds_since_epoch':
-                        event.parameter = _.clone(event.parameter);
-                        event.parameter.from = time.param(new Date(event.parameter.from * 1000));
-                        event.parameter.to = time.param(new Date(event.parameter.to * 1000));
+                        if(event.parameter) {
+                            event.parameter = _.clone(event.parameter);
+                            event.parameter.from = time.param(new Date(event.parameter.from * 1000));
+                            event.parameter.to = time.param(new Date(event.parameter.to * 1000));
+                        }
 
                         chevronTemplate = _this.loginEventChevronTemplate;
                         break;
@@ -118,9 +124,9 @@ define(function (require) {
         },
 
         _parameterName: function (paramId, mapping) {
-            return _.find(mapping, function (tuple) {
-                return tuple.id == paramId;
-            }).name;
+            return _.chain(mapping).pairs().find(function (tuple) {
+                return tuple[1] == paramId;
+            }).value()[0];
         }
     });
 

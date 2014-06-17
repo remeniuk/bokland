@@ -4,12 +4,13 @@ define(function (require) {
 
     // imports
     var $ = require('jquery'),
+        cookie = require('libs/jquery.cookie'),
         time = require('helpers/time'),
         BaseView = require('libs/view'),
         SequenceBuilder = require('components/eventseq/view/sequence'),
         DictionaryModel = require('./models/dictionary'),
-        FilterMetaModel = require('./models/meta'),
-        FilterDataModel = require('./models/data'),
+        FunnelMetaModel = require('./models/meta'),
+        FunnelDataModel = require('./models/data'),
         ExportDialog = require('./views/exportdialog'),
         SegmentDialog = require('./views/segmentdialog'),
         FunnelWidget = require('components/widget-stats/funnel'),
@@ -26,7 +27,6 @@ define(function (require) {
             'dashboardTitle': '[data-region=title]',
             'cohortSelect': '[data-action=select-cohort]',
             'saveFunnelBtn': '[data-action=save-funnel]',
-            'refreshFunnelBtn': '[data-action=refresh-funnel]',
             'exportFunnelBtn': '[data-action=export-funnel]',
             'createSegmentBtn': '[data-action=create-segment]',
             'goBackBtn': '[data-action=go-back]'
@@ -35,7 +35,6 @@ define(function (require) {
         events: {
             'change @ui.cohortSelect': '_saveFunnel',
             'click @ui.saveFunnelBtn': '_saveFunnel',
-            'click @ui.refreshFunnelBtn': '_refreshFunnel',
             'click @ui.goBackBtn': '_goBack'
         },
 
@@ -51,17 +50,17 @@ define(function (require) {
 
             _this.dictionaryModel = new DictionaryModel();
 
-            _this.filterMetaModel = new FilterMetaModel();
-            _this.filterMetaModel.dictionary = _this.dictionaryModel;
+            _this.funnelMetaModel = new FunnelMetaModel();
+            _this.funnelMetaModel.dictionary = _this.dictionaryModel;
 
-            _this.filterDataModel = new FilterDataModel();
-            _this.filterDataModel.dictionary = _this.dictionaryModel;
+            _this.funnelDataModel = new FunnelDataModel();
+            _this.funnelDataModel.dictionary = _this.dictionaryModel;
 
             _this.listenTo(_this.dictionaryModel, 'sync', function () {
-                _this.filterMetaModel.fetch();
+                _this.funnelMetaModel.fetch();
             });
-            _this.listenTo(_this.filterMetaModel, 'sync', _this.redraw);
-            _this.listenTo(_this.filterDataModel, 'sync', function () {
+            _this.listenTo(_this.funnelMetaModel, 'sync', _this.redraw);
+            _this.listenTo(_this.funnelDataModel, 'sync', function () {
             });
         },
 
@@ -73,7 +72,7 @@ define(function (require) {
 
             var builder = new SequenceBuilder({
                 dictionaryModel: _this.dictionaryModel,
-                filterMetaModel: _this.filterMetaModel,
+                funnelMetaModel: _this.funnelMetaModel,
                 state: _this.state
             });
             _this.region('sequence-builder').show(builder);
@@ -85,7 +84,7 @@ define(function (require) {
 
             var funnelWidget = new FunnelWidget({
                 dictionaryModel: _this.dictionaryModel,
-                filterDataModel: _this.filterDataModel,
+                funnelDataModel: _this.funnelDataModel,
                 state: _this.state
             });
             _this.region('funnel').show(funnelWidget);
@@ -102,25 +101,22 @@ define(function (require) {
         redraw: function () {
             var _this = this;
 
-            _this.ui.$dashboardTitle.val(_this.filterMetaModel.get('data').name);
-            _this.ui.$cohortSelect.val(_this.filterMetaModel.get('data').cohort);
+            var name = _this.funnelMetaModel.get('data').name;
+            var cohort = _this.funnelMetaModel.get('data').cohort;
 
-            _this.filterDataModel.fetch();
+            _this.ui.$dashboardTitle.val(name ? name : 'New Funnel');
+            _this.ui.$cohortSelect.val(cohort ? cohort : '-1');
+
+            _this.funnelDataModel.fetch();
         },
 
         _saveFunnel: function () {
             var _this = this;
 
-            _this.filterMetaModel.get('data').name = _this.ui.$dashboardTitle.val();
-            _this.filterMetaModel.get('data').cohort = _this.ui.$cohortSelect.val();
+            _this.funnelMetaModel.get('data').name = _this.ui.$dashboardTitle.val();
+            _this.funnelMetaModel.get('data').cohort = _this.ui.$cohortSelect.val();
 
-            _this.filterMetaModel.save();
-        },
-
-        _refreshFunnel: function () {
-            var _this = this;
-
-            _this.filterDataModel.fetch();
+            _this.funnelMetaModel.save();
         },
 
         _goBack: function () {

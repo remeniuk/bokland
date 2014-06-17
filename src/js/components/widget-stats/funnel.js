@@ -19,9 +19,9 @@ define(function (require) {
 
             _this.options = options;
             _this.state = options.state;
-            _this.filterDataModel = options.filterDataModel;
+            _this.funnelDataModel = options.funnelDataModel;
 
-            _this.listenTo(_this.filterDataModel, 'sync', _this.redraw);
+            _this.listenTo(_this.funnelDataModel, 'sync', _this.redraw);
         },
 
         render: function () {
@@ -44,7 +44,10 @@ define(function (require) {
 
             var chartRegionSelector = '[data-region=chart]';
 
-            $(chartRegionSelector).pivot(_this.filterDataModel.get('entries'), meta);
+            var funnelEntries = _this.funnelDataModel.get('entries');
+            if(funnelEntries) {
+                $(chartRegionSelector).pivot(funnelEntries, meta);
+            }
 
             return _this;
         }

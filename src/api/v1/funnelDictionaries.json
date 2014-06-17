@@ -1,50 +1,92 @@
-{"events": [
-    {
-        "id": 0,
-        "name": "login",
-        "paramType": "seconds_since_epoch"
-    },
-    {
-        "id": 1,
-        "name": "purchase",
-        "paramType": "string",
-        "paramValues": [
-            {
-                "id": 1,
-                "name": "video"
-            },
-            {
-                "id": 2,
-                "name": "subscription"
+{
+    "segments": [
+        {
+            "id": "537610660cf2e40df1bc9623",
+            "name": "all"
+        },
+        {
+            "id": "537636820cf2de32aa1e4456",
+            "name": "ggg"
+        },
+        {
+            "id": "5376a5100cf2e020a4c30d36",
+            "name": "ggg clone"
+        },
+        {
+            "id": "5383952c0cf21bba970c7b3c",
+            "name": "asd"
+        },
+        {
+            "id": "5387186b0cf29195b42d68f9",
+            "name": "Куаа"
+        },
+        {
+            "id": "539891990cf260dab9b19f4b",
+            "name": "asd"
+        }
+    ],
+    "events": [
+        {
+            "id": 1001,
+            "name": "eventUpd",
+            "paramType": "int",
+            "paramValues": {
+
             }
-        ]
-    },
-    {
-        "id": 2,
-        "paramType": "int",
-        "name": "promo"
-    },
-    {
-        "id": 3,
-        "paramType": "int",
-        "name": "upgrade"
-    },
-    {
-        "id": 4,
-        "name": "retention",
-        "paramType": "seconds_since_registration"
-    }
-], "settings": [
-    {
-        "id": "1",
-        "name": "some"
-    },
-    {
-        "id": "2",
-        "name": "any"
-    },
-    {
-        "id": "3",
-        "name": "global"
-    }
-]}
+        },
+        {
+            "id": 1002,
+            "name": "eventKm",
+            "paramType": "string",
+            "paramValues": {
+            }
+        },
+        {
+            "id": 0,
+            "name": "login",
+            "paramType": "seconds_since_epoch",
+            "paramValues": {
+
+            }
+        },
+        {
+            "id": 1,
+            "name": "purchase",
+            "paramType": "string",
+            "paramValues": {
+                "video": 0,
+                "subscription": 1
+            }
+        },
+        {
+            "id": 2,
+            "name": "promo",
+            "paramType": "int",
+            "paramValues": {
+
+            }
+        },
+        {
+            "id": 3,
+            "name": "upgrade",
+            "paramType": "int",
+            "paramValues": {
+
+            }
+        },
+        {
+            "id": 4,
+            "name": "retention",
+            "paramType": "seconds_since_registration",
+            "paramValues": {
+
+            }
+        }
+    ],
+    "settings": [
+        {
+            "id": "1",
+            "name": "load"
+        }
+    ]
+}

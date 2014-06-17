@@ -315,8 +315,8 @@ define(function (require) {
 
                 case 'string':
                     _this.ui.$paramString.empty();
-                    _.each(event.paramValues, function (param) {
-                        _this.ui.$paramString.append('<option value="' + param.id + '">' + param.name + '</option>');
+                    _.each(_.pairs(event.paramValues), function (param) {
+                        _this.ui.$paramString.append('<option value="' + param[1] + '">' + param[0] + '</option>');
                     });
 
                     if (_this.ui.$selectedOperation.val() != '-1') {

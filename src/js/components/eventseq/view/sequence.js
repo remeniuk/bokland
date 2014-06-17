@@ -24,12 +24,12 @@ define(function (require) {
             var _this = this;
 
             _this.dictionary = options.dictionaryModel;
-            _this.filterMetaModel = options.filterMetaModel;
+            _this.funnelMetaModel = options.funnelMetaModel;
 
             _this.newEvent = new EventModel({});
 
             _this.listenTo(_this.newEvent, 'create', _this._addEvent);
-            _this.listenTo(_this.filterMetaModel, 'sync', _this.redraw);
+            _this.listenTo(_this.funnelMetaModel, 'sync', _this.redraw);
         },
 
         render: function () {
@@ -53,7 +53,7 @@ define(function (require) {
             _this.$el.find('.sequence').append(newEventView.el);
             newEventView.render();
 
-            _.each(_this.filterMetaModel.get('data').sequence, function(event){
+            _.each(_this.funnelMetaModel.get('data').sequence, function(event){
                 var eventView = new EventView({
                     model: new EventModel(event),
                     dictionary: _this.dictionary
@@ -70,7 +70,7 @@ define(function (require) {
 
             var _newEvent = _this.newEvent.clone();
 
-            _this.filterMetaModel.get('data').sequence.push(_newEvent.toJSON());
+            _this.funnelMetaModel.get('data').sequence.push(_newEvent.toJSON());
 
             var eventView = new EventView({
                 model: _newEvent,

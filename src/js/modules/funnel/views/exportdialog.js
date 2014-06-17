@@ -24,7 +24,7 @@ define(function (require) {
         initialize: function (options) {
             var _this = this;
 
-            _this.filterMetaModel = options.filterMetaModel;
+            _this.funnelMetaModel = options.funnelMetaModel;
         },
 
         render: function () {

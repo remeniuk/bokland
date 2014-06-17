@@ -12,7 +12,7 @@ define(function (require) {
         url: function () {
             return config.funnelServer + (config.stubs ?
                 'funnelDictionaries.json' :
-                'reports/funnelDictionaries');
+                'meta/dictionaries/funnels');
         }
     });
 
