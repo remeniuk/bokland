@@ -15,7 +15,7 @@ define(function (require) {
         SegmentDialog = require('./views/segmentdialog'),
         FunnelWidget = require('components/widget-stats/funnel'),
         FilterWidget = require('components/filter/filterwidget'),
-        RouterManager = require('../dashboard/routers/manager'),
+        RouterManager = require('./routers/manager'),
         templates = require('templates/templates');
 
 
@@ -42,10 +42,10 @@ define(function (require) {
             var _this = this;
 
             function getParameterByName(name) {
-              name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-              var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+              name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+              var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
                 results = regex.exec(location.search);
-              return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+              return results == null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
             }
 
             var funnelId = getParameterByName('fid');

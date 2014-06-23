@@ -49,13 +49,6 @@ define(function (require) {
         initialize: function (options) {
             var _this = this;
 
-            /* jshint camelcase:false */
-            _this.state.init({
-                query: '',
-                did: ''
-            });
-            /* jshint camelcase:true */
-
             _this.metaModel = new TemplateMetaModel();
             _this.dashboards = new AllDashboardsModel();
             _this.cube = new CubeModel();
