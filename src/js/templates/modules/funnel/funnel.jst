@@ -22,13 +22,16 @@
             <div data-region="filter"></div>
         </div>
         <div class="col-md-2" style="float: right">
-            <select data-action="select-cohort" class="form-control">
-                <option value="-1">All Time</option>
-                <option value="day">Day</option>
-                <option value="week">Week</option>
-                <option value="month">Month</option>
-                <option value="quarter">Quarter</option>
-            </select>
+            <div class="form-group">
+                <label for="select-cohort">Cohort</label>
+                <select id="select-cohort" data-action="select-cohort" class="form-control">
+                    <option value="-1">All Time</option>
+                    <option value="day">Day</option>
+                    <option value="week">Week</option>
+                    <option value="month">Month</option>
+                    <option value="quarter">Quarter</option>
+                </select>
+            </div>
         </div>
     </div>
 

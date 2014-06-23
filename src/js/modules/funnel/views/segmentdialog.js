@@ -14,7 +14,8 @@ define(function (require) {
         template: templates['modules/funnel/segmentdialog'],
 
         elementsUI: {
-            'button': 'input'
+            'segmentName': '#segment-name',
+            'button': 'input.btn'
         },
 
         events: {
@@ -23,6 +24,9 @@ define(function (require) {
 
         initialize: function (options) {
             var _this = this;
+
+            _this.state = options.state;
+            _this.funnelMetaModel = options.funnelMetaModel;
 
         },
 
@@ -33,13 +37,35 @@ define(function (require) {
 
             _this.bindUI();
 
+            _this.listenTo(_this.funnelMetaModel, 'sync', function () {
+              _this.ui.$segmentName.val(_this.funnelMetaModel.get('data').name);
+            });
+
             return _this;
         },
 
         _createSegment: function (ev) {
-            var _this = this;
+          ev.preventDefault();
 
-            ev.preventDefault();
+            var _this = this,
+              segmentName = _this.ui.$segmentName.val();
+
+            if(!segmentName){
+              alert('Segment name should be defined!');
+              return;
+            }
+
+            $.ajax({
+              method: 'PUT',
+              url: '/funnels/segment/' + _this.funnelMetaModel.get('id') + '/' + segmentName +
+                '?' + $.param(_this.state.serialize()),
+              success: function(response){
+                alert("Segment hes been created successfully!");
+              },
+              error: function(response){
+                alert(response.responseText);
+              }
+            });
         }
 
     });

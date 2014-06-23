@@ -58,6 +58,10 @@ define(function (require) {
             var _this = this;
             var funnelModel = _.clone(this.toJSON().data);
 
+            if(funnelModel.cohort == '-1'){
+              delete funnelModel.cohort;
+            }
+
             funnelModel.sequence = _.map(funnelModel.sequence, function(event){
                 var marshalledEvent = {
                     eventId: parseInt(event.id),

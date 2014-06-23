@@ -99,10 +99,18 @@ define(function (require) {
             });
             _this.region('funnel').show(funnelWidget);
 
-            var exportDialog = new ExportDialog();
+            var exportDialog = new ExportDialog({
+                dictionaryModel: _this.dictionaryModel,
+                funnelDataModel: _this.funnelDataModel,
+                funnelMetaModel: _this.funnelMetaModel,
+                state: _this.state
+            });
             _this.region('export').show(exportDialog);
 
-            var segmentDialog = new SegmentDialog();
+            var segmentDialog = new SegmentDialog({
+              funnelMetaModel: _this.funnelMetaModel,
+              state: _this.state
+            });
             _this.region('create-segment').show(segmentDialog);
 
             _this.dictionaryModel.fetch();

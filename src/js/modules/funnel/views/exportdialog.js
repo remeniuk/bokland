@@ -14,7 +14,9 @@ define(function (require) {
         template: templates['modules/funnel/exportdialog'],
 
         elementsUI: {
-            'button': 'input'
+            'button': 'input',
+            'maxRecords': '#max-records',
+            'startFrom': '#start-from'
         },
 
         events: {
@@ -24,7 +26,9 @@ define(function (require) {
         initialize: function (options) {
             var _this = this;
 
+            _this.dictionaryModel = options.dictionaryModel;
             _this.funnelMetaModel = options.funnelMetaModel;
+            _this.funnelDataModel = options.funnelDataModel;
         },
 
         render: function () {
@@ -40,7 +44,21 @@ define(function (require) {
         _export: function (ev) {
             var _this = this;
 
+            var size = _this.ui.$maxRecords.val();
+            var offset = _this.ui.$startFrom.val();
+            var entries = _this.funnelDataModel.get('entries').slice(offset, size + offset);
 
+            if(entries.length >= offset) {
+                var csvContent = "data:text/csv;charset=utf-8," +
+                    _.keys(entries[0]).join(",") + "\n";
+
+                _.each(entries, function (infoArray) {
+                    csvContent += _.values(infoArray).join(",") + "\n";
+                });
+
+                var encodedUri = encodeURI(csvContent);
+                window.open(encodedUri);
+            }
 
             ev.preventDefault();
         }
