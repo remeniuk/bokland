@@ -79,7 +79,7 @@ define(function (require) {
 
         var query = {'and': [
             {'date': {'gt': time.param(range[0])}},
-            {'date': {'lt': time.param(range[1])}}
+            {'date': {'lte': time.param(range[1])}}
         ]};
 
         dashboard.state.set('query', JSON.stringify(query));
