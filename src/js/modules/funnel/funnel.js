@@ -72,6 +72,10 @@ define(function (require) {
             });
             _this.listenTo(_this.funnelMetaModel, 'sync', _this.redraw);
             _this.listenTo(_this.funnelMetaModel, 'updated', _this.redraw);
+
+            _this.listenTo(_this.state, 'change', function() {
+                _this.funnelDataModel.fetch({data: _this.state.serialize()});
+            });
         },
 
         render: function () {
@@ -125,7 +129,7 @@ define(function (require) {
             _this.ui.$dashboardTitle.val(name ? name : 'New Funnel');
             _this.ui.$cohortSelect.val(cohort ? cohort : '-1');
 
-            _this.funnelDataModel.fetch();
+            _this.funnelDataModel.fetch({data: _this.state.serialize()});
         },
 
         _saveFunnel: function () {
@@ -198,7 +202,7 @@ define(function (require) {
             {'date': {'lt': time.param(range[1])}}
         ]};
 
-        funnel.state.set('query', JSON.stringify(query));
+        funnel.state.set('query', JSON.stringify(query), {silent: true});
     }
 
     return funnel;
