@@ -12,11 +12,15 @@ define(function (require) {
             };
 
             return function (unparsedEvent) {
-                var paramType = (unparsedEvent.paramLow >= 0 && unparsedEvent.paramHigh >= 0 &&
+                var isPositive = function(param){
+                    return param !== '' && param >= 0;
+                };
+
+                var paramType = (isPositive(unparsedEvent.paramLow) && isPositive(unparsedEvent.paramHigh) &&
                     unparsedEvent.paramLow == unparsedEvent.paramHigh) ? 'eq' :
-                    (unparsedEvent.paramLow >= 0 && unparsedEvent.paramHigh >= 0 ? 'btw' :
-                        (unparsedEvent.paramHigh >= 0 ? 'lt' :
-                            (unparsedEvent.paramLow >= 0 ? 'gt' : undefined)));
+                    (isPositive(unparsedEvent.paramLow) && isPositive(unparsedEvent.paramHigh) ? 'btw' :
+                        (isPositive(unparsedEvent.paramHigh) ? 'lt' :
+                            (isPositive(unparsedEvent.paramLow) ? 'gt' : undefined)));
 
                 var event = {
                     'id': unparsedEvent.eventId,

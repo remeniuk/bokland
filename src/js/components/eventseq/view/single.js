@@ -26,12 +26,17 @@ define(function (require) {
 
             _this.id = options.id;
             _this.dictionary = options.dictionaryModel;
+
+            _this.$eventId = $('#promotions_' + _this.id + '_eventId');
+            _this.$settingId = $('#promotions_' + _this.id + '_settingId');
+            _this.$paramLow = $('#promotions_' + _this.id + '_paramLow');
+            _this.$paramHigh = $('#promotions_' + _this.id + '_paramHigh');
         },
 
         render: function () {
             var _this = this;
 
-            _this.$el.html(_this.template(_this));
+            _this.$el.html(_this.template());
 
             _this.bindUI();
 
@@ -54,10 +59,10 @@ define(function (require) {
 
             // TODO temp dummy
             var unparsedEvent = {
-                "eventId": 0,
-                "settingId": 1,
-                "paramLow":  1402559016,
-                "paramHigh": 1402559016,
+                "eventId": _this.$eventId.val(),
+                "settingId": _this.$settingId.val(),
+                "paramLow": _this.$paramLow.val(),
+                "paramHigh": _this.$paramHigh.val(),
                 "include": true
             };
 
@@ -87,10 +92,10 @@ define(function (require) {
 
             var event = EventMarshaller.marshall(e);
 
-            _this.$el.find('#promotions_' + _this.id + '_eventId').val(event.eventId);
-            _this.$el.find('#promotions_' + _this.id + '_settingId').val(event.settingId);
-            _this.$el.find('#promotions_' + _this.id + '_paramLow').val(event.paramLow);
-            _this.$el.find('#promotions_' + _this.id + '_paramHigh').val(event.paramHigh);
+            _this.$eventId.val(event.eventId);
+            _this.$settingId.val(event.settingId);
+            _this.$paramLow.val(event.paramLow);
+            _this.$paramHigh.val(event.paramHigh);
         }
     });
 
