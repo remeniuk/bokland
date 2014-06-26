@@ -32,7 +32,10 @@ define(function (require) {
         events: {
             'click @ui.submit': '_submitEvent',
             'click @ui.remove': '_removeEvent',
-            'change @ui.selectedEvent': '_selectOperation',
+            'change @ui.selectedEvent': function(ev) {
+                this.ui.$selectedOperation.val('-1');
+                this._selectOperation(ev);
+            },
             'change @ui.selectedOperation': '_selectOperation'
         },
 
@@ -273,34 +276,34 @@ define(function (require) {
 
                 switch (selectedOperation) {
                     case '-1':
-                        _this.ui.$paramLowerBound.addClass('hidden');
-                        _this.ui.$paramUpperBound.addClass('hidden');
-                        _this.ui.$paramEquals.addClass('hidden');
-                        _this.ui.$paramString.addClass('hidden');
+                        _this.ui.$paramLowerBound.addClass('hidden').val(undefined);
+                        _this.ui.$paramUpperBound.addClass('hidden').val(undefined);
+                        _this.ui.$paramEquals.addClass('hidden').val(undefined);
+                        _this.ui.$paramString.addClass('hidden').val(undefined);
                         break;
                     case 'gt':
-                        _this.ui.$paramLowerBound.removeClass('hidden');
-                        _this.ui.$paramUpperBound.addClass('hidden');
-                        _this.ui.$paramEquals.addClass('hidden');
-                        _this.ui.$paramString.addClass('hidden');
+                        _this.ui.$paramLowerBound.removeClass('hidden').val(undefined);
+                        _this.ui.$paramUpperBound.addClass('hidden').val(undefined);
+                        _this.ui.$paramEquals.addClass('hidden').val(undefined);
+                        _this.ui.$paramString.addClass('hidden').val(undefined);
                         break;
                     case 'lt':
-                        _this.ui.$paramLowerBound.addClass('hidden');
-                        _this.ui.$paramUpperBound.removeClass('hidden');
-                        _this.ui.$paramEquals.addClass('hidden');
-                        _this.ui.$paramString.addClass('hidden');
+                        _this.ui.$paramLowerBound.addClass('hidden').val(undefined);
+                        _this.ui.$paramUpperBound.removeClass('hidden').val(undefined);
+                        _this.ui.$paramEquals.addClass('hidden').val(undefined);
+                        _this.ui.$paramString.addClass('hidden').val(undefined);
                         break;
                     case 'eq':
-                        _this.ui.$paramLowerBound.addClass('hidden');
-                        _this.ui.$paramUpperBound.addClass('hidden');
-                        _this.ui.$paramEquals.removeClass('hidden');
-                        _this.ui.$paramString.addClass('hidden');
+                        _this.ui.$paramLowerBound.addClass('hidden').val(undefined);
+                        _this.ui.$paramUpperBound.addClass('hidden').val(undefined);
+                        _this.ui.$paramEquals.removeClass('hidden').val(undefined);
+                        _this.ui.$paramString.addClass('hidden').val(undefined);
                         break;
                     case 'btw':
-                        _this.ui.$paramLowerBound.removeClass('hidden');
-                        _this.ui.$paramUpperBound.removeClass('hidden');
-                        _this.ui.$paramEquals.addClass('hidden');
-                        _this.ui.$paramString.addClass('hidden');
+                        _this.ui.$paramLowerBound.removeClass('hidden').val(undefined);
+                        _this.ui.$paramUpperBound.removeClass('hidden').val(undefined);
+                        _this.ui.$paramEquals.addClass('hidden').val(undefined);
+                        _this.ui.$paramString.addClass('hidden').val(undefined);
                         break;
                 }
             };
@@ -319,13 +322,14 @@ define(function (require) {
                         _this.ui.$paramString.append('<option value="' + param[1] + '">' + param[0] + '</option>');
                     });
 
+                    _this.ui.$paramLowerBound.addClass('hidden').val(undefined);
+                    _this.ui.$paramUpperBound.addClass('hidden').val(undefined);
+                    _this.ui.$paramEquals.addClass('hidden').val(undefined);
+
                     if (_this.ui.$selectedOperation.val() != '-1') {
-                        _this.ui.$paramLowerBound.addClass('hidden');
-                        _this.ui.$paramUpperBound.addClass('hidden');
-                        _this.ui.$paramEquals.addClass('hidden');
                         _this.ui.$paramString.removeClass('hidden');
                     } else {
-                        _this.ui.$paramString.addClass('hidden');
+                        _this.ui.$paramString.addClass('hidden').val(undefined);
                     }
 
                     _this.ui.$itemFormGroup.removeClass('hidden');
@@ -342,6 +346,7 @@ define(function (require) {
                 case 'seconds_since_registration':
                     changeInputType('number');
                     displayControls();
+                    _this.ui.$selectedItem.val('-1');
                     _this.ui.$itemFormGroup.addClass('hidden');
 
                     break;
@@ -349,12 +354,12 @@ define(function (require) {
                 case 'seconds_since_epoch':
                     changeInputType('date');
                     displayControls();
+                    _this.ui.$selectedItem.val('-1');
                     _this.ui.$itemFormGroup.addClass('hidden');
 
                     break;
 
             }
-
             ev.preventDefault();
         }
 
