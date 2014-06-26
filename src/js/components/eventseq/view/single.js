@@ -82,7 +82,7 @@ define(function (require) {
             _this.$el.find('.singleevent').append(eventView.el);
             eventView.render();
 
-            _this._submitEvent(_this.event);
+            _this._submitEvent(eventModel);
 
             return _this;
         },
@@ -90,7 +90,7 @@ define(function (require) {
         _submitEvent: function (e) {
             var _this = this;
 
-            var event = EventMarshaller.marshall(e);
+            var event = EventMarshaller.marshall(e.toJSON());
 
             _this.$eventId.val(event.eventId);
             _this.$settingId.val(event.settingId);
