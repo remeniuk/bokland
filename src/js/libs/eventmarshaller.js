@@ -70,7 +70,7 @@ define(function (require) {
             }
 
             if (event.item_id) {
-                marshalledEvent.settingId = event.item_id;
+                marshalledEvent.settingId = parseInt(event.item_id);
             }
 
             return marshalledEvent;
