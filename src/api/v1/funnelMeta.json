@@ -25,10 +25,9 @@
                 "paramHigh": 2
             },
             {
-                "eventId": 4,
-                "include": true,
-                "paramLow": 172800,
-                "paramHigh": 172800
+                "eventId": 5,
+                "settingId": 1,
+                "include": true
             }
         ]
     }

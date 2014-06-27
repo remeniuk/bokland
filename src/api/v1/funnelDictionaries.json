@@ -1,70 +1,31 @@
 {
-    "segments": [
-        {
-            "id": "537610660cf2e40df1bc9623",
-            "name": "all"
-        },
-        {
-            "id": "537636820cf2de32aa1e4456",
-            "name": "ggg"
-        },
-        {
-            "id": "5376a5100cf2e020a4c30d36",
-            "name": "ggg clone"
-        },
-        {
-            "id": "5383952c0cf21bba970c7b3c",
-            "name": "asd"
-        },
-        {
-            "id": "5387186b0cf29195b42d68f9",
-            "name": "Куаа"
-        },
-        {
-            "id": "539891990cf260dab9b19f4b",
-            "name": "asd"
-        }
-    ],
     "events": [
-        {
-            "id": 1001,
-            "name": "eventUpd",
-            "paramType": "int",
-            "paramValues": {
-
-            }
-        },
-        {
-            "id": 1002,
-            "name": "eventKm",
-            "paramType": "string",
-            "paramValues": {
-            }
-        },
         {
             "id": 0,
             "name": "login",
             "paramType": "seconds_since_epoch",
             "paramValues": {
 
-            }
+            },
+            "settingType": "settings"
         },
         {
             "id": 1,
             "name": "purchase",
-            "paramType": "string",
-            "paramValues": {
-                "video": 0,
-                "subscription": 1
-            }
-        },
-        {
-            "id": 2,
-            "name": "promo",
             "paramType": "int",
             "paramValues": {
 
-            }
+            },
+            "settingType": "settings"
+        },
+        {
+            "id": 2,
+            "name": "promo matched",
+            "paramType": "int",
+            "paramValues": {
+
+            },
+            "settingType": "settings"
         },
         {
             "id": 3,
@@ -72,7 +33,8 @@
             "paramType": "int",
             "paramValues": {
 
-            }
+            },
+            "settingType": "settings"
         },
         {
             "id": 4,
@@ -80,13 +42,75 @@
             "paramType": "seconds_since_registration",
             "paramValues": {
 
-            }
+            },
+            "settingType": "settings"
+        },
+        {
+            "id": 5,
+            "name": "install",
+            "paramType": "int",
+            "paramValues": {
+
+            },
+            "settingType": "apps"
+        },
+        {
+            "id": 6,
+            "name": "promo viewed",
+            "paramType": "int",
+            "paramValues": {
+
+            },
+            "settingType": "settings"
+        },
+        {
+            "id": 7,
+            "name": "promo clicked",
+            "paramType": "int",
+            "paramValues": {
+
+            },
+            "settingType": "settings"
         }
     ],
     "settings": [
         {
+            "id": "2",
+            "name": "load2"
+        },
+        {
             "id": "1",
             "name": "load"
+        }
+    ],
+    "apps": [
+        {
+            "id": "1",
+            "name": "demo"
+        },
+        {
+            "id": "2",
+            "name": "load2"
+        },
+        {
+            "id": "3",
+            "name": "xxxxxxx"
+        },
+        {
+            "id": "4",
+            "name": "xxxxxxxasd"
+        },
+        {
+            "id": "5",
+            "name": "dfser"
+        },
+        {
+            "id": "6",
+            "name": "qw432"
+        },
+        {
+            "id": "7",
+            "name": "bla"
         }
     ]
 }

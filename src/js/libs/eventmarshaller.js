@@ -4,15 +4,15 @@ define(function (require) {
 
     // code
     return {
-        unmarshall: function(dictionary) {
+        unmarshall: function (dictionary) {
             var findById = function (dictionary, id) {
                 return _.find(dictionary, function (tuple) {
                     return tuple.id == id;
-                }).name;
+                });
             };
 
             return function (unparsedEvent) {
-                var isPositive = function(param){
+                var isPositive = function (param) {
                     return param !== '' && param >= 0;
                 };
 
@@ -22,9 +22,11 @@ define(function (require) {
                         (isPositive(unparsedEvent.paramHigh) ? 'lt' :
                             (isPositive(unparsedEvent.paramLow) ? 'gt' : undefined)));
 
+                var eventMeta = findById(dictionary.get('events'), unparsedEvent.eventId);
+
                 var event = {
                     'id': unparsedEvent.eventId,
-                    'name': findById(dictionary.get('events'), unparsedEvent.eventId)
+                    'name': eventMeta.name
                 };
                 if (paramType) {
                     event.parameter = {
@@ -34,10 +36,21 @@ define(function (require) {
                         'type': paramType
                     }
                 }
+
                 if (unparsedEvent.settingId) {
                     event.item_id = unparsedEvent.settingId;
-                    event.item_name = findById(dictionary.get('settings'), unparsedEvent.settingId);
+
+                    switch (eventMeta.settingType) {
+                        case 'settings':
+                            event.item_name = findById(dictionary.get('settings'), unparsedEvent.settingId).name;
+                            break;
+
+                        case 'apps':
+                            event.item_name = findById(dictionary.get('apps'), unparsedEvent.settingId).name;
+                            break;
+                    }
                 }
+
                 return event;
             };
         },
@@ -54,6 +67,10 @@ define(function (require) {
 
             if (event.parameter && event.parameter.to) {
                 marshalledEvent.paramHigh = parseInt(event.parameter.to);
+            }
+
+            if (event.item_id) {
+                marshalledEvent.settingId = event.item_id;
             }
 
             return marshalledEvent;

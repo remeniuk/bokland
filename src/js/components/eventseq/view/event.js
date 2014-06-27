@@ -18,6 +18,7 @@ define(function (require) {
         eventChevronTemplate: templates['components/eventseq/eventchevron'],
         loginEventChevronTemplate: templates['components/eventseq/logineventchevron'],
         retentionEventChevronTemplate: templates['components/eventseq/retentioneventchevron'],
+        installEventChevronTemplate: templates['components/eventseq/installeventchevron'],
 
         tagName: 'li',
 
@@ -72,32 +73,42 @@ define(function (require) {
                 var eventMeta = _this._findEvent(event.id);
                 var chevronTemplate = _this.eventChevronTemplate;
 
-                switch(eventMeta.paramType) {
-                    case 'string':
-                        if(event.parameter) {
-                            event.parameter = _.clone(event.parameter);
-                            event.parameter.from = _this._parameterName(event.parameter.from, eventMeta.paramValues);
+                switch (eventMeta.settingType) {
+                    case 'settings':
+
+                        switch (eventMeta.paramType) {
+                            case 'string':
+                                if (event.parameter) {
+                                    event.parameter = _.clone(event.parameter);
+                                    event.parameter.from = _this._parameterName(event.parameter.from, eventMeta.paramValues);
+                                }
+                                break;
+
+                            case 'seconds_since_registration':
+                                if (event.parameter) {
+                                    event.parameter = _.clone(event.parameter);
+                                    event.parameter.from = event.parameter.from / (24 * 60 * 60);
+                                    event.parameter.to = event.parameter.to / (24 * 60 * 60);
+                                }
+
+                                chevronTemplate = _this.retentionEventChevronTemplate;
+                                break;
+
+                            case 'seconds_since_epoch':
+                                if (event.parameter) {
+                                    event.parameter = _.clone(event.parameter);
+                                    event.parameter.from = time.param(new Date(event.parameter.from * 1000));
+                                    event.parameter.to = time.param(new Date(event.parameter.to * 1000));
+                                }
+
+                                chevronTemplate = _this.loginEventChevronTemplate;
+                                break;
                         }
                         break;
 
-                    case 'seconds_since_registration':
-                        if(event.parameter) {
-                            event.parameter = _.clone(event.parameter);
-                            event.parameter.from = event.parameter.from / (24 * 60 * 60);
-                            event.parameter.to = event.parameter.to / (24 * 60 * 60);
-                        }
+                    case 'apps':
+                        chevronTemplate = _this.installEventChevronTemplate;
 
-                        chevronTemplate = _this.retentionEventChevronTemplate;
-                        break;
-
-                    case 'seconds_since_epoch':
-                        if(event.parameter) {
-                            event.parameter = _.clone(event.parameter);
-                            event.parameter.from = time.param(new Date(event.parameter.from * 1000));
-                            event.parameter.to = time.param(new Date(event.parameter.to * 1000));
-                        }
-
-                        chevronTemplate = _this.loginEventChevronTemplate;
                         break;
                 }
 
