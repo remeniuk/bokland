@@ -27,10 +27,10 @@ define(function (require) {
             _this.id = options.id;
             _this.dictionary = options.dictionaryModel;
 
-            _this.$eventId = $('#promotions_' + _this.id + '_eventId');
-            _this.$settingId = $('#promotions_' + _this.id + '_settingId');
-            _this.$paramLow = $('#promotions_' + _this.id + '_paramLow');
-            _this.$paramHigh = $('#promotions_' + _this.id + '_paramHigh');
+            _this.$eventId = $('[name="promotions[' + _this.id + '].event.eventId"]');
+            _this.$settingId = $('[name="promotions[' + _this.id + '].event.settingId"]');
+            _this.$paramLow = $('[name="promotions[' + _this.id + '].event.paramLow"]');
+            _this.$paramHigh = $('[name="promotions[' + _this.id + '].event.paramHigh]');
         },
 
         render: function () {
@@ -59,7 +59,7 @@ define(function (require) {
 
             // TODO temp dummy
             var unparsedEvent = {
-                "eventId": _this.$eventId.val(),
+                "eventId": _this.$eventId.val() ? _this.$eventId.val() : 1,
                 "settingId": _this.$settingId.val(),
                 "paramLow": _this.$paramLow.val(),
                 "paramHigh": _this.$paramHigh.val(),
@@ -67,8 +67,8 @@ define(function (require) {
             };
 
             _this.event = EventMarshaller.unmarshall(_this.dictionary)(unparsedEvent);
+            _this.event.guid = _this.guid();
 
-            event.guid = _this.guid();
             var eventModel = new EventModel(_this.event);
 
             var eventView = new EventView({
