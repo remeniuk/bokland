@@ -1,13 +1,25 @@
 @keyframes loader-stick-left {
-  from { transform: rotate(180deg) scale(1); }
-  50% { transform: rotate(540deg) scale(1.5); }
-  to { transform: rotate(540deg) scale(1); }
+  from {
+    transform: rotate(180deg) scale(1);
+  }
+  50% {
+    transform: rotate(540deg) scale(1.5);
+  }
+  to {
+    transform: rotate(540deg) scale(1);
+  }
 }
 
 @keyframes loader-stick-right {
-  from { transform: rotate(0deg) scale(1.5); }
-  50% { transform: rotate(0deg) scale(1); }
-  to { transform: rotate(-360deg) scale(1.5); }
+  from {
+    transform: rotate(0deg) scale(1.5);
+  }
+  50% {
+    transform: rotate(0deg) scale(1);
+  }
+  to {
+    transform: rotate(-360deg) scale(1.5);
+  }
 }
 
 .overlay {
@@ -18,14 +30,13 @@
   bottom: 0;
   z-index: 100;
   transition-duration: 1s;
+}
 
-  &.out {
-    display: none;
-  }
+.out {
+  display: none;
 }
 
 .loader {
-  display: none !important;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -44,7 +55,7 @@
 
   .left {
     left: 18px;
-    transform : rotate(180deg);
+    transform: rotate(180deg);
     animation: loader-stick-left 1.7s infinite;
   }
 

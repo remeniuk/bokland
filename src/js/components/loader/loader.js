@@ -1,13 +1,13 @@
 /* global define */
-define(function(require) {
+define(function (require) {
     'use strict';
 
     // imports
-    var $          = require('jquery'),
-        _          = require('underscore'),
+    var $ = require('jquery'),
+        _ = require('underscore'),
         transition = require('helpers/transition'),
-        BaseView   = require('libs/view'),
-        templates  = require('templates/templates');
+        BaseView = require('libs/view'),
+        templates = require('templates/templates');
 
 
     // code
@@ -15,23 +15,24 @@ define(function(require) {
         template: templates['components/loader/loader'],
 
         elementsUI: {
-            'overlay': null
+            'overlay': null,
+            'loader': '.loader'
         },
 
-        initialize: function(options) {
+        initialize: function (options) {
             var _this = this;
 
             _this.counter = 0;
 
             $(document)
-                .ajaxSend(function() {
+                .ajaxSend(function () {
                     _this.redraw('in');
                 })
-                .ajaxComplete(function() {
+                .ajaxComplete(function () {
                     _this.redraw('out');
                 });
 
-            _this.listenTo(_this, 'pre:unbind-ui', function() {
+            _this.listenTo(_this, 'pre:unbind-ui', function () {
                 _this.ui.$overlay.off(transition.end);
             });
 
@@ -40,7 +41,7 @@ define(function(require) {
             }
         },
 
-        render: function() {
+        render: function () {
             var _this = this;
 
             _this.$el.html(_this.template({}));
@@ -53,15 +54,16 @@ define(function(require) {
             return _this;
         },
 
-        redraw: function(action) {
+        redraw: function (action) {
             var _this = this,
-                $overlay = _this.ui.$overlay;
+                $overlay = _this.ui.$overlay,
+                $loader = _this.ui.$loader;
 
             switch (action) {
                 case 'in':
                     if (_this.counter === 0) {
                         $overlay.removeClass('out');
-                        _.delay(function() {
+                        _.delay(function () {
                             if (_this.counter) {
                                 $overlay.addClass('in');
                             } else {
@@ -75,6 +77,7 @@ define(function(require) {
                     _this.counter--;
                     if (_this.counter === 0) {
                         $overlay.removeClass('in').addClass('out');
+                        $loader.addClass('out');
                     }
                     break;
                 default:
@@ -84,7 +87,7 @@ define(function(require) {
             return _this;
         },
 
-        _animate: function() {
+        _animate: function () {
             var _this = this,
                 $overlay = _this.ui.$overlay;
 

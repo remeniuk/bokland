@@ -7,7 +7,8 @@ define(function (require) {
         time = require('helpers/time'),
         BaseView = require('libs/view'),
         DictionaryModel = require('../funnel/models/dictionary'),
-        SingleEvent = require('components/eventseq/view/single');
+        SingleEvent = require('components/eventseq/view/single'),
+        LoaderComponent = require('components/loader/loader');
 
     var View = BaseView.extend({
         initialize: function () {
@@ -53,6 +54,11 @@ define(function (require) {
     });
 
     var body = $('body').get(0);
+
+    var loader = new LoaderComponent({
+        root: body
+    });
+    loader.render();
 
     var view = new View({
         el: body

@@ -36,10 +36,34 @@ define(function (require) {
         redraw: function (data, filter) {
             var _this = this;
 
+            var sum = function() {
+                return function(_arg) {
+                    var attr;
+                    attr = _arg[0];
+                    return function() {
+                        return {
+                            sum: 0,
+                            push: function(record) {
+                                if (!isNaN(parseFloat(record[attr]))) {
+                                    return this.sum += parseFloat(record[attr]);
+                                }
+                            },
+                            value: function() {
+                                return this.sum;
+                            },
+                            format: function(v){
+                                return $.pivotUtilities.numberFormat(2)(100 * v)+"%";
+                            },
+                            label: "Sum of " + attr
+                        };
+                    };
+                };
+            };
+
             var meta = {
                 rows: ['cohort', 'users'],
                 cols: ['event'],
-                aggregator: $.pivotUtilities.aggregators.sum(['percent'])
+                aggregator: sum()(["percent"])
             };
 
             var chartRegionSelector = '[data-region=chart]';

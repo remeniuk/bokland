@@ -16,7 +16,8 @@ define(function (require) {
         FunnelWidget = require('components/widget-stats/funnel'),
         FilterWidget = require('components/filter/filterwidget'),
         RouterManager = require('./routers/manager'),
-        templates = require('templates/templates');
+        templates = require('templates/templates'),
+        LoaderElem = require('components/loader/loader');
 
 
     // code
@@ -42,10 +43,10 @@ define(function (require) {
             var _this = this;
 
             function getParameterByName(name) {
-              name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-              var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
-                results = regex.exec(location.search);
-              return results == null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+                name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+                var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
+                    results = regex.exec(location.search);
+                return results == null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
             }
 
             var funnelId = getParameterByName('fid');
@@ -73,7 +74,7 @@ define(function (require) {
             _this.listenTo(_this.funnelMetaModel, 'sync', _this.redraw);
             _this.listenTo(_this.funnelMetaModel, 'updated', _this.redraw);
 
-            _this.listenTo(_this.state, 'change', function() {
+            _this.listenTo(_this.state, 'change', function () {
                 _this.funnelDataModel.fetch({data: _this.state.serialize()});
             });
         },
@@ -112,8 +113,8 @@ define(function (require) {
             _this.region('export').show(exportDialog);
 
             var segmentDialog = new SegmentDialog({
-              funnelMetaModel: _this.funnelMetaModel,
-              state: _this.state
+                funnelMetaModel: _this.funnelMetaModel,
+                state: _this.state
             });
             _this.region('create-segment').show(segmentDialog);
 
@@ -193,6 +194,11 @@ define(function (require) {
     });
 
     funnel.render();
+
+    var loader = new LoaderElem({
+        root: body
+    });
+    loader.render();
 
     if (!RouterManager.start()) {
         var range = time.period(new Date(), 'last-day-7');
