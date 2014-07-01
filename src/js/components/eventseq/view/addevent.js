@@ -266,7 +266,7 @@ define(function (require) {
             } else {
                 _this.ui.$selectedOperation.trigger('change');
 
-                switch (event.settingType) {
+                if (event) switch (event.settingType) {
                     case 'settings':
                         _this.ui.$selectedOperation.val('-1');
                         _this.ui.$paramString.addClass('hidden').val('');
@@ -345,7 +345,7 @@ define(function (require) {
                 _this.ui.$paramEquals.attr('type', type);
             };
 
-            switch (event.settingType) {
+            if (event) switch (event.settingType) {
                 case 'settings':
 
                     switch (event.paramType) {
