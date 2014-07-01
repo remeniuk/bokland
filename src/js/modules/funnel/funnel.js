@@ -71,6 +71,8 @@ define(function (require) {
             _this.listenTo(_this.dictionaryModel, 'sync', function () {
                 _this.funnelMetaModel.fetch();
             });
+
+            _this.listenTo(_this.funnelMetaModel, 'store', _this._saveFunnel);
             _this.listenTo(_this.funnelMetaModel, 'sync', _this.redraw);
             _this.listenTo(_this.funnelMetaModel, 'updated', _this.redraw);
 
