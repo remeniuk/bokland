@@ -14,7 +14,7 @@ define(function (require) {
         template: templates['modules/funnel/exportdialog'],
 
         elementsUI: {
-            'button': 'input',
+            'button': '.btn',
             'maxRecords': '#max-records',
             'startFrom': '#start-from'
         },
