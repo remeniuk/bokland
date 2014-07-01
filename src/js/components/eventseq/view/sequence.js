@@ -92,6 +92,7 @@ define(function (require) {
       });
 
       _this.funnelMetaModel.get('data').sequence = sequence;
+      _this.funnelMetaModel.trigger('updated', _this.funnelMetaModel);
     },
 
     _removeEvent: function (e) {
@@ -102,6 +103,7 @@ define(function (require) {
       });
 
       _this.funnelMetaModel.get('data').sequence = sequence;
+      _this.funnelMetaModel.trigger('updated', _this.funnelMetaModel);
     },
 
     _addEvent: function () {
@@ -119,6 +121,7 @@ define(function (require) {
       eventView.render();
 
       _this.newEvent.clear();
+      _this.funnelMetaModel.trigger('updated', _this.funnelMetaModel);
 
       return _this;
     }
